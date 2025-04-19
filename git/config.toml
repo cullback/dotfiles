@@ -1,0 +1,15 @@
+[user]
+email = "cullback@fastmail.com"
+name = "cullback"
+username = "cullback"
+
+[init]
+defaultBranch = "main"
+
+[delta]
+side-by-side = true
+
+[core]
+editor = "hx"
+pager = "delta"
+excludesfile = "~/.gitignore_global"
