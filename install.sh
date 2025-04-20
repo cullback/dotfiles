@@ -17,3 +17,16 @@ ln -sf "$dotfiles/karabiner/capslock.json" "$HOME/.config/karabiner/assets/compl
 ln -sf "$dotfiles/git/config.toml" "$HOME/.gitconfig"
 ln -sf "$dotfiles/git/.gitignore_global" "$HOME/.gitignore_global"
 ln -sf "$dotfiles/git/.ignore" "$HOME/.ignore"
+
+# alacritty
+mkdir -p "$HOME/.config/alacritty"
+ln -sf "$dotfiles/alacritty/alacritty.toml" "$HOME/.config/alacritty/alacritty.toml"
+
+# zellij
+mkdir -p "$HOME/.config/zellij"
+ln -sf "$dotfiles/zellij/config.kdl" "$HOME/.config/zellij/config.kdl"
+
+# helix
+mkdir -p "$HOME/.config/helix"
+ln -sf "$dotfiles/helix/config.toml" "$HOME/.config/helix/config.toml"
+ln -sf "$dotfiles/helix/languages.toml" "$HOME/.config/helix/languages.toml"

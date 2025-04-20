@@ -1,0 +1,28 @@
+theme = "catppuccin_frappe"
+
+[editor]
+line-number = "relative"
+true-color = true
+auto-save = true
+
+# soft-wrapping
+soft-wrap.enable = true
+soft-wrap.wrap-at-text-width = true
+text-width = 80
+rulers = [80]
+smart-tab.enable = false
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[keys.normal.space]
+z = ":toggle soft-wrap.enable"
+'=' = ":format"
+
+[keys.normal]
+h = "goto_word"
+j = "goto_word"
+k = "goto_word"
+l = "goto_word"
