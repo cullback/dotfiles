@@ -18,6 +18,12 @@
         pkgs.gitui
         pkgs.fish
         pkgs.yazi
+        pkgs.fzf
+        pkgs.fd
+        pkgs.sd
+        pkgs.tree
+        pkgs.bat
+
         # gui apps
         pkgs.alacritty
         pkgs.iina
