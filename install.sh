@@ -21,6 +21,7 @@ ln -sf "$dotfiles/git/.ignore" "$HOME/.ignore"
 # alacritty
 mkdir -p "$HOME/.config/alacritty"
 ln -sf "$dotfiles/alacritty/alacritty.toml" "$HOME/.config/alacritty/alacritty.toml"
+ln -sf "$dotfiles/alacritty/catppuccin-frappe.toml" "$HOME/.config/alacritty/catppuccin-frappe.toml"
 
 # zellij
 mkdir -p "$HOME/.config/zellij"
@@ -30,3 +31,7 @@ ln -sf "$dotfiles/zellij/config.kdl" "$HOME/.config/zellij/config.kdl"
 mkdir -p "$HOME/.config/helix"
 ln -sf "$dotfiles/helix/config.toml" "$HOME/.config/helix/config.toml"
 ln -sf "$dotfiles/helix/languages.toml" "$HOME/.config/helix/languages.toml"
+
+# gitui
+mkdir -p "$HOME/.config/gitui"
+ln -sf "$dotfiles/gitui/theme.ron" "$HOME/.config/gitui/theme.ron"
