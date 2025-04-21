@@ -24,6 +24,12 @@
         pkgs.tree
         pkgs.bat
 
+        # languages
+        pkgs.cargo
+        pkgs.rustc
+
+        pkgs.python3
+
         # gui apps
         pkgs.alacritty
         pkgs.iina
