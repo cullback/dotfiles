@@ -15,10 +15,17 @@
       [ pkgs.helix
         pkgs.zellij
         pkgs.fish
+        pkgs.gitui
+        pkgs.fish
+        pkgs.yazi
         # gui apps
         pkgs.alacritty
         pkgs.iina
         pkgs.keepassxc
+      ];
+
+      fonts.packages = with pkgs; [
+        nerd-fonts.fira-code
       ];
 
       users.knownUsers = [ "cullback" ];
