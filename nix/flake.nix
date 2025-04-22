@@ -23,12 +23,15 @@
         pkgs.sd
         pkgs.tree
         pkgs.bat
+        pkgs.aider-chat
 
         # languages
         pkgs.cargo
         pkgs.rustc
+        pkgs.rust-analyzer
 
         pkgs.python3
+        pkgs.uv
 
         # gui apps
         pkgs.alacritty
