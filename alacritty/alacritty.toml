@@ -15,3 +15,7 @@ bindings = [
 
 [font]
 normal = { family = "FiraCode Nerd Font", style = "Regular" }
+
+[terminal.shell]
+program = "/opt/homebrew/bin/fish"
+args = ["--login"]
