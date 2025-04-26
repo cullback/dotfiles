@@ -1,0 +1,25 @@
+brew "fish"
+brew "helix"
+brew "zellij"
+brew "yazi"
+brew "gitui"
+brew "just"
+
+brew "git-delta"
+brew "git"
+
+brew "fzf"
+brew "fd"
+brew "sd"
+brew "tree"
+brew "bat"
+
+cask "karabiner-elements"
+cask "alacritty"
+cask "font-fira-code-nerd-font"
+cask "qbittorrent"
+cask "keepassxc"
+cask "iina"
+cask "syncthing"
+
+mas "Wipr 2", id: 1662217862
