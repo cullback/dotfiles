@@ -4,10 +4,12 @@ brew "zellij"
 brew "yazi"
 brew "gitui"
 brew "just"
-
+brew "mas"
+brew "python"
+brew "pipx"
+brew "marksman"
 brew "git-delta"
 brew "git"
-
 brew "fzf"
 brew "fd"
 brew "sd"
@@ -18,8 +20,14 @@ cask "karabiner-elements"
 cask "alacritty"
 cask "font-fira-code-nerd-font"
 cask "qbittorrent"
-cask "keepassxc"
+cask "mochi"
 cask "iina"
 cask "syncthing"
+cask "modern-csv"
+cask "qlmarkdown"
+cask "ogdesign-eagle"
+cask "msty"
 
 mas "Wipr 2", id: 1662217862
+mas "KeePassium", id: 1435127111
+mas "WhatsApp Messenger", id: 310633997
