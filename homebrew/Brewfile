@@ -14,6 +14,10 @@ brew "fd"
 brew "sd"
 brew "tree"
 brew "bat"
+brew "typst"
+brew "aider"
+brew "ffmpeg"
+brew "yt-dlp"
 
 # languages
 brew "python"
@@ -31,6 +35,7 @@ cask "qlmarkdown"
 cask "ogdesign-eagle"
 cask "msty"
 cask "google-chrome"
+cask "jellyfin"
 
 mas "Wipr 2", id: 1662217862
 mas "KeePassium", id: 1435127111
