@@ -1,14 +1,10 @@
 #!/usr/bin/env fish
 
-# function get_secret -a key
-#     keepassxc-cli show -a password "$HOME/secrets.kdbx" \
-#         --key-file "$HOME/keepass.keyx" \
-#         --no-password "$key"
-#     # keychain way
-#     # security find-generic-password -a "$USER" -s "$key" -w
-# end
+function get_secret -a key
+    security find-generic-password -a "$USER" -s "$key" -w
+end
 
-# set -gx OPENROUTER_API_KEY (get_secret "OPENROUTER_API_KEY")
+set -gx OPENROUTER_API_KEY (get_secret "OPENROUTER_API_KEY")
 
 fish_add_path --move /opt/homebrew/bin
 fish_add_path --move /opt/homebrew/opt/rustup/bin/
