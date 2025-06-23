@@ -12,15 +12,22 @@ brew "git"
 brew "fzf"
 brew "fd"
 brew "sd"
+brew "rg"
 brew "tree"
 brew "bat"
 brew "typst"
 brew "aider"
 brew "ffmpeg"
 brew "yt-dlp"
+brew "pandoc"
+brew "node"
+# brew "binutils"  # provides llvm-objdump
 
 # languages
 brew "python"
+brew "pyright"
+brew "ruff"
+brew "pyright"
 brew "rustup"
 
 cask "karabiner-elements"
@@ -36,6 +43,7 @@ cask "ogdesign-eagle"
 cask "msty"
 cask "google-chrome"
 cask "jellyfin"
+cask "zed"
 
 mas "Wipr 2", id: 1662217862
 mas "KeePassium", id: 1435127111
