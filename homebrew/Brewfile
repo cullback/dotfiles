@@ -16,11 +16,12 @@ brew "rg"
 brew "tree"
 brew "bat"
 brew "typst"
-brew "aider"
 brew "ffmpeg"
 brew "yt-dlp"
 brew "pandoc"
 brew "node"
+brew "b2-tools" # backblaze
+brew "sst/tap/opencode"
 # brew "binutils"  # provides llvm-objdump
 
 # languages
@@ -44,7 +45,9 @@ cask "msty"
 cask "google-chrome"
 cask "jellyfin"
 cask "zed"
+cask "1password"
+cask "netnewswire"
 
 mas "Wipr 2", id: 1662217862
-mas "KeePassium", id: 1435127111
 mas "WhatsApp Messenger", id: 310633997
+mas "Cake Wallet", id: 1334702542
