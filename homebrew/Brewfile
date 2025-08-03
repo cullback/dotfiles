@@ -22,7 +22,10 @@ brew "pandoc"
 brew "node"
 brew "b2-tools" # backblaze
 brew "sst/tap/opencode"
+# brew "opencode-ai/tap/opencode"
 # brew "binutils"  # provides llvm-objdump
+brew "qsv"
+brew "zola"
 
 # languages
 brew "python"
@@ -51,3 +54,6 @@ cask "netnewswire"
 mas "Wipr 2", id: 1662217862
 mas "WhatsApp Messenger", id: 310633997
 mas "Cake Wallet", id: 1334702542
+
+# other tools
+# uv tool install edir
