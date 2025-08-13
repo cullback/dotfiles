@@ -20,7 +20,8 @@ set -l links \
     helix/config.toml .config/helix/config.toml \
     helix/languages.toml .config/helix/languages.toml \
     gitui/theme.ron .config/gitui/theme.ron \
-    AGENTS.md .claude/CLAUDE.md
+    agents/AGENTS.md .claude/CLAUDE.md \
+    agents/claude.json .claude/settings.json
 
 for i in (seq 1 2 (count $links))
     set -l src $dotfiles/$links[$i]

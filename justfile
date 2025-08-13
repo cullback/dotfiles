@@ -1,4 +1,4 @@
-symlink-configs:
+install:
     ./scripts/install.fish
 
 update-packages:
