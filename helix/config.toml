@@ -4,6 +4,7 @@ theme = "catppuccin_frappe"
 line-number = "relative"
 true-color = true
 auto-save = true
+auto-format = true
 
 # soft-wrapping
 soft-wrap.enable = true
