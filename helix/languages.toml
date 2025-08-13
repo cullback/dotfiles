@@ -2,3 +2,9 @@
 name = "python"
 formatter = { command = "ruff", args = ["format", "-"] }
 language-servers = [ "pyright" ]
+auto-format = true
+
+[[language]]
+name = "markdown"
+formatter = { command = "mdformat", args = ["-"] }
+auto-format = true
