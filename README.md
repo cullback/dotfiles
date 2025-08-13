@@ -1,5 +1,3 @@
 # Dotfiles
 
-```shell
-brew bundle install --file homebrew/Brewfile
-````
+See `homebrew/Brewfile` for tools.
