@@ -1,38 +1,21 @@
 # LLM Guide
 
-## Styleguide
+## LLM instructions
 
-- prefer short functions under 16 lines of code
-- prefer pure functions that are easy to test
-- prefer functions that do one simple thing
-- move side effects into their own function that only perform that one operation
-- don't create unnecessary classes. only for bundles of behavior and state
-- push ifs up and fors down
-- avoid inheritance
+- Use justfile recipes - Run `just check`, `just format`, and `just build` instead of calling tools directly.
+- Keep functions short and focused - Under 16 lines, doing one clear thing. Prefer pure functions for easier testing.
+- Isolate side effects - Extract side effects (API calls, file I/O, etc.) into dedicated functions that only perform that operation.
+- Avoid unnecessary classes - Only create classes when you need to bundle related behavior with state. Use functions otherwise.
+- Comments should explain WHY, not WHAT - Only add comments to explain non-obvious reasoning, trade-offs, or business logic. Don't describe what the code does.
+- Replace unclear code with well-named functions - If code needs a comment to explain what it does, extract it into a function with a descriptive name instead.
+- Prefer self-documenting code over comments - Code should be readable through clear variable names, function names, and structure rather than explanatory comments.
 
-## Commit messages
+## Committing
 
-- Use imperative form
-- Capitalize the first letter
-- communicate what the change does without having to look at the source code
-- Should start with verb such as Add, Fix, Improve, etc.
+- Add files explicitly - Use `git add <filename>` instead of git add -A to avoid accidentally committing unintended changes.
+- Write clear imperative commit messages - Start with a capitalized verb (Add, Fix, Improve) and describe what the change accomplishes without needing to read the code.
 
-## Rust
+## Rust projects
 
-- avoid `as` conversions
-
-## Python
-
-- use python 3.9 features
-- annotate functions with type hints
-- use `class Data(typing.NamedTuple)` for records
-- prefer asserts over exceptions for error handling
-- use lowercase variants for type hints: `list, tuple, dict`
-- `__name__ == "__main__"` should call out to main or test function
-- use uv for dependency and project management
-- use pathlib for file system operations
-
-## Markdown
-
-- make sure there's a newline after headers
-
+- add dependencies using `cargo add` to get latest version
+- use `dotenvy` crate instead of `dotenv`

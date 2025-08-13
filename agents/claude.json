@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:openrouter.ai)",
+      "Bash(cargo build)",
+      "Bash(git checkout:*)",
+      "Bash(git commit:*)",
+      "Bash(git add:*)",
+      "Bash(just check)",
+      "Bash(just format)",
+      "Bash(cat:*)",
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
