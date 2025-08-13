@@ -1,59 +1,63 @@
+# main tools
 brew "fish"
 brew "helix"
 brew "zellij"
 brew "yazi"
 brew "gitui"
 brew "just"
-brew "mas"
-brew "pipx"
-brew "marksman"
-brew "git-delta"
-brew "git"
-brew "fzf"
+
+# rust alternatives to common tools
 brew "fd"
 brew "sd"
 brew "rg"
 brew "tree"
 brew "bat"
-brew "typst"
-brew "ffmpeg"
-brew "yt-dlp"
-brew "pandoc"
-brew "node"
-brew "b2-tools" # backblaze
-brew "sst/tap/opencode"
-# brew "opencode-ai/tap/opencode"
-# brew "binutils"  # provides llvm-objdump
+brew "eza"
+
+# neat tools
 brew "qsv"
+
+brew "mas"
+brew "pipx"
+brew "git-delta"
+brew "git"
+brew "gh"        # Github command line tools
+brew "fzf"
+brew "ffmpeg"
+brew "pandoc"
+brew "yt-dlp"
+brew "node"
+# brew "b2-tools"  # backblaze
 brew "zola"
 
 # languages
 brew "python"
-brew "pyright"
-brew "ruff"
-brew "pyright"
-brew "rustup"
+brew "ruff"      # python linter and formatter
+brew "pyright"   # python type checker
+brew "rustup"    # rust tooling
+brew "marksman"  # markdown formatter
+brew "typst"
 
+# mac apps
 cask "karabiner-elements"
 cask "alacritty"
-cask "font-fira-code-nerd-font"
 cask "qbittorrent"
-cask "mochi"
 cask "iina"
 cask "syncthing"
 cask "modern-csv"
 cask "qlmarkdown"
 cask "ogdesign-eagle"
-cask "msty"
 cask "google-chrome"
 cask "jellyfin"
 cask "zed"
 cask "1password"
 cask "netnewswire"
+cask "claude"
 
+# fonts
+cask "font-fira-code-nerd-font"
+
+# mac app store apps
 mas "Wipr 2", id: 1662217862
 mas "WhatsApp Messenger", id: 310633997
 mas "Cake Wallet", id: 1334702542
-
-# other tools
-# uv tool install edir
