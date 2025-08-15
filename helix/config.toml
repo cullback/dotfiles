@@ -24,6 +24,3 @@ z = ":toggle soft-wrap.enable"
 
 [keys.normal]
 h = "goto_word"
-j = "goto_word"
-k = "goto_word"
-l = "goto_word"
