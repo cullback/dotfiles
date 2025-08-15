@@ -1,16 +1,19 @@
 {
   "permissions": {
+    "defaultMode": "acceptEdits",
     "allow": [
-      "WebFetch(domain:openrouter.ai)",
+      "WebFetch(domain:*)",
       "Bash(cargo build)",
       "Bash(git checkout:*)",
       "Bash(git commit:*)",
       "Bash(git add:*)",
+      "Bash(zola build)",
       "Bash(just check)",
       "Bash(just format)",
-      "Bash(cat:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []
-  }
+  },
+  "includeCoAuthoredBy": false
 }

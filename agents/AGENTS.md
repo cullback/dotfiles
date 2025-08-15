@@ -12,10 +12,12 @@
 
 ## Committing
 
-- Add files explicitly - Use `git add <filename>` instead of git add -A to avoid accidentally committing unintended changes.
+- Add files explicitly using `git add <filename>`. Do NOT use `git add -A`.
 - Write clear imperative commit messages - Start with a capitalized verb (Add, Fix, Improve) and describe what the change accomplishes without needing to read the code.
+- Do NOT mention that commits are co-authored by Claude
 
 ## Rust projects
 
 - add dependencies using `cargo add` to get latest version
 - use `dotenvy` crate instead of `dotenv`
+- Do NOT modify allowed clippy lints in `Cargo.toml`
