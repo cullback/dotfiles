@@ -6,5 +6,5 @@ auto-format = true
 
 [[language]]
 name = "markdown"
-formatter = { command = "mdformat", args = ["-"] }
+formatter = { command = "mdformat", args = ["--number", "-"] }
 auto-format = true
