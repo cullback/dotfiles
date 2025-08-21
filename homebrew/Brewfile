@@ -23,10 +23,10 @@ brew "git-delta"
 brew "git"
 brew "gh"        # Github command line tools
 brew "fzf"
-brew "ffmpeg"
 brew "pandoc"
 brew "yt-dlp"
 brew "node"
+# brew "ffmpeg"
 # brew "b2-tools"  # backblaze
 brew "zola"
 

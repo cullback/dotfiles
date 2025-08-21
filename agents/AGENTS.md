@@ -21,3 +21,7 @@
 - add dependencies using `cargo add` to get latest version
 - use `dotenvy` crate instead of `dotenv`
 - Do NOT modify allowed clippy lints in `Cargo.toml`
+
+## Python projects
+
+- invoke interpreter with `python3`
