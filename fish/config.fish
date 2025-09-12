@@ -1,23 +1,10 @@
 #!/usr/bin/env fish
 
-function get_secret -a key
-    security find-generic-password -a "$USER" -s "$key" -w
-end
-
-set -gx OPENROUTER_API_KEY (get_secret "OPENROUTER_API_KEY")
-
-fish_add_path --move /opt/homebrew/bin
-fish_add_path --move /opt/homebrew/opt/rustup/bin/
-fish_add_path --move $HOME/.cargo/bin/
-fish_add_path --move $HOME/.local/bin/
-
-set -gx SHELL /opt/homebrew/bin/fish
 set -gx EDITOR hx
 
 if status is-interactive
     set fish_greeting # Suppress fish welcome message
     fish_config theme choose catppuccin-frappe
-    fish_config prompt choose Arrow
 
     # fzf
     fzf --fish | source

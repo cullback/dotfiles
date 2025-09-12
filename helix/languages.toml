@@ -8,3 +8,8 @@ auto-format = true
 name = "markdown"
 formatter = { command = "mdformat", args = ["--number", "-"] }
 auto-format = true
+
+[[language]]
+name = "nix"
+formatter = { command = "nixfmt" }
+auto-format = true
