@@ -9,3 +9,6 @@ clean-packages:
 
 nix-rebuild:
     sudo nixos-rebuild switch -I nixos-config=hosts/$(hostname)/configuration.nix
+
+format:
+    dprint fmt --config dprint/dprint.json
