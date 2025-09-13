@@ -21,7 +21,6 @@ nixos-install
 
 1. set up ssh keys
 
-
 ```
 sudo nixos-rebuild switch -I nixos-config=hosts/dev/configuration.nix
 ```

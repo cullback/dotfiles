@@ -20,5 +20,3 @@ chsh -s $(which fish)
 # ssh key
 ssh-keygen -t ed25519 -C "cullback@fastmail.com"
 ```
-
-
