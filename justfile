@@ -6,3 +6,6 @@ update-packages:
 
 clean-packages:
     brew bundle cleanup --file homebrew/Brewfile --force
+
+nix-rebuild:
+    sudo nixos-rebuild switch -I nixos-config=hosts/$(hostname)/configuration.nix

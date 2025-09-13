@@ -26,7 +26,6 @@
 
   environment.systemPackages = with pkgs; [
     git
-    git
     gitui
     helix
     just
@@ -45,6 +44,21 @@
     sd
 
     nixfmt-rfc-style
+
+    # markdown
+    marksman
+    (python3.withPackages (
+      ps: with ps; [
+        mdformat
+        mdformat-frontmatter
+        mdformat-gfm
+        mdformat-wikilink
+      ]
+    ))
+
+    # rust
+    rustc
+    cargo
   ];
 
   networking.hostName = "devy";

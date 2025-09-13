@@ -13,6 +13,7 @@ defaultBranch = "main"
 editor = "hx"
 pager = "delta"
 excludesfile = "~/.gitignore_global"
+hooksPath = "/home/user/gitconfig/hooks"
 
 [column]
 ui = "auto"
