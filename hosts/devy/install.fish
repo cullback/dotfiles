@@ -9,8 +9,8 @@ set -l dotfiles (git rev-parse --show-toplevel)
 set -l links \
     "fish/config.fish" ".config/fish/config.fish" \
     "fish/catppuccin-frappe.theme" ".config/fish/themes/catppuccin-frappe.theme" \
-    "git/config.toml" ".gitconfig" \
-    "git/.gitignore_global" ".gitignore_global" \
+    "git/config.toml" ".config/git/config" \
+    git/ignore ".config/git/ignore" \
     "zellij/config.kdl" ".config/zellij/config.kdl" \
     "agents/AGENTS.md" ".claude/CLAUDE.md" \
     "agents/claude.json" ".claude/settings.json" \

@@ -1,3 +1,7 @@
+# https://blog.gitbutler.com/how-git-core-devs-configure-git/
+# verify parsed correctly with
+# git config --list --show-origin
+
 [user]
 email = "cullback@fastmail.com"
 name = "cullback"
@@ -11,9 +15,9 @@ defaultBranch = "main"
 
 [core]
 editor = "hx"
-pager = "delta"
+# pager = "delta"
 excludesfile = "~/.gitignore_global"
-hooksPath = "/home/user/gitconfig/hooks"
+# hooksPath = "/home/user/gitconfig/hooks"
 
 [column]
 ui = "auto"
@@ -39,6 +43,3 @@ followTags = true
 prune = true
 pruneTags = true
 all = true
-
-
-# https://blog.gitbutler.com/how-git-core-devs-configure-git/
