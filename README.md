@@ -1,3 +1,7 @@
 # Dotfiles
 
-See `homebrew/Brewfile` for tools.
+- Editor: `helix`
+- Multiplexer: `zellij`
+- Shell: `fish`
+- Recipes: `just`
+- Theme: `catppuccin frappe`

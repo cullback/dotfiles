@@ -20,3 +20,13 @@ chsh -s $(which fish)
 # ssh key
 ssh-keygen -t ed25519 -C "cullback@fastmail.com"
 ```
+
+## Brew bundle
+
+```shell
+# update-packages
+brew bundle install --file homebrew/Brewfile
+
+# clean-packages
+brew bundle cleanup --file homebrew/Brewfile --force
+```

@@ -1,5 +1,5 @@
 general.import = [
-  "./catppuccin-frappe.toml"
+  "./catppuccin-frappe.toml",
 ]
 
 [window]
@@ -9,7 +9,7 @@ option_as_alt = "OnlyLeft"
 [keyboard]
 # rebind cmd left+right as home and end
 bindings = [
-  { key = "Left",  mods = "Command", chars = "\u001bOH" },
+  { key = "Left", mods = "Command", chars = "\u001bOH" },
   { key = "Right", mods = "Command", chars = "\u001bOF" },
 ]
 

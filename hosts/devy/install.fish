@@ -15,6 +15,7 @@ set -l links \
     "agents/AGENTS.md" ".claude/CLAUDE.md" \
     "agents/claude.json" ".claude/settings.json" \
     "helix/config.toml" ".config/helix/config.toml" \
+    "dprint/dprint.json" ".config/dprint/dprint.json" \
     "helix/languages.toml" ".config/helix/languages.toml" \
     "marksman/config.toml" ".config/marksman/config.toml" \
     "gitui/theme.ron" ".config/gitui/theme.ron"

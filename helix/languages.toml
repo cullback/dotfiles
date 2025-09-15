@@ -1,13 +1,18 @@
+# https://github.com/helix-editor/helix/blob/master/languages.toml
+
 [[language]]
 name = "python"
 formatter = { command = "ruff", args = ["format", "-"] }
-language-servers = [ "pyright" ]
+language-servers = ["pyright"]
 auto-format = true
 
 [[language]]
 name = "markdown"
-formatter = { command = "mdformat", args = ["--number", "-"] }
 auto-format = true
+
+[language.formatter]
+command = "dprint"
+args = ["fmt", "--config", "~/.config/dprint/dprint.json", "--stdin", "md"]
 
 [[language]]
 name = "nix"
