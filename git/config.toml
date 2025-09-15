@@ -16,7 +16,6 @@ defaultBranch = "main"
 [core]
 editor = "hx"
 # pager = "delta"
-excludesfile = "~/.gitignore_global"
 # hooksPath = "/home/user/gitconfig/hooks"
 
 [column]
