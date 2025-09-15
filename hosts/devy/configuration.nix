@@ -16,24 +16,30 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   programs.fish.enable = true;
+  users.defaultUserShell = pkgs.fish;
 
   users.users.cullback = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [ tree ];
-    shell = pkgs.fish;
+    extraGroups = [ "wheel" ]; # Enable sudo for the user.
+  };
+
+  environment.variables = {
+    NIX_SHELL = "${pkgs.fish}/bin/fish";
   };
 
   environment.systemPackages = with pkgs; [
+    # core tools
+    fzf
     git
     gitui
     helix
     just
-    qsv
-    tree
     yazi
     zellij
-    fzf
+
+    # neat tools
+    qsv
+    visidata
 
     # replacements
     bat
@@ -43,22 +49,20 @@
     ripgrep
     sd
 
-    nixfmt-rfc-style
-
     # markdown
     marksman
-    (python3.withPackages (
-      ps: with ps; [
-        mdformat
-        mdformat-frontmatter
-        mdformat-gfm
-        mdformat-wikilink
-      ]
-    ))
+
+    # formatters
+    nixfmt-rfc-style
+    dprint
+    dprint-plugins.dprint-plugin-markdown
+    dprint-plugins.dprint-plugin-toml
+    dprint-plugins.dprint-plugin-json
 
     # rust
     rustc
     cargo
+    rust-analyzer
   ];
 
   networking.hostName = "devy";
