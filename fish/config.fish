@@ -6,6 +6,14 @@ if status is-interactive
     set fish_greeting # Suppress fish welcome message
     fish_config theme choose catppuccin-frappe
 
+    alias ls='eza'
+    alias ll='eza -l --git'
+    alias la='eza -la --git'
+    alias lt='eza --tree'
+    alias tree='eza --tree'
+    alias cat='bat'
+    alias less='bat'
+
     # fzf
     fzf --fish | source
     set -gx FZF_DEFAULT_COMMAND "fd --type f"
