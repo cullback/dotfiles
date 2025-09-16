@@ -16,7 +16,7 @@ defaultBranch = "main"
 [core]
 editor = "hx"
 # pager = "delta"
-# hooksPath = "/home/user/gitconfig/hooks"
+hooksPath = "~/.config/git/hooks"
 
 [column]
 ui = "auto"
