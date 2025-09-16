@@ -66,23 +66,13 @@
   ];
 
   networking.hostName = "devy";
-  networking.firewall = {
-    allowedTCPPorts = [
-      8384
-      22000
-    ];
-    allowedUDPPorts = [
-      22000
-      21027
-    ];
-  };
+  networking.firewall.enable = false;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
   services.samba = {
     enable = true;
-    openFirewall = true;
     settings = {
       global = {
         "workgroup" = "WORKGROUP";
@@ -105,7 +95,6 @@
 
   services.syncthing = {
     enable = true;
-    openDefaultPorts = true;
     guiAddress = "0.0.0.0:8384";
     user = "cullback";
     configDir = "/home/cullback/.config/syncthing";
