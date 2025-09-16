@@ -10,9 +10,7 @@ set -l links \
     "karabiner/bold_layout.json" ".config/karabiner/assets/complex_modifications/bold_layout.json" \
     "karabiner/capslock.json" ".config/karabiner/assets/complex_modifications/capslock.json" \
     "alacritty/alacritty.toml" ".config/alacritty/alacritty.toml" \
-    "alacritty/catppuccin-frappe.toml" ".config/alacritty/catppuccin-frappe.toml" \
-    "agents/AGENTS.md" ".claude/CLAUDE.md" \
-    "agents/claude.json" ".claude/settings.json"
+    "alacritty/catppuccin-frappe.toml" ".config/alacritty/catppuccin-frappe.toml"
 
 for i in (seq 1 2 (count $links))
     set -l src $dotfiles/$links[$i]
