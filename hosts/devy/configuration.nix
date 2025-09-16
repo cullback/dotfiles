@@ -66,6 +66,16 @@
   ];
 
   networking.hostName = "devy";
+  networking.firewall = {
+    allowedTCPPorts = [
+      8384
+      22000
+    ];
+    allowedUDPPorts = [
+      22000
+      21027
+    ];
+  };
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -89,6 +99,28 @@
         "guest ok" = "no";
         "create mask" = "0644";
         "directory mask" = "0755";
+      };
+    };
+  };
+
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+    guiAddress = "0.0.0.0:8384";
+    user = "cullback";
+    configDir = "/home/cullback/.config/syncthing";
+    settings = {
+      devices = {
+        "iphone" = {
+          id = "P7D6TDJ-EM4PIG6-W3AHLYZ-VVSQVME-7AOS5E3-7FPAPCM-52GAQZO-XAVKCQ7";
+        };
+      };
+
+      folders = {
+        "repos" = {
+          path = "/home/cullback/repos";
+          devices = [ "iphone" ];
+        };
       };
     };
   };
