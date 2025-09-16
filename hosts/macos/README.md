@@ -30,3 +30,5 @@ brew bundle install --file homebrew/Brewfile
 # clean-packages
 brew bundle cleanup --file homebrew/Brewfile --force
 ```
+
+- [bundle subcommand](https://docs.brew.sh/Manpage#bundle-subcommand)
