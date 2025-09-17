@@ -59,6 +59,11 @@
     dprint-plugins.dprint-plugin-toml
     dprint-plugins.dprint-plugin-json
 
+    # python
+    python313
+    pyright
+    ruff
+
     # rust
     rustc
     cargo
