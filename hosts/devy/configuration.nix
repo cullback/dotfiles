@@ -23,10 +23,6 @@
     extraGroups = [ "wheel" ]; # Enable sudo for the user.
   };
 
-  environment.variables = {
-    NIX_SHELL = "${pkgs.fish}/bin/fish";
-  };
-
   environment.systemPackages = with pkgs; [
     # core tools
     fzf
