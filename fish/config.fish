@@ -22,3 +22,7 @@ if status is-interactive
     set -gx FZF_ALT_C_COMMAND "fd --type d"
     set -gx FZF_ALT_C_OPTS "--preview 'tree -C {}'"
 end
+
+function nix-shell
+    command nix-shell $argv --run fish
+end
