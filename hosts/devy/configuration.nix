@@ -23,6 +23,12 @@
     extraGroups = [ "wheel" ]; # Enable sudo for the user.
   };
 
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
+  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     # core tools
     fzf
@@ -61,9 +67,10 @@
     ruff
 
     # rust
-    rustc
-    cargo
     rust-analyzer
+    rustfmt
+
+    claude-code
   ];
 
   networking.hostName = "devy";
