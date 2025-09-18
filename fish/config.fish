@@ -1,6 +1,7 @@
 #!/usr/bin/env fish
 
 set -gx EDITOR hx
+set -gx COLORTERM truecolor
 
 if status is-interactive
     set fish_greeting # Suppress fish welcome message
