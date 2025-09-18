@@ -5,3 +5,7 @@
 - Shell: `fish`
 - Recipes: `just`
 - Theme: `catppuccin frappe`
+
+## Issues
+
+- [zellij - Multiple floating page show up when opening the session manager](https://github.com/zellij-org/zellij/issues/4063)

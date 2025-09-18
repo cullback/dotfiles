@@ -1,3 +1,4 @@
+// https://github.com/zellij-org/zellij/blob/main/zellij-utils/assets/config/default.kdl
 theme "catppuccin-frappe"
 
 keybinds {
@@ -13,12 +14,6 @@ keybinds {
 
     shared {
         bind "Ctrl b" { SwitchToMode "Tab"; }
-
-        // we use arrow keys
-        bind "Alt Left" { MoveFocusOrTab "Left"; }
-        bind "Alt Right" { MoveFocusOrTab "Right"; }
-        bind "Alt Down" { MoveFocus "Down"; }
-        bind "Alt Up" { MoveFocus "Up"; }
         bind "Alt m" { ToggleFloatingPanes; }
         unbind "Alt f"
     }
