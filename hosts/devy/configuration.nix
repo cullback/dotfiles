@@ -66,10 +66,6 @@
     pyright
     ruff
 
-    # rust
-    rust-analyzer
-    rustfmt
-
     claude-code
   ];
 
