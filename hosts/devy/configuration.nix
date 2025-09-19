@@ -42,6 +42,7 @@
     # neat tools
     qsv
     visidata
+    sqlite
 
     # replacements
     bat
