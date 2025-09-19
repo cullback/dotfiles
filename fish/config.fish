@@ -22,6 +22,8 @@ if status is-interactive
     set -gx FZF_CTRL_T_OPTS "--preview 'bat -n --color=always {}'"
     set -gx FZF_ALT_C_COMMAND "fd --type d"
     set -gx FZF_ALT_C_OPTS "--preview 'tree -C {}'"
+
+    starship init fish | source
 end
 
 function nix-shell

@@ -38,6 +38,7 @@
     just
     yazi
     zellij
+    starship
 
     # neat tools
     qsv
