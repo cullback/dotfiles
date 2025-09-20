@@ -9,7 +9,7 @@ brew "zellij"
 brew "starship"
 
 brew "bat"
-brew "du-dust"
+brew "dust"
 brew "eza"
 brew "fd"
 brew "ripgrep"
