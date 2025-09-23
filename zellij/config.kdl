@@ -2,6 +2,13 @@
 theme "catppuccin-frappe"
 
 keybinds {
+    locked {
+        bind "Alt Left" { MoveFocus "Left"; }
+        bind "Alt Down" { MoveFocus "Down"; }
+        bind "Alt Up" { MoveFocus "Up"; }
+        bind "Alt Right" { MoveFocus "Right"; }
+    }
+
     normal {
         unbind "Ctrl t"
 
