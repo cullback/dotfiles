@@ -10,11 +10,17 @@ auto-format = true
 name = "markdown"
 auto-format = true
 
-[language.formatter]
-command = "dprint"
-args = ["fmt", "--config", "~/.config/dprint/dprint.json", "--stdin", "md"]
+formatter = { command = "dprint", args = ["fmt", "--config", "~/.config/dprint/dprint.json", "--stdin", "md"] }
 
 [[language]]
 name = "nix"
 formatter = { command = "nixfmt" }
 auto-format = true
+
+[[language]]
+name = "toml"
+formatter = { command = "dprint", args = ["fmt", "--config", "~/.config/dprint/dprint.json", "--stdin", "toml"] }
+
+[[language]]
+name = "json"
+formatter = { command = "dprint", args = ["fmt", "--config", "~/.config/dprint/dprint.json", "--stdin", "json"] }
