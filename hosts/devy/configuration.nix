@@ -41,9 +41,11 @@
     starship
 
     # neat tools
-    qsv
+    qsv # csv wrangling
     visidata
     sqlite
+    tokei # line count by language
+    watchexec # rerun command on changes
 
     # replacements
     bat
@@ -52,6 +54,7 @@
     fd
     ripgrep
     sd
+    delta # better diff tool
 
     # markdown
     marksman
