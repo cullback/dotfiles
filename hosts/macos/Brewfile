@@ -1,4 +1,5 @@
 # main tools
+brew "fish"
 brew "fzf"
 brew "git"
 brew "gitui"
@@ -21,13 +22,7 @@ brew "qsv"
 brew "mas"
 brew "pipx"
 brew "git-delta"
-brew "gh"        # Github command line tools
-brew "pandoc"
 brew "yt-dlp"
-brew "node"
-# brew "ffmpeg"
-# brew "b2-tools"  # backblaze
-brew "zola"
 
 # languages
 brew "python"
@@ -42,7 +37,7 @@ cask "karabiner-elements"
 cask "alacritty"
 cask "qbittorrent"
 cask "iina"
-cask "syncthing"
+cask "syncthing-app"
 cask "modern-csv"
 cask "qlmarkdown"
 cask "ogdesign-eagle"
@@ -52,6 +47,9 @@ cask "zed"
 cask "1password"
 cask "netnewswire"
 cask "claude"
+cask "calibre"
+cask "keepassxc"
+cask "utm"
 
 # fonts
 cask "font-fira-code-nerd-font"
