@@ -5,6 +5,9 @@
   ...
 }:
 
+let
+  unstable = import <nixpkgs-unstable> { config.allowUnfree = true; };
+in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -71,7 +74,7 @@
     pyright
     ruff
 
-    claude-code
+    unstable.claude-code
   ];
 
   networking.hostName = "devy";
