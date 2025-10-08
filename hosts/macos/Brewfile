@@ -18,7 +18,7 @@ brew "sd"
 
 # neat tools
 brew "qsv"
-
+brew "b2-tools"
 brew "mas"
 brew "pipx"
 brew "git-delta"
@@ -50,6 +50,7 @@ cask "claude"
 cask "calibre"
 cask "keepassxc"
 cask "utm"
+cask "mountain-duck"
 
 # fonts
 cask "font-fira-code-nerd-font"
