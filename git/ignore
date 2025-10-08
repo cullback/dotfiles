@@ -12,3 +12,5 @@ __pycache__/
 debug/
 target/
 Cargo.lock
+
+**/.claude/settings.local.json
