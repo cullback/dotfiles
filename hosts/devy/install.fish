@@ -19,6 +19,7 @@ set -l links \
     "dprint/dprint.json" ".config/dprint/dprint.json" \
     "helix/languages.toml" ".config/helix/languages.toml" \
     "marksman/config.toml" ".config/marksman/config.toml" \
+    "starship/starship.toml" ".config/starship.toml" \
     "gitui/theme.ron" ".config/gitui/theme.ron"
 
 for i in (seq 1 2 (count $links))
