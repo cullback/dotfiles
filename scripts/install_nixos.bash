@@ -57,3 +57,12 @@ echo "=== Mounting filesystems ==="
 mount "$ROOT" /mnt
 mkdir -p /mnt/boot
 mount "$BOOT" /mnt/boot
+
+echo "=== Generating configuration ==="
+nixos-generate-config --root /mnt
+
+# curl -L https://raw.githubusercontent.com/cullback/dotfiles/refs/heads/main/hosts/vultr/configuration.nix -o /mnt/etc/nixos/configuration.nix
+# nixos-install
+# reboot
+
+
