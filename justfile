@@ -16,3 +16,4 @@ format:
     dprint fmt --config dprint/dprint.json
     fd -e nix | xargs -r nixfmt
     fd -e fish | xargs -r fish_indent -w
+    just --unstable --fmt

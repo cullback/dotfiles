@@ -32,10 +32,7 @@
   # Enable SSH
   services.openssh = {
     enable = true;
-    settings = {
-      PasswordAuthentication = false;
-      PermitRootLogin = "no";
-    };
+    settings.PermitRootLogin = "yes";
   };
 
   # User account
@@ -47,6 +44,9 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGUvNZI9LHiN7RmqBxDt5wiawgec9BHAAkAtMidrf5/b cullback@fastmail.com"
     ];
   };
+  users.users.root.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGUvNZI9LHiN7RmqBxDt5wiawgec9BHAAkAtMidrf5/b cullback@fastmail.com"
+  ];
 
   # Allow sudo without password for wheel group
   security.sudo.wheelNeedsPassword = false;
