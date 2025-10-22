@@ -49,13 +49,6 @@ in
     zellij
     starship
 
-    # neat tools
-    qsv # csv wrangling
-    visidata
-    sqlite
-    tokei # line count by language
-    watchexec # rerun command on changes
-
     # replacements
     bat
     du-dust
@@ -64,6 +57,15 @@ in
     ripgrep
     sd
     delta # better diff tool
+
+    # neat tools
+    qsv # csv wrangling
+    visidata
+    sqlite
+    tokei # line count by language
+    watchexec # rerun command on changes
+    single-file-cli
+    chromium
 
     # markdown
     marksman
