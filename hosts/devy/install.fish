@@ -20,6 +20,7 @@ set -l links \
     "helix/languages.toml" ".config/helix/languages.toml" \
     "marksman/config.toml" ".config/marksman/config.toml" \
     "starship/starship.toml" ".config/starship.toml" \
+    "yazi/theme.toml" ".config/yazi/theme.toml" \
     "gitui/theme.ron" ".config/gitui/theme.ron"
 
 for i in (seq 1 2 (count $links))
