@@ -16,5 +16,6 @@
     "deny": [],
     "ask": [],
     "defaultMode": "acceptEdits"
-  }
+  },
+  "alwaysThinkingEnabled": false
 }

@@ -50,7 +50,7 @@ cask "claude"
 cask "calibre"
 cask "keepassxc"
 cask "utm"
-cask "mountain-duck"
+cask "smoothcsv"
 
 # fonts
 cask "font-fira-code-nerd-font"

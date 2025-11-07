@@ -6,6 +6,7 @@
 - Keep functions short and focused - Under 16 lines, doing one clear thing. Prefer pure functions for easier testing.
 - Isolate side effects - Extract side effects (API calls, file I/O, etc.) into dedicated functions that only perform that operation.
 - Avoid unnecessary classes - Only create classes when you need to bundle related behavior with state. Use functions otherwise.
+- DO NOT run commands together with `&&`. Only run one command at a time.
 
 ## Comments
 
@@ -26,6 +27,11 @@
 - use `dotenvy` crate instead of `dotenv`
 - Do NOT modify allowed clippy lints in `Cargo.toml`
 
-## Python projects
+## HTMX
 
-- invoke interpreter with `python3`
+- Only use
+- Do NOT use hx-trigger with empty string
+
+## Sqlite
+
+- make .up and .down migrations
