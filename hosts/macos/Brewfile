@@ -18,7 +18,6 @@ brew "sd"
 
 # neat tools
 brew "qsv"
-brew "b2-tools"
 brew "mas"
 brew "pipx"
 brew "git-delta"
@@ -30,7 +29,6 @@ brew "ruff"      # python linter and formatter
 brew "pyright"   # python type checker
 brew "rustup"    # rust tooling
 brew "marksman"  # markdown formatter
-brew "typst"
 
 # mac apps
 cask "karabiner-elements"
