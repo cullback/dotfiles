@@ -18,14 +18,28 @@ if not test -d $repo_path
     return 1
 end
 
-if test -d $worktree_path
-    echo "Error: Worktree '$worktree_path' already exists"
-    return 1
+cd $repo_path
+
+# Check if worktree is registered but directory is missing
+if git worktree list | grep -q "$worktree_path"
+    if not test -d $worktree_path
+        echo "Worktree is registered but directory missing. Pruning..."
+        git worktree prune
+    else
+        echo "Error: Worktree '$worktree_path' already exists"
+        return 1
+    end
 end
 
-echo "Creating worktree '$worktree_name' from repo '$repo_name' with branch '$branch_name'..."
-cd $repo_path
-git worktree add ../$worktree_name -b $branch_name
+# Check if branch exists
+if git show-ref --verify --quiet refs/heads/$branch_name
+    echo "Branch '$branch_name' already exists, checking it out in worktree..."
+    git worktree add ../$worktree_name $branch_name
+else
+    echo "Creating new branch '$branch_name' in worktree '$worktree_name'..."
+    git worktree add ../$worktree_name -b $branch_name
+end
+
 or begin
     echo "Failed to create worktree"
     return 1
@@ -33,9 +47,3 @@ end
 
 echo "Entering worktree directory..."
 cd ../$worktree_name
-
-echo "Running nix develop..."
-nix develop
-
-echo "Creating zellij session '$session_name'..."
-zellij attach --create $session_name

@@ -24,6 +24,9 @@ in
   users.users.cullback = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable sudo for the user.
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGUvNZI9LHiN7RmqBxDt5wiawgec9BHAAkAtMidrf5/b cullback@fastmail.com"
+    ];
   };
 
   nix.settings.experimental-features = [
@@ -39,6 +42,9 @@ in
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
+    # system
+    parted
+
     # core tools
     fzf
     git

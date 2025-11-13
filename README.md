@@ -8,5 +8,5 @@
 
 ## Issues
 
-- [zellij - Multiple floating page show up when opening the session manager](https://github.com/zellij-org/zellij/issues/4063)
+- [zellij - Opening session manager will also open hidden floating pane unexpectedly](https://github.com/zellij-org/zellij/issues/2979)
 - [gitui - bad credentials error](https://github.com/gitui-org/gitui/issues/495)
