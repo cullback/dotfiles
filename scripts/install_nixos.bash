@@ -2,7 +2,7 @@
 set -euxo pipefail
 
 # NixOS Installation Script for Hetzner Cloud
-# curl https://raw.githubusercontent.com/cullback/dotfiles/main/scripts/install_nixos.bash | bash
+# curl https://raw.githubusercontent.com/cullback/dotfiles/refs/heads/main/scripts/install_nixos.bash | bash
 # Usage: bash install_nixos.bash
 
 echo "=== NixOS Installation Script (UEFI/GPT) ==="
@@ -35,10 +35,10 @@ fi
 
 # GPT/UEFI partitioning
 echo "Creating GPT partition table with ESP boot partition..."
-parted "$DISK" -- mklabel gpt
-parted "$DISK" -- mkpart ESP fat32 1MB 512MB
-parted "$DISK" -- mkpart root ext4 512MB 100%
-parted "$DISK" -- set 1 esp on
+parted --script "$DISK" -- mklabel gpt
+parted --script "$DISK" -- mkpart ESP fat32 1MB 512MB
+parted --script "$DISK" -- mkpart root ext4 512MB 100%
+parted --script "$DISK" -- set 1 esp on
 
 echo "=== Formatting partitions ==="
 mkfs.fat -F 32 -n boot "$BOOT_PART"
