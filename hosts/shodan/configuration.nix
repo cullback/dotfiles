@@ -7,8 +7,12 @@
   ];
 
   # 2. Boot configuration
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub = {
+    enable = true;
+    efiSupport = true;
+    efiInstallAsRemovable = true; # This is key for Vultr
+    device = "nodev";
+  };
 
   # 3. Networking
   networking.hostName = "shodan";
@@ -53,14 +57,10 @@
     parted
 
     # core tools
-    fzf
     git
-    gitui
     helix
-    just
     yazi
     zellij
-    starship
   ];
 
   # 10. Nix settings

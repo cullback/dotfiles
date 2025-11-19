@@ -57,15 +57,8 @@ echo "=== Installation ready ==="
 echo "Disk: $DISK"
 echo "Boot partition: $BOOT_PART (ESP)"
 echo "Root partition: $ROOT_PART"
-echo ""
-echo "Next steps:"
-echo "1. Edit /mnt/etc/nixos/configuration.nix"
-echo "   - Ensure boot.loader.systemd-boot.enable = true;"
-echo "   - Ensure boot.loader.efi.canTouchEfiVariables = true;"
-echo "2. Run: nixos-install"
-echo "3. Run: reboot"
 
-# Uncomment to auto-download your config:
-# curl -L https://raw.githubusercontent.com/cullback/dotfiles/refs/heads/main/hosts/hetzner/configuration.nix -o /mnt/etc/nixos/configuration.nix
+curl -L https://raw.githubusercontent.com/cullback/dotfiles/refs/heads/main/hosts/shodan/configuration.nix -o /mnt/etc/nixos/configuration.nix
+# nixos-install --no-root-password
 # nixos-install
 # reboot
