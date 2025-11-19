@@ -42,7 +42,6 @@
   # 7. Services
   services.openssh = {
     enable = true;
-    settings.PermitRootLogin = "prohibit-password";
   };
 
   # 8. Programs
