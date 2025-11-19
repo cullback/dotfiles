@@ -2,7 +2,7 @@
 set -euxo pipefail
 
 # NixOS Installation Script for Hetzner Cloud
-# curl https://raw.githubusercontent.com/cullback/dotfiles/main/scripts/install_nixos.bash
+# curl https://raw.githubusercontent.com/cullback/dotfiles/main/scripts/install_nixos.bash | bash
 # Usage: bash install_nixos.bash
 
 echo "=== NixOS Installation Script (UEFI/GPT) ==="
@@ -22,16 +22,6 @@ if [ -z "$DISK" ]; then
     exit 1
 fi
 
-echo "Detected disk: $DISK"
-echo ""
-read -p "This will ERASE ALL DATA on $DISK. Continue? (yes/no): " confirm
-
-if [ "$confirm" != "yes" ]; then
-    echo "Aborted."
-    exit 0
-fi
-
-echo ""
 echo "=== Partitioning $DISK (GPT/UEFI) ==="
 
 # Determine partition naming
