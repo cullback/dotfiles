@@ -1,20 +1,18 @@
 { config, pkgs, ... }:
 
 {
+  # 1. Imports
   imports = [
     ./hardware-configuration.nix
   ];
 
-  boot.loader.grub = {
-    enable = true;
-    device = "/dev/sda"; # or /dev/vda
-  };
+  # 2. Boot configuration
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
-  # Networking
-  networking.hostName = "nixos-server";
+  # 3. Networking
+  networking.hostName = "shodan";
   networking.useDHCP = true;
-
-  # Firewall - open SSH, HTTP, HTTPS
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [
@@ -24,55 +22,66 @@
     ];
   };
 
+  # 4. Localization
   time.timeZone = "America/New_York";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  programs.fish.enable = true;
+  # 5. Users
   users.defaultUserShell = pkgs.fish;
-
-  # Enable SSH
-  services.openssh = {
-    enable = true;
-    settings.PermitRootLogin = "yes";
-  };
-
-  # User account
   users.users.cullback = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     openssh.authorizedKeys.keys = [
-      # Add your SSH public key here
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGUvNZI9LHiN7RmqBxDt5wiawgec9BHAAkAtMidrf5/b cullback@fastmail.com"
     ];
   };
-  users.users.root.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGUvNZI9LHiN7RmqBxDt5wiawgec9BHAAkAtMidrf5/b cullback@fastmail.com"
-  ];
 
-  # Allow sudo without password for wheel group
+  # 6. Security
   security.sudo.wheelNeedsPassword = false;
 
-  # System packages
+  # 7. Services
+  services.openssh = {
+    enable = true;
+    settings.PermitRootLogin = "prohibit-password";
+  };
+
+  # 8. Programs
+  programs.fish.enable = true;
+
+  # 9. Environment
   environment.systemPackages = with pkgs; [
+    # system
+    parted
+
+    # core tools
+    fzf
     git
+    gitui
     helix
+    just
     yazi
-    htop
-    curl
+    zellij
+    starship
   ];
 
-  # Enable flakes and nix-command
+  # 10. Nix settings
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
-
-  # Automatic garbage collection
   nix.gc = {
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 30d";
   };
 
+  # Auto-upgrade
+  system.autoUpgrade = {
+    enable = true;
+    dates = "weekly";
+    allowReboot = false; # Set to true if you want automatic reboots
+  };
+
+  # 11. State version (always last)
   system.stateVersion = "25.05";
 }
