@@ -9,9 +9,7 @@
   # 2. Boot configuration
   boot.loader.grub = {
     enable = true;
-    efiSupport = true;
-    efiInstallAsRemovable = true; # This is key for Vultr
-    device = "nodev";
+    device = "/dev/vda"; # or /dev/vda
   };
 
   # 3. Networking
