@@ -3,7 +3,7 @@
 {
   # 1. Imports
   imports = [
-    ./hardware-configuration.nix
+    /etc/nixos/hardware-configuration.nix
   ];
 
   # 2. Boot configuration
@@ -55,10 +55,33 @@
     parted
 
     # core tools
+    fzf
     git
+    gitui
     helix
+    just
     yazi
     zellij
+    starship
+
+    # replacements
+    bat
+    du-dust
+    eza
+    fd
+    ripgrep
+    sd
+    delta # better diff tool
+
+    # markdown
+    marksman
+
+    # formatters
+    nixfmt-rfc-style
+    dprint
+    dprint-plugins.dprint-plugin-markdown
+    dprint-plugins.dprint-plugin-toml
+    dprint-plugins.dprint-plugin-json
   ];
 
   # 10. Nix settings
