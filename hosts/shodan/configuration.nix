@@ -1,5 +1,15 @@
-{ ... }:
+{
+  pkgs,
+  nixpkgs-unstable,
+  ...
+}:
 
+let
+  unstable = import nixpkgs-unstable {
+    system = pkgs.system;
+    config.allowUnfree = true;
+  };
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -25,6 +35,11 @@
   security.sudo.wheelNeedsPassword = false;
 
   services.openssh.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    unstable.claude-code
+    unstable.opencode
+  ];
 
   system.autoUpgrade = {
     enable = true;
