@@ -21,3 +21,7 @@ NixOS hosts
 - homebrew for casks
 - keep it simple
 - alacritty, karabiner-elements
+
+## Hostnames
+
+- <https://namingschemes.com/Psychotic_Computers>

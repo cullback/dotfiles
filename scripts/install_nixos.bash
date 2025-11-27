@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 
-# NixOS Installation Script for Hetzner Cloud
+# NixOS Installation Script for Hetzner Cloud (BIOS/GPT)
 # curl https://raw.githubusercontent.com/cullback/dotfiles/refs/heads/main/scripts/install_nixos.bash | bash
-# Usage: bash install_nixos.bash
 
-echo "=== NixOS Installation Script (UEFI/GPT) ==="
+echo "=== NixOS Installation Script (BIOS/GPT) ==="
 echo ""
 
 # Detect disk (try common names)
@@ -22,32 +21,43 @@ if [ -z "$DISK" ]; then
     exit 1
 fi
 
-echo "=== Partitioning $DISK (GPT/UEFI) ==="
+echo "=== Detected disk: $DISK ==="
 
 # Determine partition naming
 if [[ "$DISK" == *"nvme"* ]]; then
-    BOOT_PART="${DISK}p1"
+    BIOS_PART="${DISK}p1"
     ROOT_PART="${DISK}p2"
 else
-    BOOT_PART="${DISK}1"
+    BIOS_PART="${DISK}1"
     ROOT_PART="${DISK}2"
 fi
 
-# GPT/UEFI partitioning
-echo "Creating GPT partition table with ESP boot partition..."
+echo "=== Unmounting any existing partitions ==="
+# Unmount recursively in case /mnt/boot is mounted
+umount -R /mnt 2>/dev/null || true
+# Unmount individual partitions if they're mounted elsewhere
+umount "${DISK}"* 2>/dev/null || true
+
+# Give the system a moment to release the partitions
+sleep 1
+
+echo "=== Partitioning $DISK (GPT/BIOS) ==="
+echo "Creating GPT partition table with BIOS boot partition..."
 parted --script "$DISK" -- mklabel gpt
-parted --script "$DISK" -- mkpart ESP fat32 1MB 512MB
-parted --script "$DISK" -- mkpart root ext4 512MB 100%
-parted --script "$DISK" -- set 1 esp on
+parted --script "$DISK" -- mkpart primary 1MB 2MB
+parted --script "$DISK" -- set 1 bios_grub on
+parted --script "$DISK" -- mkpart primary ext4 2MB 100%
+
+# Wait for kernel to recognize new partitions
+sleep 2
+partprobe "$DISK" || true
 
 echo "=== Formatting partitions ==="
-mkfs.fat -F 32 -n boot "$BOOT_PART"
-mkfs.ext4 -L nixos "$ROOT_PART"
+# No formatting needed for BIOS boot partition
+mkfs.ext4 -F -L nixos "$ROOT_PART"
 
 echo "=== Mounting filesystems ==="
 mount "$ROOT_PART" /mnt
-mkdir -p /mnt/boot
-mount "$BOOT_PART" /mnt/boot
 
 echo "=== Generating configuration ==="
 nixos-generate-config --root /mnt
@@ -55,10 +65,10 @@ nixos-generate-config --root /mnt
 echo ""
 echo "=== Installation ready ==="
 echo "Disk: $DISK"
-echo "Boot partition: $BOOT_PART (ESP)"
+echo "BIOS boot partition: $BIOS_PART (1MB, unformatted)"
 echo "Root partition: $ROOT_PART"
 
 curl -L https://raw.githubusercontent.com/cullback/dotfiles/refs/heads/main/hosts/shodan/configuration.nix -o /mnt/etc/nixos/configuration.nix
+
 # nixos-install --no-root-password
-# nixos-install
 # reboot

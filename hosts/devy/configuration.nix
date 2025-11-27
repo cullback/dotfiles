@@ -9,92 +9,36 @@ let
   unstable = import <nixpkgs-unstable> { config.allowUnfree = true; };
 in
 {
+  # 1. Imports
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
 
-  # Use the systemd-boot EFI boot loader.
+  # 2. Boot configuration
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  programs.fish.enable = true;
-  users.defaultUserShell = pkgs.fish;
+  # 3. Networking
+  networking.hostName = "devy";
+  networking.firewall.enable = false;
 
+  # 4. Localization
+  time.timeZone = "America/Toronto"; # Changed to your location
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  # 5. Users
+  users.defaultUserShell = pkgs.fish;
   users.users.cullback = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable sudo for the user.
+    extraGroups = [ "wheel" ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGUvNZI9LHiN7RmqBxDt5wiawgec9BHAAkAtMidrf5/b cullback@fastmail.com"
     ];
   };
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  # 6. Security
 
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
-  };
-
-  nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs; [
-    # system
-    parted
-
-    # core tools
-    fzf
-    git
-    gitui
-    helix
-    just
-    yazi
-    zellij
-    starship
-
-    # replacements
-    bat
-    du-dust
-    eza
-    fd
-    ripgrep
-    sd
-    delta # better diff tool
-
-    # neat tools
-    qsv # csv wrangling
-    visidata
-    sqlite
-    tokei # line count by language
-    watchexec # rerun command on changes
-    single-file-cli
-    chromium
-
-    # markdown
-    marksman
-
-    # formatters
-    nixfmt-rfc-style
-    dprint
-    dprint-plugins.dprint-plugin-markdown
-    dprint-plugins.dprint-plugin-toml
-    dprint-plugins.dprint-plugin-json
-
-    # python
-    python313
-    pyright
-    ruff
-
-    unstable.claude-code
-  ];
-
-  networking.hostName = "devy";
-  networking.firewall.enable = false;
-
-  # Enable the OpenSSH daemon.
+  # 7. Services
   services.openssh.enable = true;
 
   services.samba = {
@@ -158,5 +102,75 @@ in
     };
   };
 
-  system.stateVersion = "25.05"; # Did you read the comment?
+  # 8. Programs
+  programs.fish.enable = true;
+
+  # 9. Environment
+  nixpkgs.config.allowUnfree = true;
+  environment.systemPackages = with pkgs; [
+    # system
+    parted
+
+    # core tools
+    moreutils
+    wget
+    fzf
+    git
+    gitui
+    helix
+    just
+    yazi
+    zellij
+    starship
+
+    # replacements
+    bat
+    du-dust
+    eza
+    fd
+    ripgrep
+    sd
+    delta # better diff tool
+
+    # neat tools
+    qsv # csv wrangling
+    visidata
+    sqlite
+    tokei # line count by language
+    watchexec # rerun command on changes
+    single-file-cli
+    chromium
+
+    # markdown
+    marksman
+
+    # formatters
+    nixfmt-rfc-style
+    dprint
+    dprint-plugins.dprint-plugin-markdown
+    dprint-plugins.dprint-plugin-toml
+    dprint-plugins.dprint-plugin-json
+
+    # python
+    python313
+    pyright
+    ruff
+
+    unstable.claude-code
+    unstable.opencode
+  ];
+
+  # 10. Nix settings
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
+  # 11. State version (always last)
+  system.stateVersion = "25.05";
 }
