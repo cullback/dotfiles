@@ -1,5 +1,5 @@
 nix-rebuild:
-    sudo nixos-rebuild switch -I nixos-config=hosts/$(hostname)/configuration.nix
+    sudo nixos-rebuild switch --flake ./hosts#$(hostname)
 
 sync-dotfiles:
     fish hosts/$(hostname)/install.fish
