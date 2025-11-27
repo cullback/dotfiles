@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./caddy.nix
   ];
 
   boot.loader.grub = {
