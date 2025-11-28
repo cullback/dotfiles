@@ -14,6 +14,7 @@ in
   imports = [
     ./hardware-configuration.nix
     ./caddy.nix
+    ./syncthing.nix
   ];
 
   boot.loader.grub = {
