@@ -16,6 +16,7 @@ in
     ./caddy.nix
     ./syncthing.nix
     ./tailscale.nix
+    ./openwebui.nix
   ];
 
   boot.loader.grub = {
