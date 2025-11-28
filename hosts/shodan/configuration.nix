@@ -15,6 +15,7 @@ in
     ./hardware-configuration.nix
     ./caddy.nix
     ./syncthing.nix
+    ./tailscale.nix
   ];
 
   boot.loader.grub = {

@@ -22,6 +22,7 @@ brew "mas"
 brew "pipx"
 brew "git-delta"
 brew "yt-dlp"
+brew "tailscale"
 
 # languages
 brew "python"
@@ -49,6 +50,7 @@ cask "calibre"
 cask "keepassxc"
 cask "utm"
 cask "smoothcsv"
+cask "tailscale"
 
 # fonts
 cask "font-fira-code-nerd-font"
