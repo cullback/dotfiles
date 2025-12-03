@@ -18,7 +18,7 @@
 
     # replacements
     bat
-    du-dust
+    dust
     eza
     fd
     ripgrep
