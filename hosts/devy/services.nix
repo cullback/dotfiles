@@ -43,21 +43,19 @@
 
   services.syncthing = {
     enable = true;
-    guiAddress = "0.0.0.0:8384";
     user = "cullback";
+    dataDir = "/home/cullback/.local/share/syncthing";
     configDir = "/home/cullback/.config/syncthing";
-    settings = {
-      devices = {
-        "iphone" = {
-          id = "P7D6TDJ-EM4PIG6-W3AHLYZ-VVSQVME-7AOS5E3-7FPAPCM-52GAQZO-XAVKCQ7";
-        };
-      };
 
-      folders = {
-        "repos" = {
-          path = "/home/cullback/repos";
-          devices = [ "iphone" ];
-        };
+    guiAddress = "0.0.0.0:8384";
+
+    overrideDevices = false;
+    overrideFolders = false;
+
+    settings = {
+      gui = {
+        insecureSkipHostcheck = true;
+        insecureAdminAccess = true;
       };
     };
   };

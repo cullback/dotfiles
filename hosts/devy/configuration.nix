@@ -14,6 +14,7 @@ in
   imports = [
     ./hardware-configuration.nix
     ./services.nix
+    ./tailscale.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -21,6 +22,8 @@ in
 
   networking.hostName = "devy";
   networking.firewall.enable = false;
+
+  security.sudo.wheelNeedsPassword = false;
 
   services.openssh.enable = true;
 
@@ -45,6 +48,12 @@ in
     unstable.claude-code
     unstable.opencode
   ];
+
+  system.autoUpgrade = {
+    enable = true;
+    dates = "weekly";
+    allowReboot = false;
+  };
 
   system.stateVersion = "25.05";
 }
