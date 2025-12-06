@@ -24,6 +24,13 @@ in
     device = "/dev/vda";
   };
 
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 4096; # 4GB in MB
+    }
+  ];
+
   networking.hostName = "shodan";
   networking.useDHCP = true;
   networking.firewall = {
