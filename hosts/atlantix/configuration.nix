@@ -21,6 +21,8 @@ in
 
   facter.reportPath = ./facter.json;
 
+  boot.loader.grub.device = "/dev/sda";
+
   swapDevices = [
     {
       device = "/swapfile";
