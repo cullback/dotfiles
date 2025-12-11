@@ -7,6 +7,11 @@ set -euxo pipefail
 echo "=== NixOS Installation Script for atlantix (EFI/disko/facter) ==="
 echo ""
 
+if [ -d "dotfiles" ]; then
+    echo "=== Removing existing dotfiles directory ==="
+    rm -rf dotfiles
+fi
+
 git clone https://github.com/cullback/dotfiles.git
 cd dotfiles
 
