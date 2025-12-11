@@ -17,7 +17,6 @@ in
     ../common/caddy.nix
     ../common/syncthing.nix
     ../common/tailscale.nix
-    ../common/openwebui.nix
   ];
 
   facter.reportPath = ./facter.json;

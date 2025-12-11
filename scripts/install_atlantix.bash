@@ -11,10 +11,10 @@ git clone https://github.com/cullback/dotfiles.git
 cd dotfiles
 
 echo "=== Generating hardware report with nixos-facter ==="
-nix run github:nix-community/nixos-facter > hosts/atlantix/facter.json
+nix --extra-experimental-features "flakes nix-command" run github:nix-community/nixos-facter > hosts/atlantix/facter.json
 
 echo "=== Running disko to partition and format disk ==="
-nix run github:nix-community/disko -- --mode disko hosts/atlantix/disko.nix
+nix --extra-experimental-features "flakes nix-command" run github:nix-community/disko -- --mode disko hosts/atlantix/disko.nix
 
 echo "=== Installing NixOS ==="
 nixos-install --flake ./hosts#atlantix --root /mnt
