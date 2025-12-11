@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   nixpkgs-unstable,
   ...
 }:
@@ -21,7 +22,7 @@ in
 
   facter.reportPath = ./facter.json;
 
-  boot.loader.grub.device = "/dev/sda";
+  boot.loader.grub.device = lib.mkForce "/dev/sda";
 
   swapDevices = [
     {
