@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   nixpkgs-unstable,
   ...
 }:
@@ -14,7 +13,6 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    ../common/boot-grub-bios.nix
     ../common/caddy.nix
     ../common/syncthing.nix
     ../common/tailscale.nix
@@ -22,7 +20,10 @@ in
 
   facter.reportPath = ./facter.json;
 
-  boot.loader.grub.device = lib.mkForce "/dev/sda";
+  boot.loader.grub = {
+    enable = true;
+    device = "/dev/sda";
+  };
 
   swapDevices = [
     {
