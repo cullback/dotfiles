@@ -1,6 +1,6 @@
 # Atlantix
 
-VPS running various services. Hosted on Hetzner Cloud with EFI boot.
+VPS running various services. Hosted on Hetzner Cloud with BIOS boot.
 
 ## Modern NixOS Stack
 
@@ -8,7 +8,7 @@ This host uses:
 
 - **disko** for declarative disk partitioning
 - **nixos-facter** for automatic hardware detection
-- **systemd-boot** with EFI support
+- **GRUB** with BIOS/MBR boot
 
 ## Installation
 

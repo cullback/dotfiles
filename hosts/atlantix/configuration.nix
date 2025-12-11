@@ -13,7 +13,7 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    ../common/boot-systemd-efi.nix
+    ../common/boot-grub-bios.nix
     ../common/caddy.nix
     ../common/syncthing.nix
     ../common/tailscale.nix
