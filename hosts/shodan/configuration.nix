@@ -13,10 +13,10 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    ./caddy.nix
-    ./syncthing.nix
-    ./tailscale.nix
-    ./openwebui.nix
+    ../common/caddy.nix
+    ../common/syncthing.nix
+    ../common/tailscale.nix
+    ../common/openwebui.nix
   ];
 
   boot.loader.grub = {
