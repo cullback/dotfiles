@@ -24,4 +24,36 @@ NixOS hosts
 
 ## Hostnames
 
+- Asterix and obelix characters?
 - <https://namingschemes.com/Psychotic_Computers>
+
+## Notes
+
+for vultr hosts, use
+
+```nix
+boot.loader.grub = {
+  enable = true;
+  device = "/dev/vda";
+};
+```
+
+for hetzner hosts, use
+
+```nix
+boot.loader = {
+  systemd-boot.enable = true;
+  efi.canTouchEfiVariables = true;
+};
+```
+
+install
+
+```shell
+git clone https://github.com/cullback/dotfiles.git
+
+# Partition and format (destructive!)
+nix run github:nix-community/disko -- --mode disko ./hosts/shodan/disko.nix
+
+nixos-install --flake ./hosts#shodan --root /mnt
+```

@@ -13,16 +13,14 @@ in
 {
   imports = [
     ./hardware-configuration.nix
+    ../common/boot-systemd-efi.nix
     ../common/caddy.nix
     ../common/syncthing.nix
     ../common/tailscale.nix
     ../common/openwebui.nix
   ];
 
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
-  };
+  facter.reportPath = ./facter.json;
 
   swapDevices = [
     {

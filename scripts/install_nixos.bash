@@ -68,7 +68,6 @@ echo "Disk: $DISK"
 echo "BIOS boot partition: $BIOS_PART (1MB, unformatted)"
 echo "Root partition: $ROOT_PART"
 
-curl -L https://raw.githubusercontent.com/cullback/dotfiles/refs/heads/main/hosts/shodan/configuration.nix -o /mnt/etc/nixos/configuration.nix
+git clone https://github.com/cullback/dotfiles.git
 
-# nixos-install --no-root-password
-# reboot
+# nixos-install --flake ./hosts#shodan --root /mnt

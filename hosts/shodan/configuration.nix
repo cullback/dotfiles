@@ -13,16 +13,12 @@ in
 {
   imports = [
     ./hardware-configuration.nix
+    ../common/boot-grub-bios.nix
     ../common/caddy.nix
     ../common/syncthing.nix
     ../common/tailscale.nix
     ../common/openwebui.nix
   ];
-
-  boot.loader.grub = {
-    enable = true;
-    device = "/dev/vda";
-  };
 
   swapDevices = [
     {
