@@ -20,10 +20,8 @@ in
 
   facter.reportPath = ./facter.json;
 
-  boot.loader.grub = {
-    enable = true;
-    device = "/dev/sda";
-  };
+  # disko automatically adds devices with EF02 partitions to GRUB
+  boot.loader.grub.enable = true;
 
   swapDevices = [
     {
