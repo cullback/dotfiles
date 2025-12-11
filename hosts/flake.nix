@@ -34,6 +34,7 @@
       nixosConfigurations = {
         devy = mkSystem "devy" "aarch64-linux";
         shodan = mkSystem "shodan" "x86_64-linux";
+        atlantix = mkSystem "atlantix" "x86_64-linux";
       };
     };
 }
