@@ -40,6 +40,9 @@ git commit -m "Update hardware report"
 cd ~/dotfiles/hosts
 git pull
 sudo nixos-rebuild switch --flake .#atlantix
+
+# regenerate
+sudo nix run --option experimental-features "nix-command flakes" nixpkgs#nixos-facter -- -o ./hosts/atlantix/facter.json
 ```
 
 ## Set up SSH keys
