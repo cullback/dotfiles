@@ -8,6 +8,7 @@
     environment = {
       ENABLE_OLLAMA_API = "false";
       OPENAI_API_BASE_URL = "https://openrouter.ai/api/v1";
+      WEBUI_AUTH = "false";
     };
   };
 }

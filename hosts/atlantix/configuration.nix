@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   nixpkgs-unstable,
   ...
@@ -13,14 +14,19 @@ in
 {
   imports = [
     ./hardware-configuration.nix
+    ../common/avahi.nix
     ../common/caddy.nix
+    ../common/openwebui.nix
+    ../common/qbittorrent.nix
+    ../common/samba.nix
     ../common/syncthing.nix
     ../common/tailscale.nix
   ];
 
+  services.open-webui.port = lib.mkForce 8001;
+
   facter.reportPath = ./facter.json;
 
-  # disko automatically adds devices with EF02 partitions to GRUB
   boot.loader.grub.enable = true;
 
   swapDevices = [
@@ -44,20 +50,6 @@ in
   security.sudo.wheelNeedsPassword = false;
 
   services.openssh.enable = true;
-
-  services.qbittorrent = {
-    enable = true;
-    user = "cullback";
-    openFirewall = true;
-    webuiPort = 8080;
-    serverConfig = {
-      Preferences = {
-        "WebUI\\AuthSubnetWhitelist" = "192.168.1.0/0";
-        "WebUI\\AuthSubnetWhitelistEnabled" = true;
-        "Downloads\\SavePath" = "/home/cullback/vault/inbox/";
-      };
-    };
-  };
 
   environment.systemPackages = with pkgs; [
     unstable.claude-code
