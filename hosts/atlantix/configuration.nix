@@ -18,6 +18,7 @@ in
     ../common/caddy.nix
     ../common/openwebui.nix
     ../common/qbittorrent.nix
+    ../common/rclone.nix
     ../common/samba.nix
     ../common/syncthing.nix
     ../common/tailscale.nix
