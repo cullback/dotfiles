@@ -8,6 +8,8 @@
 #   media/   - MOUNTED from storagebox:vault/media
 #   photo/   - MOUNTED from storagebox:vault/photo
 #
+# manually run sync
+# sudo systemctl start rclone-backup-admin rclone-backup-repos rclone-backup-state
 { pkgs, ... }:
 let
   vaultPath = "/home/cullback/vault";
