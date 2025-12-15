@@ -16,6 +16,7 @@ in
     ./hardware-configuration.nix
     ../common/avahi.nix
     ../common/caddy.nix
+    ../common/jellyfin.nix
     ../common/openwebui.nix
     ../common/qbittorrent.nix
     ../common/rclone.nix

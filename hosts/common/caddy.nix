@@ -5,6 +5,12 @@
     enable = true;
     email = "cullback@fastmail.com";
 
-    virtualHosts = { };
+    virtualHosts = {
+      "movies.benburk.ca" = {
+        extraConfig = ''
+          reverse_proxy localhost:8096
+        '';
+      };
+    };
   };
 }
