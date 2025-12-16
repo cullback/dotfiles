@@ -18,7 +18,7 @@
         "fruit:delete_empty_adfiles" = "yes";
       };
       "${config.networking.hostName}" = {
-        "path" = "/home/cullback/vault";
+        "path" = "/mnt/vault";
         "browseable" = "yes";
         "read only" = "no";
         "guest ok" = "no";

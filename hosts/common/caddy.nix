@@ -11,6 +11,11 @@
           reverse_proxy localhost:8096
         '';
       };
+      "music.benburk.ca" = {
+        extraConfig = ''
+          reverse_proxy localhost:4533
+        '';
+      };
     };
   };
 }

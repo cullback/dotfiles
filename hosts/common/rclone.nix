@@ -1,6 +1,6 @@
 # Rclone storage configuration for storagebox
 #
-# ~/vault/ layout:
+# /mnt/vault/ layout:
 #   admin/   - LOCAL, synced via Syncthing, backed up hourly
 #   repos/   - LOCAL, backed up hourly (notes/ subfolder synced via Syncthing)
 #   state/   - LOCAL, backed up hourly
@@ -8,11 +8,16 @@
 #   media/   - MOUNTED from storagebox:vault/media
 #   photo/   - MOUNTED from storagebox:vault/photo
 #
-# manually run sync
+# /var/lib/ service data (backed up hourly to storagebox:vault/services/):
+#   jellyfin/  - Jellyfin media server state
+#   navidrome/ - Navidrome music server state
+#
+# manually run sync:
 # sudo systemctl start rclone-backup-admin rclone-backup-repos rclone-backup-state
+# sudo systemctl start rclone-backup-jellyfin rclone-backup-navidrome
 { pkgs, ... }:
 let
-  vaultPath = "/home/cullback/vault";
+  vaultPath = "/mnt/vault";
   cachePath = "/var/cache/rclone";
 
   # Common mount options for rclone FUSE mounts
@@ -27,10 +32,11 @@ let
     --buffer-size 64M \
     --dir-cache-time 72h \
     --cache-dir ${cachePath} \
+    --allow-non-empty \
     --allow-other
   '';
 
-  # Helper to create a mount service (system-level, runs as root with uid/gid options)
+  # Helper to create a mount service (system-level, runs as root)
   mkMountService = name: remote: {
     description = "Rclone mount for ${name}";
     after = [ "network-online.target" ];
@@ -40,18 +46,14 @@ let
     serviceConfig = {
       Type = "notify";
       ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p ${vaultPath}/${name} ${cachePath}";
-      ExecStart = ''
-        ${pkgs.rclone}/bin/rclone mount ${remote} ${vaultPath}/${name} ${mountOpts} \
-          --uid 1000 \
-          --gid 100
-      '';
+      ExecStart = "${pkgs.rclone}/bin/rclone mount ${remote} ${vaultPath}/${name} ${mountOpts} --uid 1000 --gid 100";
       ExecStop = "${pkgs.util-linux}/bin/umount ${vaultPath}/${name}";
       Restart = "on-failure";
       RestartSec = "10s";
     };
   };
 
-  # Helper to create a backup service (system-level, runs as root)
+  # Helper to create a backup service for vault directories
   mkBackupService = name: {
     description = "Rclone backup for ${name}";
     after = [ "network-online.target" ];
@@ -67,13 +69,29 @@ let
     };
   };
 
+  # Helper to create a backup service for /var/lib services
+  mkVarLibBackupService = name: {
+    description = "Rclone backup for /var/lib/${name}";
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = ''
+        ${pkgs.rclone}/bin/rclone sync /var/lib/${name} storagebox:vault/services/${name} \
+          --config /etc/rclone/rclone.conf \
+          --delete-after
+      '';
+    };
+  };
+
   # Helper to create a backup timer
   mkBackupTimer = name: {
-    description = "Hourly backup timer for ${name}";
+    description = "Daily backup timer for ${name}";
     wantedBy = [ "timers.target" ];
 
     timerConfig = {
-      OnCalendar = "hourly";
+      OnCalendar = "*-*-* 05:00:00";
       Persistent = true;
       RandomizedDelaySec = "5m";
     };
@@ -94,11 +112,16 @@ in
     mode = "0600";
   };
 
-  # Create local vault directories on activation
-  system.activationScripts.vaultDirs = ''
-    mkdir -p /home/cullback/vault/{admin,repos,state,inbox}
-    chown -R cullback:users /home/cullback/vault
-  '';
+  # Ensure vault directories exist with correct permissions
+  systemd.tmpfiles.rules = [
+    "d /mnt/vault 0755 root root -"
+    "d /mnt/vault/admin 0755 cullback users -"
+    "d /mnt/vault/repos 0755 cullback users -"
+    "d /mnt/vault/state 0755 cullback users -"
+    "d /mnt/vault/inbox 0755 cullback users -"
+    "d /mnt/vault/media 0755 root root -"
+    "d /mnt/vault/photo 0755 root root -"
+  ];
 
   # Mount services for large read-heavy directories (system-level)
   systemd.services = {
@@ -109,6 +132,10 @@ in
     rclone-backup-admin = mkBackupService "admin";
     rclone-backup-repos = mkBackupService "repos";
     rclone-backup-state = mkBackupService "state";
+
+    # Backup services for /var/lib service data
+    rclone-backup-jellyfin = mkVarLibBackupService "jellyfin";
+    rclone-backup-navidrome = mkVarLibBackupService "navidrome";
   };
 
   # Backup timers (system-level)
@@ -116,6 +143,8 @@ in
     rclone-backup-admin = mkBackupTimer "admin";
     rclone-backup-repos = mkBackupTimer "repos";
     rclone-backup-state = mkBackupTimer "state";
+    rclone-backup-jellyfin = mkBackupTimer "jellyfin";
+    rclone-backup-navidrome = mkBackupTimer "navidrome";
   };
 
   # Required for --allow-other flag

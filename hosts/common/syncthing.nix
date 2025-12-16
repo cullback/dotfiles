@@ -22,14 +22,14 @@
       };
       folders = {
         "admin" = {
-          path = "/home/cullback/vault/admin";
+          path = "/mnt/vault/admin";
           devices = [
             "iphone14"
             "macbook-air"
           ];
         };
         "notes" = {
-          path = "/home/cullback/vault/repos/notes";
+          path = "/mnt/vault/repos/notes";
           devices = [
             "iphone14"
           ];

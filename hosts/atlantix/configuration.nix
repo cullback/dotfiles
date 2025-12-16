@@ -17,6 +17,7 @@ in
     ../common/avahi.nix
     ../common/caddy.nix
     ../common/jellyfin.nix
+    ../common/navidrome.nix
     ../common/openwebui.nix
     ../common/qbittorrent.nix
     ../common/rclone.nix
