@@ -46,6 +46,20 @@ in
 
   services.openssh.enable = true;
 
+  services.syncthing.settings.folders = {
+    "admin" = {
+      path = "/mnt/vault/admin";
+      devices = [
+        "iphone14"
+        "macbook-air"
+      ];
+    };
+    "notes" = {
+      path = "/mnt/vault/repos/notes";
+      devices = [ "iphone14" ];
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     unstable.claude-code
     unstable.opencode

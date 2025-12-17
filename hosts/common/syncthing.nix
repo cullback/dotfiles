@@ -13,26 +13,17 @@
 
     settings = {
       devices = {
+        atlantix = {
+          id = "KE3E6GT-HIZQYTR-AUKPQJD-RLEPSVL-NMUX3NW-HTH6G22-PXRHCFC-RWEE3AZ";
+        };
+        devy = {
+          id = "3KTU3QZ-7MUVXUU-WHG2FII-5XRZDEM-72LKOO3-GRYU6QZ-JWSTJH4-FTYSCQK";
+        };
         iphone14 = {
           id = "P7D6TDJ-EM4PIG6-W3AHLYZ-VVSQVME-7AOS5E3-7FPAPCM-52GAQZO-XAVKCQ7";
         };
         macbook-air = {
           id = "O2QNTQH-2XGCZ6N-7TP7QXA-E22L6IG-J3EPPTQ-R7LMVSX-KKSPSSI-FKSHJAB";
-        };
-      };
-      folders = {
-        "admin" = {
-          path = "/mnt/vault/admin";
-          devices = [
-            "iphone14"
-            "macbook-air"
-          ];
-        };
-        "notes" = {
-          path = "/mnt/vault/repos/notes";
-          devices = [
-            "iphone14"
-          ];
         };
       };
       gui = {

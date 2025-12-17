@@ -15,6 +15,7 @@ in
     ./hardware-configuration.nix
     ./services.nix
     ./tailscale.nix
+    ../common/syncthing.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -26,6 +27,16 @@ in
   security.sudo.wheelNeedsPassword = false;
 
   services.openssh.enable = true;
+
+  services.syncthing.settings.folders = {
+    "notes" = {
+      path = "/home/cullback/repos/notes";
+      devices = [
+        "iphone14"
+        "atlantix"
+      ];
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     moreutils
