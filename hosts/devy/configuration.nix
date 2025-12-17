@@ -31,10 +31,7 @@ in
   services.syncthing.settings.folders = {
     "notes" = {
       path = "/home/cullback/repos/notes";
-      devices = [
-        "iphone14"
-        "atlantix"
-      ];
+      devices = [ "atlantix" ];
     };
   };
 

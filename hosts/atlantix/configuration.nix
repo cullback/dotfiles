@@ -64,7 +64,10 @@ in
     };
     "notes" = {
       path = "/mnt/vault/repos/notes";
-      devices = [ "iphone14" ];
+      devices = [
+        "devy"
+        "iphone14"
+      ];
     };
   };
 
