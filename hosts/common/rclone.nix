@@ -114,7 +114,7 @@ in
 
   # Ensure vault directories exist with correct permissions
   systemd.tmpfiles.rules = [
-    "d /mnt/vault 0755 root root -"
+    "d /mnt/vault 0755 cullback users -"
     "d /mnt/vault/admin 0755 cullback users -"
     "d /mnt/vault/repos 0755 cullback users -"
     "d /mnt/vault/state 0755 cullback users -"
