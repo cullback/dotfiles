@@ -38,7 +38,6 @@
     {
       nixosConfigurations = {
         devy = mkSystem "devy" "aarch64-linux";
-        shodan = mkSystem "shodan" "x86_64-linux";
         atlantix = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
