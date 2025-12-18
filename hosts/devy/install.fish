@@ -20,6 +20,7 @@ set -l links \
     "dprint/dprint.json" ".config/dprint/dprint.json" \
     "helix/languages.toml" ".config/helix/languages.toml" \
     "marksman/config.toml" ".config/marksman/config.toml" \
+    "harper-ls/dictionary.txt" ".config/harper-ls/dictionary.txt" \
     "starship/starship.toml" ".config/starship.toml" \
     "yazi/theme.toml" ".config/yazi/theme.toml" \
     "gitui/theme.ron" ".config/gitui/theme.ron"

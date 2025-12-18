@@ -27,6 +27,7 @@
 
     # markdown
     marksman
+    harper
 
     # formatters
     nixfmt-rfc-style

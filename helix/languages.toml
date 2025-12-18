@@ -1,4 +1,4 @@
-# https://github.com/helix-editor/helix/blob/master/languages.toml
+# <https://github.com/helix-editor/helix/blob/master/languages.toml>
 
 [[language]]
 name = "python"
@@ -9,8 +9,8 @@ auto-format = true
 [[language]]
 name = "markdown"
 auto-format = true
-
 formatter = { command = "dprint", args = ["fmt", "--config", "~/.config/dprint/dprint.json", "--stdin", "md"] }
+language-servers = ["marksman", "harper-ls"]
 
 [[language]]
 name = "nix"
