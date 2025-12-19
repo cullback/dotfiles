@@ -15,6 +15,7 @@ in
   imports = [
     ./hardware-configuration.nix
     ../common/avahi.nix
+    ../common/sops.nix
     ../common/caddy.nix
     ../common/jellyfin.nix
     ../common/navidrome.nix

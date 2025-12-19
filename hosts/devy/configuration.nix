@@ -15,6 +15,7 @@ in
     ./hardware-configuration.nix
     ./services.nix
     ./tailscale.nix
+    ../common/sops.nix
     ../common/syncthing.nix
   ];
 
