@@ -7,6 +7,8 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     nixos-facter-modules.url = "github:nix-community/nixos-facter-modules";
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -16,6 +18,7 @@
       nixpkgs-unstable,
       disko,
       nixos-facter-modules,
+      agenix,
     }:
     let
       mkSystem =
@@ -44,6 +47,7 @@
             inherit nixpkgs-unstable;
           };
           modules = [
+            agenix.nixosModules.default
             disko.nixosModules.disko
             nixos-facter-modules.nixosModules.facter
             ./atlantix/disko.nix

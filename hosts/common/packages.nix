@@ -5,6 +5,7 @@
   environment.systemPackages = with pkgs; [
     # system
     parted
+    age
 
     # core tools
     fzf

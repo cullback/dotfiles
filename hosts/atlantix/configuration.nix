@@ -24,6 +24,7 @@ in
     ../common/samba.nix
     ../common/syncthing.nix
     ../common/tailscale.nix
+    ../common/wireguard-vpn.nix
   ];
 
   services.open-webui.port = lib.mkForce 8001;
