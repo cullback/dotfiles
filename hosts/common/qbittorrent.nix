@@ -8,7 +8,7 @@
     serverConfig = {
       Preferences = {
         "Downloads\\SavePath" = "/mnt/vault/inbox/";
-        "WebUI\\AuthSubnetWhitelist" = "192.168.1.0/0";
+        "WebUI\\AuthSubnetWhitelist" = "192.168.1.0/24, 100.64.0.0/10";
         "WebUI\\AuthSubnetWhitelistEnabled" = true;
       };
     };
