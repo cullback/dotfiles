@@ -3,9 +3,11 @@ Brenna
 Burk
 Colborne
 Connor
+Crokinole
 Dragoman
 Dunany
 Esdale
+FPV
 HN
 Hu
 IRA
@@ -13,5 +15,9 @@ Jellyfin
 McMaster
 RCYC
 Revv
+TFSA
+Theatre
 improv
+kcad
+kusd
 mailto
