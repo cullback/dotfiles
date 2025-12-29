@@ -1,3 +1,4 @@
+Bathurst
 Bouldering
 Brenna
 Burk
@@ -15,6 +16,7 @@ Jellyfin
 McMaster
 RCYC
 Revv
+Spadina
 TFSA
 Theatre
 improv
