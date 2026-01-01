@@ -25,6 +25,8 @@
     ripgrep
     sd
     delta
+    jq
+    pandoc
 
     # markdown
     marksman
