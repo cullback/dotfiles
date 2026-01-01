@@ -13,12 +13,16 @@ HN
 Hu
 IRA
 Jellyfin
+Mastronardi
+McGill
 McMaster
 RCYC
 Revv
 Spadina
 TFSA
 Theatre
+covariates
+exacerbations
 improv
 kcad
 kusd
