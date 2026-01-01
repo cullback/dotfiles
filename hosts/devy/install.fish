@@ -23,6 +23,7 @@ set -l links \
     "harper-ls/dictionary.txt" ".config/harper-ls/dictionary.txt" \
     "starship/starship.toml" ".config/starship.toml" \
     "yazi/theme.toml" ".config/yazi/theme.toml" \
+    "visidata/config.py" ".config/visidata/config.py" \
     "gitui/theme.ron" ".config/gitui/theme.ron"
 
 for i in (seq 1 2 (count $links))
