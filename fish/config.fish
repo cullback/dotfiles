@@ -13,7 +13,7 @@ if status is-interactive
     alias lt='eza --tree'
     alias tree='eza --tree'
     alias cat='bat'
-    alias less='bat'
+    # alias less='bat'
 
     # fzf
     fzf --fish | source
