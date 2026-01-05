@@ -27,6 +27,7 @@
     delta
     jq
     pandoc
+    yt-dlp
 
     # markdown
     marksman
