@@ -6,7 +6,6 @@
 - Keep functions short and focused - Under 16 lines, doing one clear thing. Prefer pure functions for easier testing.
 - Isolate side effects - Extract side effects (API calls, file I/O, etc.) into dedicated functions that only perform that operation.
 - Avoid unnecessary classes - Only create classes when you need to bundle related behavior with state. Use functions otherwise.
-- DO NOT run commands together with `&&`. Only run one command at a time.
 
 ## Comments
 
@@ -16,22 +15,11 @@
 
 ## Committing
 
-- Add files explicitly using `git add <filename>`. Do NOT use `git add -A`.
+- Be careful when staging files for git. Make sure to only commit the files relevant for a change.
 - Write clear imperative commit messages - Start with a capitalized verb (Add, Fix, Improve) and describe what the change accomplishes without needing to read the code.
-- Do NOT mention that commits are co-authored by Claude
 - Do NOT use `--no-verify`
 
 ## Rust projects
 
-- add dependencies using `cargo add` to get latest version
-- use `dotenvy` crate instead of `dotenv`
-- Do NOT modify allowed clippy lints in `Cargo.toml`
-
-## HTMX
-
-- Only use
-- Do NOT use hx-trigger with empty string
-
-## Sqlite
-
-- make .up and .down migrations
+- Add dependencies using `cargo add` to get latest version
+- Do NOT modify allowed Clippy lints in `Cargo.toml`

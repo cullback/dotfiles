@@ -1,5 +1,5 @@
+Banff
 Bathurst
-Bouldering
 Brenna
 Burk
 Colborne
@@ -7,12 +7,14 @@ Connor
 Crokinole
 Dragoman
 Dunany
+Edan
 Esdale
 FPV
 HN
 Hu
 IRA
 Jellyfin
+Laughy
 Mastronardi
 McGill
 McMaster
@@ -21,9 +23,12 @@ Revv
 Spadina
 TFSA
 Theatre
+bouldering
 covariates
+deductable
 exacerbations
 improv
 kcad
 kusd
 mailto
+thrifting
