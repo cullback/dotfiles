@@ -11,6 +11,7 @@ Dunany
 Edan
 Esdale
 FPV
+GBP
 HN
 Hu
 IRA
@@ -20,6 +21,7 @@ Mastronardi
 McGill
 McMaster
 Michaud
+Puyloubier
 RCYC
 Revv
 Spadina
@@ -38,4 +40,5 @@ kusd
 mailto
 parentheticals
 thrifting
+todo
 worktree

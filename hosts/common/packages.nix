@@ -32,6 +32,7 @@ in
     sd
     delta
     jq
+    yq
     pandoc
     yt-dlp
 
