@@ -1,63 +1,92 @@
-# main tools
+# shell
 brew "fish"
-brew "fzf"
-brew "git"
-brew "gitui"
-brew "helix"
-brew "just"
-brew "yazi"
-brew "zellij"
 brew "starship"
+brew "zellij"
 
+# editors & tui
+brew "helix"
+brew "gitui"
+brew "yazi"
+
+# git
+brew "git"
+brew "git-delta"
+
+# file & text utilities
 brew "bat"
 brew "dust"
 brew "eza"
 brew "fd"
+brew "fzf"
+brew "jq"
+brew "qsv"
 brew "ripgrep"
 brew "sd"
-brew "lftp"
+brew "yq"
+
+# development
+brew "just"
 brew "dprint"
 
-# neat tools
-brew "qsv"
-brew "mas"
-brew "pipx"
-brew "git-delta"
-brew "yt-dlp"
-brew "tailscale"
-
-# languages
+# languages & toolchains
 brew "python"
-brew "ruff"      # python linter and formatter
-brew "pyright"   # python type checker
-brew "rustup"    # rust tooling
-brew "marksman"  # markdown formatter
+brew "ruff"
+brew "rustup"
+brew "marksman"
 
-# mac apps
+# data & network
+brew "lftp"
+brew "tailscale"
+brew "yt-dlp"
+
+# package managers
+brew "mas"
+
+# ------------------------------------------------------------------------------
+# casks
+# ------------------------------------------------------------------------------
+
+# terminal & editors
+cask "ghostty"
+cask "zed"
+
+# browsers
+cask "google-chrome"
+
+# productivity
+cask "1password"
+cask "keepassxc"
 cask "karabiner-elements"
-cask "qbittorrent"
-cask "iina"
 cask "syncthing-app"
+cask "wispr-flow"
+
+# ai
+cask "claude"
+cask "claude-code"
+
+# media
+cask "calibre"
+cask "iina"
+cask "netnewswire"
+cask "qbittorrent"
+
+# quicklook plugins
 cask "qlmarkdown"
 cask "syntax-highlight"
+
+# utilities
 cask "ogdesign-eagle"
-cask "google-chrome"
-cask "zed"
-cask "1password"
-cask "netnewswire"
-cask "claude"
-cask "calibre"
-cask "keepassxc"
-cask "utm"
 cask "smoothcsv"
-cask "wispr-flow"
 cask "tailscale-app"
-cask "ghostty"
+cask "utm"
 
 # fonts
 cask "font-fira-code-nerd-font"
 
-# mac app store apps
-mas "Wipr 2", id: 1662217862
-mas "WhatsApp Messenger", id: 310633997
+# ------------------------------------------------------------------------------
+# mac app store
+# ------------------------------------------------------------------------------
+
 mas "Cake Wallet", id: 1334702542
+mas "WhatsApp Messenger", id: 310633997
+mas "Wipr 2", id: 1662217862
