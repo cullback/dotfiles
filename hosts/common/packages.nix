@@ -1,5 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, nixpkgs-unstable, ... }:
 
+let
+  unstable = import nixpkgs-unstable {
+    system = pkgs.stdenv.hostPlatform.system;
+    config.allowUnfree = true;
+  };
+in
 {
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
@@ -35,9 +41,9 @@
 
     # formatters
     nixfmt-rfc-style
-    dprint
-    dprint-plugins.dprint-plugin-markdown
-    dprint-plugins.dprint-plugin-toml
-    dprint-plugins.dprint-plugin-json
+    unstable.dprint
+    unstable.dprint-plugins.dprint-plugin-markdown
+    unstable.dprint-plugins.dprint-plugin-toml
+    unstable.dprint-plugins.dprint-plugin-json
   ];
 }
