@@ -10,3 +10,4 @@
 
 - [zellij - Opening session manager will also open hidden floating pane unexpectedly](https://github.com/zellij-org/zellij/issues/2979)
 - [gitui - bad credentials error](https://github.com/gitui-org/gitui/issues/495)
+- dprint exec as plugin in nixos to simplify format scripts
