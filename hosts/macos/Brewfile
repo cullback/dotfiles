@@ -15,6 +15,8 @@ brew "eza"
 brew "fd"
 brew "ripgrep"
 brew "sd"
+brew "lftp"
+brew "dprint"
 
 # neat tools
 brew "qsv"
@@ -33,16 +35,13 @@ brew "marksman"  # markdown formatter
 
 # mac apps
 cask "karabiner-elements"
-cask "alacritty"
 cask "qbittorrent"
 cask "iina"
 cask "syncthing-app"
-cask "modern-csv"
 cask "qlmarkdown"
 cask "syntax-highlight"
 cask "ogdesign-eagle"
 cask "google-chrome"
-cask "jellyfin"
 cask "zed"
 cask "1password"
 cask "netnewswire"
@@ -51,8 +50,9 @@ cask "calibre"
 cask "keepassxc"
 cask "utm"
 cask "smoothcsv"
-cask "tailscale"
 cask "wispr-flow"
+cask "tailscale-app"
+cask "ghostty"
 
 # fonts
 cask "font-fira-code-nerd-font"
