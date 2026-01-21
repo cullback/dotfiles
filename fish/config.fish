@@ -2,6 +2,7 @@
 
 set -gx EDITOR hx
 set -gx COLORTERM truecolor
+set -gx OPENROUTER_API_KEY (security find-generic-password -a "$USER" -s "openrouter-api-key" -w)
 
 if status is-interactive
     set fish_greeting # Suppress fish welcome message

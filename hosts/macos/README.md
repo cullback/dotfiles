@@ -19,6 +19,10 @@ chsh -s $(which fish)
 
 # ssh key
 ssh-keygen -t ed25519 -C "cullback@fastmail.com"
+
+# make new keychain key
+security add-generic-password -a "$USER" -s "openrouter-api-key" -w "your-api-key-here"
+security find-generic-password -a "$USER" -s "openrouter-api-key" -w
 ```
 
 ## Brew bundle
