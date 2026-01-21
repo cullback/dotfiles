@@ -13,6 +13,9 @@ text-width = 80
 rulers = [80]
 smart-tab.enable = false
 
+[editor.file-picker]
+hidden = false
+
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
