@@ -6,6 +6,7 @@ COI
 Colborne
 Connor
 Crokinole
+Danforth
 Dragoman
 Dunany
 Edan
@@ -24,6 +25,7 @@ Michaud
 Puyloubier
 RCYC
 Revv
+Ryerson
 Spadina
 TFSA
 Theatre
