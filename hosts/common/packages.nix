@@ -9,42 +9,52 @@ in
 {
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-    # system
-    parted
+    # System
     age
+    parted
 
-    # core tools
+    # Shell & Terminal
     fzf
+    starship
+    zellij
+
+    # Editor & File Management
+    helix
+    yazi
+
+    # Version Control
+    delta
     git
     gitui
-    helix
-    just
-    yazi
-    zellij
-    starship
 
-    # replacements
+    # Modern CLI Replacements
     bat
     dust
     eza
     fd
     ripgrep
     sd
-    delta
+
+    # Data Processing
     jq
-    yq
     pandoc
+    yq-go
+
+    # Media
     yt-dlp
 
-    # markdown
-    marksman
-    harper
+    # Build & Task Runners
+    just
 
-    # formatters
+    # Language Servers
+    harper
+    marksman
+
+    # Formatters
     nixfmt-rfc-style
     unstable.dprint
+    unstable.dprint-plugins.dprint-plugin-json
     unstable.dprint-plugins.dprint-plugin-markdown
     unstable.dprint-plugins.dprint-plugin-toml
-    unstable.dprint-plugins.dprint-plugin-json
   ];
 }

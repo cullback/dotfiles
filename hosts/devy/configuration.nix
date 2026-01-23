@@ -40,23 +40,29 @@ in
   };
 
   environment.systemPackages = with pkgs; [
+    # Utilities
     moreutils
     wget
 
-    # neat tools
+    # Data Tools
     qsv
-    visidata
     sqlite
+    visidata
+
+    # Development Tools
     tokei
     watchexec
-    single-file-cli
-    chromium
 
-    # python
+    # Web & Browser
+    chromium
+    single-file-cli
+
+    # Python
     python313
     pyright
     ruff
 
+    # AI Assistants
     unstable.claude-code
     unstable.opencode
   ];
