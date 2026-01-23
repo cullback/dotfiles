@@ -15,7 +15,7 @@
       "Bash(git mv:*)",
       "Bash(git init:*)",
       "Bash(zola build)",
-      "Bash(just :*)",
+      "Bash(just:*)",
       "Bash(cat:*)",
       "Bash(chmod:*)",
       "Skill(agent-skills:*)"
