@@ -18,7 +18,8 @@
       "Bash(just:*)",
       "Bash(cat:*)",
       "Bash(chmod:*)",
-      "Skill(agent-skills:*)"
+      "Skill(conductor:*)",
+      "Skill(tk:*)"
     ],
     "deny": [],
     "ask": [],
