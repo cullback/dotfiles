@@ -2,6 +2,7 @@
 
 set -gx EDITOR hx
 set -gx COLORTERM truecolor
+set -gx PLAYBOOK /home/cullback/repos2/playbook
 # set -gx OPENROUTER_API_KEY (security find-generic-password -a "$USER" -s "openrouter-api-key" -w)
 
 if status is-interactive
