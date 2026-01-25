@@ -26,11 +26,3 @@ if status is-interactive
 
     starship init fish | source
 end
-
-# function nix-shell
-#     command nix-shell $argv --run fish
-# end
-
-# function nix
-#     command nix $argv --command fish
-# end
