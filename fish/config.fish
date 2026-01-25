@@ -26,4 +26,5 @@ if status is-interactive
     set -gx FZF_ALT_C_OPTS "--preview 'tree -C {}'"
 
     starship init fish | source
+    direnv hook fish | source
 end
