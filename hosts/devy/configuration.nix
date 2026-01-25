@@ -53,6 +53,10 @@ in
     tokei
     watchexec
 
+    # Terminal Recording
+    asciinema-agg
+    asciinema_3
+
     # Web & Browser
     chromium
     single-file-cli
