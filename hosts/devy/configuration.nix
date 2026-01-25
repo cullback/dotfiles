@@ -71,6 +71,10 @@ in
     unstable.opencode
   ];
 
+  fonts.packages = with pkgs; [
+    fira-code
+  ];
+
   system.autoUpgrade = {
     enable = true;
     dates = "weekly";
