@@ -14,6 +14,7 @@ in
     parted
 
     # Shell & Terminal
+    direnv
     fzf
     starship
     zellij
