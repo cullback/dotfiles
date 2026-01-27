@@ -58,4 +58,8 @@ in
     unstable.dprint-plugins.dprint-plugin-markdown
     unstable.dprint-plugins.dprint-plugin-toml
   ];
+
+  environment.variables = {
+    DIRENV_LOG_FORMAT = "";
+  };
 }
