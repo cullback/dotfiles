@@ -3,6 +3,7 @@
 .vscode
 .env
 .worktrees/
+.direnv/
 
 # Python
 __pycache__/
