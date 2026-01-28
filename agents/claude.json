@@ -9,10 +9,10 @@
       "Bash(cat:*)",
       "Bash(chmod:*)",
       "Skill(playbook:*)",
-      "Skill(tk:*)",
-      "Skill(uv:*)",
-      "Skill(qsv:*)",
-      "Skill(direnv:*)"
+      "Bash(tk:*)",
+      "Bash(uv:*)",
+      "Bash(qsv:*)",
+      "Bash(direnv:*)"
     ],
     "deny": [],
     "ask": [],
