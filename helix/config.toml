@@ -28,3 +28,4 @@ z = ":toggle soft-wrap.enable"
 [keys.normal]
 h = "goto_word"
 "A-k" = "remove_selections"
+"A-j" = "join_selections_space"
