@@ -1,1 +1,2 @@
-Don't use `git -C`, just run git normally
+- We're using NixOS. Manage project dependencies with flakes.
+- Check for available repo recipes with `just`
