@@ -4,71 +4,87 @@
 import argparse
 import base64
 import json
+import mimetypes
 import os
 import sys
-from urllib.request import Request, urlopen
-from urllib.error import HTTPError
+import urllib.error
+import urllib.request
+from pathlib import Path
 
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 DEFAULT_MODEL = "google/gemini-3-flash-preview"
 
 
-def get_mime_type(path: str) -> str:
-    ext = path.lower().rsplit(".", 1)[-1]
-    return {
-        "jpg": "image/jpeg",
-        "jpeg": "image/jpeg",
-        "png": "image/png",
-        "gif": "image/gif",
-        "webp": "image/webp",
-        "pdf": "application/pdf",
-    }.get(ext, "application/octet-stream")
+class LLMError(Exception):
+    """Error from LLM API call."""
+
+    pass
 
 
-def encode_file(path: str) -> tuple[str, str]:
-    with open(path, "rb") as f:
-        data = base64.b64encode(f.read()).decode()
-    return get_mime_type(path), data
+def get_mime_type(file_path: Path) -> str:
+    """Get MIME type for a file based on extension."""
+    mime_type, _ = mimetypes.guess_type(str(file_path))
+    if mime_type is None:
+        raise ValueError(f"Cannot determine MIME type for: {file_path}")
+    return mime_type
 
 
-def build_content(prompt: str, attachments: list[str], stdin_text: str | None):
-    parts = []
+def encode_file(file_path: Path) -> str:
+    """Base64 encode a file's contents."""
+    with open(file_path, "rb") as f:
+        return base64.b64encode(f.read()).decode("utf-8")
 
+
+def build_content(
+    prompt: str,
+    attachments: list[Path] | None = None,
+    stdin_text: str | None = None,
+) -> list[dict]:
+    """Build the content array for an API request."""
+    content = []
+
+    # Add attachments first (images/documents before text)
+    if attachments:
+        for file_path in attachments:
+            mime_type = get_mime_type(file_path)
+            encoded = encode_file(file_path)
+            data_url = f"data:{mime_type};base64,{encoded}"
+
+            if mime_type.startswith("image/"):
+                content.append({"type": "image_url", "image_url": {"url": data_url}})
+            else:
+                content.append(
+                    {
+                        "type": "file",
+                        "file": {
+                            "filename": file_path.name,
+                            "file_data": data_url,
+                        },
+                    }
+                )
+
+    # Combine stdin and prompt
+    text = prompt
     if stdin_text:
-        prompt = f"{stdin_text}\n\n{prompt}"
+        text = f"{stdin_text}\n\n{prompt}" if prompt else stdin_text
 
-    parts.append({"type": "text", "text": prompt})
-
-    for path in attachments:
-        mime, data = encode_file(path)
-        if mime.startswith("image/"):
-            parts.append(
-                {
-                    "type": "image_url",
-                    "image_url": {"url": f"data:{mime};base64,{data}"},
-                }
-            )
-        elif mime == "application/pdf":
-            parts.append(
-                {
-                    "type": "file",
-                    "file": {
-                        "filename": os.path.basename(path),
-                        "file_data": f"data:{mime};base64,{data}",
-                    },
-                }
-            )
-
-    return parts
+    content.append({"type": "text", "text": text})
+    return content
 
 
-def call_api(content, model: str, api_key: str, schema: dict | None = None) -> str:
+def call_api(
+    content: list[dict],
+    model: str,
+    api_key: str,
+    schema: dict | None = None,
+) -> str:
+    """Call the OpenRouter API."""
     payload = {
         "model": model,
         "messages": [{"role": "user", "content": content}],
     }
 
-    if schema:
+    if schema is not None:
         payload["response_format"] = {
             "type": "json_schema",
             "json_schema": {
@@ -78,22 +94,29 @@ def call_api(content, model: str, api_key: str, schema: dict | None = None) -> s
             },
         }
 
-    req = Request(
+    request = urllib.request.Request(
         API_URL,
-        data=json.dumps(payload).encode(),
+        data=json.dumps(payload).encode("utf-8"),
         headers={
-            "Content-Type": "application/json",
             "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
         },
+        method="POST",
     )
 
     try:
-        with urlopen(req) as resp:
-            result = json.loads(resp.read())
-            return result["choices"][0]["message"]["content"]
-    except HTTPError as e:
-        body = e.read().decode()
-        sys.exit(f"API error {e.code}: {body}")
+        with urllib.request.urlopen(request, timeout=300) as response:
+            data = json.loads(response.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        body = e.read().decode("utf-8", errors="replace")
+        raise LLMError(f"API request failed ({e.code}): {body}") from e
+    except urllib.error.URLError as e:
+        raise LLMError(f"Network error: {e.reason}") from e
+
+    try:
+        return data["choices"][0]["message"]["content"]
+    except (KeyError, IndexError) as e:
+        raise LLMError(f"Unexpected API response format: {data}") from e
 
 
 def main():
@@ -135,9 +158,14 @@ def main():
             sys.exit(f"Error loading schema: {e}")
 
     prompt = args.prompt or ("Describe this" if args.attach else "")
-    content = build_content(prompt, args.attach, stdin_text)
-    result = call_api(content, args.model, api_key, schema)
-    print(result)
+    attachments = [Path(p) for p in args.attach] if args.attach else None
+
+    try:
+        content = build_content(prompt, attachments, stdin_text)
+        result = call_api(content, args.model, api_key, schema)
+        print(result)
+    except (LLMError, ValueError, FileNotFoundError) as e:
+        sys.exit(f"Error: {e}")
 
 
 if __name__ == "__main__":
