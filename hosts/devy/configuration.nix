@@ -28,6 +28,7 @@ in
   security.sudo.wheelNeedsPassword = false;
 
   services.openssh.enable = true;
+  programs.ssh.startAgent = true;
 
   services.syncthing.settings.folders = {
     "notes" = {
