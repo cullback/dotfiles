@@ -1,2 +1,3 @@
 - We're using NixOS. Manage project dependencies with flakes.
 - Check for available repo recipes with `just`
+- Never change LLM models to something older. Use whatever is set unless asked to change.
