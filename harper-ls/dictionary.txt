@@ -42,7 +42,6 @@ bouldering
 capitalizations
 comparator
 covariates
-deductable
 disqualifier
 disqualifiers
 evaluable
@@ -53,6 +52,7 @@ kcad
 kusd
 mailto
 parentheticals
+resumable
 rotator
 thrifting
 todo
