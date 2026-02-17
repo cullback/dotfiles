@@ -25,6 +25,7 @@ in
 
     # Version Control
     delta
+    gh
     git
     gitui
 
