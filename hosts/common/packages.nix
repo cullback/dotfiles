@@ -16,6 +16,7 @@ in
     # Shell & Terminal
     direnv
     fzf
+    ghostty.terminfo
     starship
     zellij
 
