@@ -63,7 +63,7 @@ in
     single-file-cli
 
     # Python
-    python313
+    (python313.withPackages (ps: [ ps.requests ]))
     pyright
     ruff
 
