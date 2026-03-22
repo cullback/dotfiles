@@ -21,6 +21,7 @@ in
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernel.sysctl."kernel.perf_event_paranoid" = 1;
 
   networking.hostName = "devy";
   networking.firewall.enable = false;
