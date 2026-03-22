@@ -69,7 +69,7 @@ in
 
     # AI Assistants
     unstable.claude-code
-    unstable.opencode
+
   ];
 
   fonts.packages = with pkgs; [
