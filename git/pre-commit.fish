@@ -30,11 +30,19 @@ end
 # If we stashed changes, restore them
 if test "$has_unstaged" -ne 0
     echo "📦 Restoring stashed changes..."
-    git stash pop --quiet
+    git stash pop --quiet 2>/dev/null
 
     if test $status -ne 0
-        echo "❌ Warning: Failed to restore stashed changes automatically"
-        echo "   Run 'git stash pop' manually to restore your changes"
+        # stash pop can fail when staged deletions conflict with stashed
+        # worktree files. Reset the failed merge state, re-apply with
+        # checkout, then drop the stash entry.
+        git checkout stash -- . 2>/dev/null
+        git stash drop --quiet 2>/dev/null
+
+        if test $status -ne 0
+            echo "❌ Warning: Failed to restore stashed changes automatically"
+            echo "   Run 'git stash pop' manually to restore your changes"
+        end
     end
 end
 
