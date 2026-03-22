@@ -92,6 +92,7 @@ Sheet.addCommand(
     "", "syscopy-cell-osc52", "copy_osc52()", "Copy current cell via OSC52"
 )
 Sheet.bindkey("Alt+y", "syscopy-cell-osc52")
+Sheet.bindkey("Alt+=", "setcol-precision-more")
 
 BaseSheet.addCommand("1", "hello-world", 'status("Hello world!")')
 
