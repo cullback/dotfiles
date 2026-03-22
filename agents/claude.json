@@ -18,5 +18,6 @@
     "ask": [],
     "defaultMode": "acceptEdits"
   },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "skipDangerousModePermissionPrompt": true
 }
