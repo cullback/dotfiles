@@ -50,7 +50,7 @@ in
     just
 
     # Language Servers
-    harper
+    # harper -- uses a lot of ram
     marksman
 
     # Formatters
