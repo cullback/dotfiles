@@ -19,7 +19,6 @@ in
     ../common/caddy.nix
     ../common/jellyfin.nix
     ../common/navidrome.nix
-    ../common/openwebui.nix
     ../common/qbittorrent.nix
     ../common/rclone.nix
     ../common/samba.nix
@@ -27,8 +26,6 @@ in
     ../common/tailscale.nix
     ../common/wireguard-vpn.nix
   ];
-
-  services.open-webui.port = lib.mkForce 8001;
 
   facter.reportPath = ./facter.json;
 
