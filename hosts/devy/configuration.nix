@@ -52,6 +52,7 @@ in
     visidata
 
     # Development Tools
+    perf
     tokei
     watchexec
 
