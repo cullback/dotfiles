@@ -2,7 +2,7 @@
   description = "NixOS configurations";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
@@ -45,6 +45,7 @@
     {
       nixosConfigurations = {
         devy = mkSystem "devy" "aarch64-linux";
+        kraken = mkSystem "kraken" "x86_64-linux";
         atlantix = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
