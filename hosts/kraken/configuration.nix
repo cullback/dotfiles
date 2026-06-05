@@ -5,6 +5,8 @@
     ./hardware-configuration.nix
     ./dev.nix
     ./samba.nix
+    ./jellyfin.nix
+    ./navidrome.nix
   ];
 
   # Boot
