@@ -1,5 +1,5 @@
 # Jellyfin media server (movies + TV). Libraries are configured in the web UI on
-# first run, pointing at /storage/media/{Movies,tv-shows}. State in /var/lib/jellyfin.
+# first run, pointing at /storage/media/{films,shows}. State in /var/lib/jellyfin.
 # Reachable on the LAN at http://kraken:8096 (openFirewall).
 { ... }:
 {
