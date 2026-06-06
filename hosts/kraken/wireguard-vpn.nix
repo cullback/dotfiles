@@ -54,10 +54,14 @@ in
       ExecStart = pkgs.writeShellScript "wg-up" ''
         ip link add wg0 type wireguard
 
+        # NOTE: kraken's network blocks the default WireGuard UDP port (51820), so we
+        # use port 53 — Mullvad accepts WireGuard on it and restrictive networks allow
+        # it. (Verified: 51820 -> no handshake; 53 -> handshake OK.) Same applies if you
+        # switch servers: keep an allowed port (53/123/4000-33433/…).
         wg set wg0 \
           private-key ${config.age.secrets.wg-privkey-kraken.path} \
           peer "HjcUGVDXWdrRkaKNpc/8494RM5eICO6DPyrhCtTv9Ws=" \
-          endpoint "178.249.214.2:51820" \
+          endpoint "178.249.214.2:53" \
           allowed-ips "0.0.0.0/0,::/0" \
           persistent-keepalive 25
 
@@ -78,6 +82,7 @@ in
   };
 
   environment.systemPackages = [
+    pkgs.wireguard-tools # `wg` for debugging (e.g. `sudo vpn-exec wg show`)
     (pkgs.writeShellScriptBin "vpn-exec" ''
       exec ${pkgs.iproute2}/bin/ip netns exec ${vpnNamespace} "$@"
     '')

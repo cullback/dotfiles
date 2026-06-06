@@ -16,4 +16,10 @@
     reloadIfChanged = lib.mkForce false;
     restartIfChanged = lib.mkForce false;
   };
+
+  # Same hang affects the per-user dbus-broker ("user activation for cullback failed").
+  systemd.user.services.dbus-broker = {
+    reloadIfChanged = lib.mkForce false;
+    restartIfChanged = lib.mkForce false;
+  };
 }
