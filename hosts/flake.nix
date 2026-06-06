@@ -39,6 +39,7 @@
             ./common/programs.nix
             ./common/nix-settings.nix
             ./common/locale.nix
+            ./common/dbus.nix
           ];
         };
     in
@@ -63,6 +64,7 @@
             ./common/programs.nix
             ./common/nix-settings.nix
             ./common/locale.nix
+            ./common/dbus.nix
           ];
         };
       };
