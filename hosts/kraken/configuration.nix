@@ -8,6 +8,7 @@
     ./jellyfin.nix
     ./navidrome.nix
     ../common/tailscale.nix
+    ../common/syncthing.nix
   ];
 
   # Boot
@@ -47,6 +48,30 @@
 
   services.openssh.enable = true;
   programs.ssh.startAgent = true;
+
+  # Syncthing folders — receive-only on kraken. As a replica/server it never edits
+  # these by hand, so it can only pull from the mesh, never push deletes/overrides.
+  # (Protects the important `admin` folder; also ZFS-snapshotted on the root dataset.)
+  services.syncthing.settings.folders = {
+    "admin" = {
+      path = "/storage/admin";
+      type = "receiveonly";
+      devices = [
+        "atlantix"
+        "iphone14"
+        "macbook-air"
+      ];
+    };
+    "notes" = {
+      path = "/storage/repos/notes";
+      type = "receiveonly";
+      devices = [
+        "atlantix"
+        "devy"
+        "iphone14"
+      ];
+    };
+  };
 
   system.autoUpgrade = {
     enable = true;
