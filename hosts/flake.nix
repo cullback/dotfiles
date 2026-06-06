@@ -32,6 +32,7 @@
             inherit nixpkgs-unstable;
           };
           modules = [
+            agenix.nixosModules.default
             sops-nix.nixosModules.sops
             ./${hostname}/configuration.nix
             ./common/users.nix

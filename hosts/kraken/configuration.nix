@@ -9,6 +9,8 @@
     ./navidrome.nix
     ../common/tailscale.nix
     ../common/syncthing.nix
+    ./wireguard-vpn.nix
+    ./qbittorrent.nix
   ];
 
   # Boot
