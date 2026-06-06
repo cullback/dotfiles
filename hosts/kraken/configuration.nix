@@ -76,6 +76,9 @@
     };
   };
 
+  # rclone: migrating data off the Hetzner Storage Box, and future offsite backups.
+  environment.systemPackages = [ pkgs.rclone ];
+
   system.autoUpgrade = {
     enable = true;
     dates = "weekly";
