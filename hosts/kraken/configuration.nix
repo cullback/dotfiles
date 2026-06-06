@@ -49,13 +49,14 @@
   services.openssh.enable = true;
   programs.ssh.startAgent = true;
 
-  # Syncthing folders — receive-only on kraken. As a replica/server it never edits
-  # these by hand, so it can only pull from the mesh, never push deletes/overrides.
-  # (Protects the important `admin` folder; also ZFS-snapshotted on the root dataset.)
+  # Syncthing folders — send-receive (kraken is a full read-write peer, taking over
+  # atlantix's role). It was initially receive-only during the migration; now that it
+  # holds a complete replica it participates fully. Safety net is the ZFS hourly/daily
+  # snapshots on the root dataset, which can undo an accidental delete/override.
   services.syncthing.settings.folders = {
     "admin" = {
       path = "/storage/admin";
-      type = "receiveonly";
+      type = "sendreceive";
       devices = [
         "atlantix"
         "iphone14"
@@ -64,7 +65,7 @@
     };
     "notes" = {
       path = "/storage/repos/notes";
-      type = "receiveonly";
+      type = "sendreceive";
       devices = [
         "atlantix"
         "devy"
