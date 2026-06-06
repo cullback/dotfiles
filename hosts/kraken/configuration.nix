@@ -7,6 +7,7 @@
     ./samba.nix
     ./jellyfin.nix
     ./navidrome.nix
+    ../common/tailscale.nix
   ];
 
   # Boot
