@@ -59,6 +59,7 @@ in
       devices = [
         "iphone14"
         "macbook-air"
+        "kraken"
       ];
     };
     "notes" = {
@@ -66,6 +67,7 @@ in
       devices = [
         "devy"
         "iphone14"
+        "kraken"
       ];
     };
   };

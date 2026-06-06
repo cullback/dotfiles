@@ -25,6 +25,9 @@
         macbook-air = {
           id = "O2QNTQH-2XGCZ6N-7TP7QXA-E22L6IG-J3EPPTQ-R7LMVSX-KKSPSSI-FKSHJAB";
         };
+        kraken = {
+          id = "DMLJIGS-ZWL7GIQ-ZNCOEAO-GCMLTFA-SJO2AMP-EBSC4RY-PGTCZLG-SW5R2QN";
+        };
       };
       gui = {
         insecureSkipHostcheck = true;

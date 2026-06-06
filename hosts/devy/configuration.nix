@@ -37,6 +37,7 @@ in
       devices = [
         "atlantix"
         "iphone14"
+        "kraken"
       ];
     };
   };
