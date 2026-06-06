@@ -26,6 +26,17 @@
     autoScrub.enable = true;
     autoScrub.interval = "weekly";
     trim.enable = true;
+    # Snapshots protect the personal data on the root dataset (photo/repos/admin/inbox).
+    # The big reproducible `media` dataset is excluded via its com.sun:auto-snapshot
+    # property (set with: zfs set com.sun:auto-snapshot=false storage/media).
+    autoSnapshot = {
+      enable = true;
+      frequent = 0; # skip the 15-minute snapshots
+      hourly = 24;
+      daily = 14;
+      weekly = 4;
+      monthly = 3;
+    };
   };
 
   networking.hostName = "kraken";
