@@ -1,10 +1,19 @@
-{ ... }:
+{ lib, ... }:
 {
-  # Use the classic dbus-daemon instead of dbus-broker.
+  # Work around dbus-broker v37 (nixpkgs 26.05) hanging every `nixos-rebuild switch`.
   #
-  # On nixos-26.05, dbus-broker's live reload hangs and hits the 90s systemd
-  # timeout during every `nixos-rebuild switch` ("Reload operation timed out"),
-  # which stalls the switch and makes it exit 4. dbus-daemon reloads cleanly.
-  # NOTE: takes effect after a reboot (the system bus can't hot-swap live).
-  services.dbus.implementation = "dbus";
+  # v37 moved its reload to systemd's `notify-reload` protocol, but the reload
+  # handshake never signals completion, so `systemctl reload dbus-broker` blocks
+  # for the full 90s TimeoutStartSec, gets killed, and the switch exits 4.
+  # NixOS triggers that reload on every switch (the module sets reloadIfChanged).
+  #
+  # The system bus can't be safely live-reloaded/restarted anyway — policy changes
+  # apply on reboot — so we tell NixOS to do nothing to it on change. This keeps the
+  # modern dbus-broker (no revert to dbus-daemon) and removes the 90s stall.
+  # Verify with `nixos-rebuild dry-activate`: dbus-broker must appear in NEITHER the
+  # "would reload" nor "would restart" lists.
+  systemd.services.dbus-broker = {
+    reloadIfChanged = lib.mkForce false;
+    restartIfChanged = lib.mkForce false;
+  };
 }
