@@ -18,6 +18,7 @@ brew "dust"
 brew "eza"
 brew "fd"
 brew "fzf"
+brew "gnu-sed"
 brew "jq"
 brew "qsv"
 brew "ripgrep"
@@ -32,9 +33,10 @@ brew "dprint"
 brew "python"
 brew "ruff"
 brew "rustup"
-brew "marksman"
+brew "markdown-oxide"
 
 # data & network
+brew "ffmpeg"
 brew "lftp"
 brew "tailscale"
 brew "yt-dlp"
@@ -58,14 +60,13 @@ cask "1password"
 cask "keepassxc"
 cask "karabiner-elements"
 cask "syncthing-app"
-cask "wispr-flow"
+cask "kitlangton-hex"
 
 # ai
 cask "claude"
 cask "claude-code"
 
 # media
-cask "calibre"
 cask "iina"
 cask "netnewswire"
 cask "qbittorrent"
@@ -87,6 +88,10 @@ cask "font-fira-code-nerd-font"
 # mac app store
 # ------------------------------------------------------------------------------
 
+mas "Amphetamine", id: 937984704
+mas "Brother iPrint&Scan", id: 1193539993
 mas "Cake Wallet", id: 1334702542
-mas "WhatsApp Messenger", id: 310633997
-mas "Wipr 2", id: 1662217862
+mas "KeePassium", id: 1435127111
+mas "Strongbox", id: 897283731
+mas "WhatsApp", id: 310633997
+mas "Wipr", id: 1662217862
