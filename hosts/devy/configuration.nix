@@ -14,6 +14,7 @@ in
   imports = [
     ./hardware-configuration.nix
     ./services.nix
+    ./time-sync.nix
     ./tailscale.nix
     ../common/sops.nix
     ../common/syncthing.nix
