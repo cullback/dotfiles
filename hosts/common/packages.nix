@@ -51,7 +51,7 @@ in
 
     # Language Servers
     # harper -- uses a lot of ram
-    marksman
+    markdown-oxide
 
     # Formatters
     nixfmt-rfc-style

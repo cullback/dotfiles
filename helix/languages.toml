@@ -10,7 +10,7 @@ auto-format = true
 name = "markdown"
 auto-format = true
 formatter = { command = "dprint", args = ["fmt", "--config", "~/.config/dprint/dprint.json", "--stdin", "md"] }
-language-servers = ["marksman"]
+language-servers = ["markdown-oxide"]
 
 [[language]]
 name = "nix"
