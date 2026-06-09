@@ -1,21 +1,10 @@
 {
-  pkgs,
-  nixpkgs-unstable,
-  ...
-}:
-
-let
-  unstable = import nixpkgs-unstable {
-    system = pkgs.stdenv.hostPlatform.system;
-    config.allowUnfree = true;
-  };
-in
-{
   imports = [
     ./hardware-configuration.nix
     ./services.nix
     ./time-sync.nix
     ./tailscale.nix
+    ../common/dev.nix
     ../common/sops.nix
     ../common/syncthing.nix
   ];
@@ -42,43 +31,6 @@ in
       ];
     };
   };
-
-  environment.systemPackages = with pkgs; [
-    # Utilities
-    moreutils
-    wget
-
-    # Data Tools
-    qsv
-    sqlite
-    visidata
-
-    # Development Tools
-    perf
-    tokei
-    watchexec
-
-    # Terminal Recording
-    asciinema-agg
-    asciinema_3
-
-    # Web & Browser
-    chromium
-    single-file-cli
-
-    # Python
-    (python313.withPackages (ps: [ ps.requests ]))
-    pyright
-    ruff
-
-    # AI Assistants
-    unstable.claude-code
-
-  ];
-
-  fonts.packages = with pkgs; [
-    fira-code
-  ];
 
   system.autoUpgrade = {
     enable = true;

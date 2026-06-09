@@ -54,7 +54,7 @@ in
     markdown-oxide
 
     # Formatters
-    nixfmt-rfc-style
+    nixfmt
     unstable.dprint
     unstable.dprint-plugins.dprint-plugin-json
     unstable.dprint-plugins.dprint-plugin-markdown

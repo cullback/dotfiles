@@ -1,3 +1,5 @@
+# Shared development environment for the interactive dev hosts (devy, kraken).
+# Server hosts (atlantix) deliberately do not import this.
 { pkgs, nixpkgs-unstable, ... }:
 
 let
@@ -21,10 +23,6 @@ in
     perf
     tokei
     watchexec
-
-    # Terminal Recording
-    asciinema-agg
-    asciinema
 
     # Web & Browser
     chromium

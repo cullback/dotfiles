@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./dev.nix
+    ../common/dev.nix
     ./samba.nix
     ./jellyfin.nix
     ./navidrome.nix
