@@ -40,7 +40,7 @@ Tailscale only — never from the internet.
 | Modem          | Bell Giga Hub 2.0 @ `192.168.2.1`                         |
 | Port forwards  | TCP `80→80`, `443→443` → kraken                           |
 | DNS            | Namecheap, `movies`/`music` A records → WAN IP, TTL 5 min |
-| TLS            | Let's Encrypt via Caddy (`email cullback@fastmail.com`)   |
+| TLS            | Let's Encrypt via Caddy                                   |
 | kraken tailnet | `100.126.6.48` / `kraken.taile2df60.ts.net`               |
 | Replaced       | atlantix (Hetzner `5.161.206.7`)                          |
 

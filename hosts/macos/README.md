@@ -18,7 +18,7 @@ which fish | sudo tee -a /etc/shells
 chsh -s $(which fish)
 
 # ssh key
-ssh-keygen -t ed25519 -C "cullback@fastmail.com"
+ssh-keygen -t ed25519 -C "cullback"
 
 # make new keychain key
 security add-generic-password -a "$USER" -s "openrouter-api-key" -w "your-api-key-here"
