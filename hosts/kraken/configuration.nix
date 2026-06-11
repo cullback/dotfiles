@@ -7,6 +7,7 @@
     ./samba.nix
     ./jellyfin.nix
     ./navidrome.nix
+    ../common/caddy.nix
     ../common/tailscale.nix
     ../common/syncthing.nix
     ./wireguard-vpn.nix
@@ -50,6 +51,15 @@
 
   services.openssh.enable = true;
   programs.ssh.startAgent = true;
+
+  # Public reverse proxy (Caddy, imported above) for movies/music.benburk.ca →
+  # Jellyfin (8096) / Navidrome (4533). Only 80/443 are exposed to the WAN via the
+  # router's port-forward; ACME (Let's Encrypt) uses port 80 for the HTTP-01 challenge.
+  # Everything else stays LAN/Tailscale-only.
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 
   # Syncthing folders — send-receive (kraken is a full read-write peer, taking over
   # atlantix's role). It was initially receive-only during the migration; now that it
