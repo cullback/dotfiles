@@ -2,7 +2,7 @@ nix-rebuild:
     sudo nixos-rebuild switch --flake ./hosts#$(hostname)
 
 sync-dotfiles:
-    fish hosts/$(hostname)/install.fish
+    fish scripts/install.fish
 
 check:
     #!/usr/bin/env fish
