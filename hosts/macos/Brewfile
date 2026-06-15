@@ -64,7 +64,7 @@ cask "kitlangton-hex"
 
 # ai
 cask "claude"
-cask "claude-code"
+cask "claude-code@latest"
 
 # media
 cask "iina"

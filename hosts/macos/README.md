@@ -11,7 +11,7 @@ xcode-select --install
 git clone dotfiles
 bash install.sh
 
-brew bundle install
+brew bundle install --file hosts/macos/Brewfile
 
 # change shell to fish
 which fish | sudo tee -a /etc/shells
@@ -29,10 +29,10 @@ security find-generic-password -a "$USER" -s "openrouter-api-key" -w
 
 ```shell
 # update-packages
-brew bundle install --file homebrew/Brewfile
+brew bundle install --file hosts/macos/Brewfile
 
 # clean-packages
-brew bundle cleanup --file homebrew/Brewfile --force
+brew bundle cleanup --file hosts/macos/Brewfile --force
 ```
 
 - [bundle subcommand](https://docs.brew.sh/Manpage#bundle-subcommand)
