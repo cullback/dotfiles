@@ -13,6 +13,7 @@
     ./wireguard-vpn.nix
     ./qbittorrent.nix
     ./nvme-throttle.nix
+    ./temperature-monitor.nix
   ];
 
   # Boot
