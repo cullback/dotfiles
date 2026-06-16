@@ -12,6 +12,7 @@
     ../common/syncthing.nix
     ./wireguard-vpn.nix
     ./qbittorrent.nix
+    ./nvme-throttle.nix
   ];
 
   # Boot
