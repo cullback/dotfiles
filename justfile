@@ -1,3 +1,9 @@
+# Display available recipes
+default:
+    just --list --unsorted
+
+alias fmt := format
+
 nix-rebuild:
     sudo nixos-rebuild switch --flake ./hosts#$(hostname)
 
