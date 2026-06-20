@@ -1,0 +1,14 @@
+# Colors are managed by tinty; `tinty apply <scheme>` regenerates
+# ~/.config/ghostty/themes/tinty and reloads. See tinty/config.toml.
+theme = tinty
+
+font-family = "FiraCode Nerd Font"
+
+command = /opt/homebrew/bin/fish --login
+
+# match the alacritty muscle memory
+macos-option-as-alt = left
+
+# cmd+left / cmd+right -> home / end
+keybind = cmd+left=text:\x1bOH
+keybind = cmd+right=text:\x1bOF

@@ -1,0 +1,19 @@
+# Single source of truth for colors across Helix, Ghostty and Zellij.
+#
+# `tinty apply <scheme>` renders the Helix theme from the tinted-helix template
+# and runs apply.fish, which generates the Ghostty + Zellij themes from the same
+# palette and live-reloads all three tools.
+#
+# Browse and switch schemes:
+#   tinty list           # all available base16 schemes
+#   tinty gallery        # interactive picker
+#   tinty apply base16-gruvbox-material-dark-medium
+
+[[items]]
+name = "helix"
+path = "https://github.com/tinted-theming/tinted-helix"
+themes-dir = "themes"
+hook = "fish ~/.config/tinty/apply.fish"
+# tinted-helix only commits base16 renders; install.fish runs `tinty build` on
+# the cloned repo to also generate the base24 themes this enables.
+supported-systems = ["base16", "base24"]

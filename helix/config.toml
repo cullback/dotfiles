@@ -1,4 +1,5 @@
-theme = "catppuccin_frappe"
+# managed by tinty (~/.config/helix/themes/tinty.toml); switch with `tinty apply`
+theme = "tinty"
 
 [editor]
 line-number = "relative"

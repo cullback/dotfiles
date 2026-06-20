@@ -8,6 +8,10 @@ brew "helix"
 brew "gitui"
 brew "yazi"
 
+# theming (one palette -> helix/ghostty/zellij, see tinty/)
+tap "tinted-theming/tinty"
+brew "tinty"
+
 # git
 brew "git"
 brew "git-delta"
