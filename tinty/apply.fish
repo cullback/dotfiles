@@ -66,25 +66,44 @@ function _write_ghostty_theme
         "selection-foreground = #$b05" >$dir/tinty
 end
 
+function _zc --argument-names name base bg e0 e1 e2 e3
+    printf '%s\n' \
+        "        $name {" \
+        "            base \"#$base\"" \
+        "            background \"#$bg\"" \
+        "            emphasis_0 \"#$e0\"" \
+        "            emphasis_1 \"#$e1\"" \
+        "            emphasis_2 \"#$e2\"" \
+        "            emphasis_3 \"#$e3\"" \
+        "        }"
+end
+
 function _write_zellij_theme
     set -l dir ~/.config/zellij/themes
     mkdir -p $dir
-    printf '%s\n' \
-        "themes {" \
-        "    tinty {" \
-        "        fg \"#$b05\"" \
-        "        bg \"#$b00\"" \
-        "        black \"#$b00\"" \
-        "        red \"#$b08\"" \
-        "        green \"#$b0B\"" \
-        "        yellow \"#$b0A\"" \
-        "        blue \"#$b0D\"" \
-        "        magenta \"#$b0E\"" \
-        "        cyan \"#$b0C\"" \
-        "        white \"#$b05\"" \
-        "        orange \"#$b09\"" \
-        "    }" \
-        "}" >$dir/tinty.kdl
+    # Component theme with explicit base02 backgrounds for content selections, so
+    # highlights stay subtle and scheme-consistent. The old simple fg/bg format
+    # let Zellij derive highlight backgrounds from bright accents, which clashed.
+    set -l acc $b09 $b0D $b0B $b0E
+    begin
+        echo "themes {"
+        echo "    tinty {"
+        _zc text_unselected $b05 $b00 $acc
+        _zc text_selected $b05 $b02 $acc
+        _zc ribbon_unselected $b05 $b01 $acc
+        _zc ribbon_selected $b00 $b0D $b09 $b0B $b0E $b08
+        _zc table_title $b0D $b00 $acc
+        _zc table_cell_unselected $b05 $b00 $acc
+        _zc table_cell_selected $b05 $b02 $acc
+        _zc list_unselected $b05 $b00 $acc
+        _zc list_selected $b05 $b02 $acc
+        _zc frame_selected $b0C $b00 $acc
+        _zc frame_highlight $b09 $b00 $acc
+        _zc exit_code_success $b0B $b00 $acc
+        _zc exit_code_error $b08 $b00 $acc
+        echo "    }"
+        echo "}"
+    end >$dir/tinty.kdl
 end
 
 function _write_gitui_theme
