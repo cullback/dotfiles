@@ -37,10 +37,17 @@ the repo is now just a static seed).
 ## Usage
 
 ```sh
-just themes                                  # list schemes  (tinty list)
-just theme base16-gruvbox-material-dark-medium   # switch all three
-just theme-pick                              # interactive gallery
+just themes        # list the curated whitelist (the [[rings]] in config.toml)
+just themes-all    # list every available scheme (~500)
+just theme-pick    # interactive gallery (all schemes)
+just theme base16-gruvbox-material-dark-medium   # apply one scheme
+
+just theme-cycle   # advance to the next scheme in the ring (live)
+just theme-loop 8  # auto-cycle the ring every 8s, live (ctrl-c to stop)
 ```
+
+The `[[rings]].default` list in `config.toml` is the single curated set that
+drives both `just themes` and the `tinty cycle` recipes — edit it to taste.
 
 ## Live reload, per tool
 

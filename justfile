@@ -14,13 +14,29 @@ sync-dotfiles:
 theme name:
     tinty apply {{ name }}
 
-# list available schemes
+# list your curated schemes (the cycle ring in tinty/config.toml)
 themes:
+    yq -p toml -oy '.rings[] | select(.name == "default") | .schemes[]' tinty/config.toml
+
+# list every available scheme
+themes-all:
     tinty list
 
-# interactive scheme picker
+# interactive scheme picker (all schemes)
 theme-pick:
     tinty gallery
+
+# advance to the next scheme in the cycle ring (live)
+theme-cycle:
+    tinty cycle
+
+# auto-cycle the ring every N seconds, live (ctrl-c to stop)
+theme-loop seconds="8":
+    #!/usr/bin/env fish
+    while true
+        tinty cycle
+        sleep {{ seconds }}
+    end
 
 check:
     #!/usr/bin/env fish
