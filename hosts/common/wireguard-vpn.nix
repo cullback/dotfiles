@@ -4,8 +4,7 @@ let
   vpnNamespace = "vpn";
 in
 {
-  age.identityPaths = [ "/etc/age/key.txt" ];
-  age.secrets.wg-privkey.file = ../secrets/wg-privkey.age;
+  sops.secrets.wg_privkey_atlantix = { };
 
   boot.kernelModules = [ "wireguard" ];
 
@@ -36,7 +35,7 @@ in
     wants = [ "network-online.target" ];
     requires = [ "vpn-namespace.service" ];
     wantedBy = [ "multi-user.target" ];
-    unitConfig.ConditionPathExists = config.age.secrets.wg-privkey.path;
+    unitConfig.ConditionPathExists = config.sops.secrets.wg_privkey_atlantix.path;
 
     path = [
       pkgs.wireguard-tools
@@ -50,7 +49,7 @@ in
         ip link add wg0 type wireguard
 
         wg set wg0 \
-          private-key ${config.age.secrets.wg-privkey.path} \
+          private-key ${config.sops.secrets.wg_privkey_atlantix.path} \
           peer "HjcUGVDXWdrRkaKNpc/8494RM5eICO6DPyrhCtTv9Ws=" \
           endpoint "178.249.214.2:51820" \
           allowed-ips "0.0.0.0/0,::/0" \

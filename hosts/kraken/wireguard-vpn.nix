@@ -9,8 +9,7 @@ let
   vpnNamespace = "vpn";
 in
 {
-  age.identityPaths = [ "/etc/age/key.txt" ];
-  age.secrets.wg-privkey-kraken.file = ../secrets/wg-privkey-kraken.age;
+  sops.secrets.wg_privkey_kraken = { };
 
   boot.kernelModules = [ "wireguard" ];
 
@@ -41,7 +40,7 @@ in
     wants = [ "network-online.target" ];
     requires = [ "vpn-namespace.service" ];
     wantedBy = [ "multi-user.target" ];
-    unitConfig.ConditionPathExists = config.age.secrets.wg-privkey-kraken.path;
+    unitConfig.ConditionPathExists = config.sops.secrets.wg_privkey_kraken.path;
 
     path = [
       pkgs.wireguard-tools
@@ -59,7 +58,7 @@ in
         # it. (Verified: 51820 -> no handshake; 53 -> handshake OK.) Same applies if you
         # switch servers: keep an allowed port (53/123/4000-33433/…).
         wg set wg0 \
-          private-key ${config.age.secrets.wg-privkey-kraken.path} \
+          private-key ${config.sops.secrets.wg_privkey_kraken.path} \
           peer "HjcUGVDXWdrRkaKNpc/8494RM5eICO6DPyrhCtTv9Ws=" \
           endpoint "178.249.214.2:53" \
           allowed-ips "0.0.0.0/0,::/0" \

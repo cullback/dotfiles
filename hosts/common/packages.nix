@@ -12,6 +12,8 @@ in
     # System
     age
     parted
+    sops
+    ssh-to-age
 
     # Shell & Terminal
     direnv

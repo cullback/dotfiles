@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ../common/dev.nix
+    ./sops.nix
     ./samba.nix
     ./jellyfin.nix
     ./navidrome.nix
@@ -11,6 +12,7 @@
     ../common/tailscale.nix
     ../common/syncthing.nix
     ./wireguard-vpn.nix
+    ./ddns.nix
     ./qbittorrent.nix
     ./nvme-throttle.nix
     ./temperature-monitor.nix
