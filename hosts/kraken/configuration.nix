@@ -2,18 +2,22 @@
 
 {
   imports = [
+    # caddy + the heavy/pool-active services below are COMMENTED OUT (not removed)
+    # while the storage pool is degraded (thermal NVMe dropout 2026-06-23) and kraken
+    # awaits a re-chassis. Uncomment + rebuild to bring them back once the drive is
+    # replaced/resilvered and cooling is fixed. Tailscale stays up for access.
     ./hardware-configuration.nix
     ../common/dev.nix
     ./sops.nix
-    ./samba.nix
-    ./jellyfin.nix
-    ./navidrome.nix
-    ../common/caddy.nix
+    # ./samba.nix
+    # ./jellyfin.nix
+    # ./navidrome.nix
+    # ../common/caddy.nix
     ../common/tailscale.nix
-    ../common/syncthing.nix
+    # ../common/syncthing.nix
     ./wireguard-vpn.nix
     ./ddns.nix
-    ./qbittorrent.nix
+    # ./qbittorrent.nix
     ./nvme-throttle.nix
     ./temperature-monitor.nix
   ];
