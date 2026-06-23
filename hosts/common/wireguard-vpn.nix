@@ -4,7 +4,10 @@ let
   vpnNamespace = "vpn";
 in
 {
-  sops.secrets.wg_privkey_atlantix = { };
+  # atlantix's host-only wg key lives in its own per-host file (encrypted to atlantix
+  # alone), mirroring kraken's kraken.yaml — so it can be created on atlantix with no
+  # decryption step. openrouter stays in the shared secrets.yaml via common/sops.nix.
+  sops.secrets.wg_privkey_atlantix.sopsFile = ../secrets/atlantix.yaml;
 
   boot.kernelModules = [ "wireguard" ];
 
