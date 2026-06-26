@@ -19,6 +19,7 @@
     wants = [ "network-online.target" ];
     serviceConfig = {
       Type = "oneshot";
+      TimeoutStartSec = 60;  # oneshot has no default start timeout; a hung htpdate would otherwise wedge for days
       # -s set time, -t skip sanity check (post-sleep jumps are large),
       # -4 force IPv4. Multiple hosts so htpdate takes a median.
       ExecStart = "${pkgs.htpdate}/bin/htpdate -s -t -4 www.cloudflare.com www.google.com www.bing.com www.apple.com";
