@@ -7,6 +7,8 @@
   services.xserver.enable = true; # base X/xkb + XWayland for GNOME's Wayland session
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
+  # Keep the plain ssh-agent (programs.ssh.startAgent); disable GNOME's competing one.
+  services.gnome.gcr-ssh-agent.enable = false;
 
   services.displayManager.autoLogin = {
     enable = true;
