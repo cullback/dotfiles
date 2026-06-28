@@ -15,7 +15,7 @@
 
   # Root is ext4; `tank` (4x28TB RAIDZ2) is the data pool, imported as an extra pool.
   boot.supportedFilesystems = [ "zfs" ];
-  boot.zfs.extraPools = [ "tank" ];
+  boot.zfs.extraPools = [ "tank" "fast" ];
   boot.zfs.forceImportRoot = false;
   # Unique per-host id required by ZFS. Generated with: head -c4 /dev/urandom | od -A none -t x4
   networking.hostId = "8a45121a";
