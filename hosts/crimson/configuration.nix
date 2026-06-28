@@ -28,7 +28,7 @@
   };
 
   networking.hostName = "crimson";
-  networking.useDHCP = true;
+  # Networking is managed by NetworkManager (pulled in by the GNOME desktop).
 
   security.sudo.wheelNeedsPassword = false;
 
