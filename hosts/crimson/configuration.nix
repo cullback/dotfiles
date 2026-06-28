@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ./kanata.nix
+    ./desktop.nix
   ];
 
   # Boot
