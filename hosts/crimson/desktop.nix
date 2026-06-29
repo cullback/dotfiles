@@ -18,8 +18,11 @@
   # Browser
   programs.firefox.enable = true;
 
-  # Terminal (matches the macOS setup) + fonts with glyph coverage.
-  environment.systemPackages = [ pkgs.ghostty ];
+  # Terminal (matches the macOS setup) + desktop apps + fonts with glyph coverage.
+  environment.systemPackages = with pkgs; [
+    ghostty
+    keepassxc
+  ];
 
   fonts = {
     packages = with pkgs; [
