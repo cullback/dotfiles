@@ -32,7 +32,7 @@
         )
 
         (defalias
-          cap (tap-hold 200 200 esc (layer-while-held nav))
+          cap (tap-hold-press 200 200 esc (layer-while-held nav))
           slw (macro C-left C-S-right)   ;; select word
           sll (macro home S-end)         ;; select line
           olb (macro end ret)            ;; open line below
