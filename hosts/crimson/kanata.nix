@@ -3,7 +3,10 @@
 # Keyboard remapping (kanata) — ports the macOS Karabiner setup to Linux:
 #   - "bold" custom alpha layout (karabiner/bold_layout.json)
 #   - caps lock: tap = Esc, hold = nav layer (karabiner/capslock.json)
-#   - caps + win + j/k/l/; = Alt+arrows (zellij pane focus, via the navwin layer)
+#
+# Zellij pane focus: caps + Alt + j/k/l/;  ->  Alt+arrows. No special binding
+# needed — a held Alt passes through and combines with the nav-layer arrows.
+# (Avoid the Super/"win" key for this — it's owned by the desktop.)
 #
 # Notes on the port:
 #   - Mac-only keys (mission_control, launchpad, keyboard illumination) have no
@@ -25,7 +28,7 @@
           q    w    e    r    t    y    u    i    o    p
           caps a    s    d    f    g    h    j    k    l    ;    '
           b    n    m    ,    .    /
-          ret  lmet
+          ret
         )
 
         (defalias
@@ -33,7 +36,6 @@
           slw (macro C-left C-S-right)   ;; select word
           sll (macro home S-end)         ;; select line
           olb (macro end ret)            ;; open line below
-          nvw (layer-while-held navwin)  ;; (caps held) + win -> zellij pane layer
         )
 
         ;; base = "bold" layout (physical key -> emitted key)
@@ -42,25 +44,17 @@
           b    l    d    f    w    /    ,    o    y    k
           @cap r    n    s    t    m    u    a    e    i    h    '
           g    ;    .    q    j    p
-          ret  lmet
+          ret
         )
 
         ;; nav = caps held. _ = transparent (falls through to base/bold).
+        ;; Hold Alt too -> the arrows below become Alt+arrows (zellij panes).
         (deflayer nav
           brdn brup _    _    _    _    prev pp   next mute vold volu
           _    _    _    _    _    _    _    _    _    _
           _    @slw @sll _    _    _    home left down up   right end
           _    _    _    _    _    _
-          @olb @nvw
-        )
-
-        ;; navwin = caps + win held -> zellij pane focus (Alt+arrows).
-        (deflayer navwin
-          _    _    _    _    _    _    _    _    _    _    _    _
-          _    _    _    _    _    _    _    _    _    _
-          _    _    _    _    _    _    _    A-left A-down A-up A-right _
-          _    _    _    _    _    _
-          _    _
+          @olb
         )
       '';
     };
