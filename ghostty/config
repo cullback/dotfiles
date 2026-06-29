@@ -1,6 +1,4 @@
-# Colors are managed by tinty; `tinty apply <scheme>` regenerates
-# ~/.config/ghostty/themes/tinty and reloads. See tinty/config.toml.
-theme = tinty
+theme = catppuccin-frappe
 
 font-family = "FiraCode Nerd Font"
 

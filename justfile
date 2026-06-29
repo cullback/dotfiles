@@ -10,34 +10,6 @@ nix-rebuild:
 sync-dotfiles:
     bash scripts/install.bash
 
-# apply a colorscheme across helix/ghostty/zellij/gitui (e.g. `just theme base16-gruvbox-material-dark-medium`)
-theme name:
-    tinty apply {{ name }}
-
-# list your curated schemes (the cycle ring in tinty/config.toml)
-themes:
-    yq -p toml -oy '.rings[] | select(.name == "default") | .schemes[]' tinty/config.toml
-
-# list every available scheme
-themes-all:
-    tinty list
-
-# interactive scheme picker (all schemes)
-theme-pick:
-    tinty gallery
-
-# advance to the next scheme in the cycle ring (live)
-theme-cycle:
-    tinty cycle
-
-# auto-cycle the ring every N seconds, live (ctrl-c to stop)
-theme-loop seconds="8":
-    #!/usr/bin/env fish
-    while true
-        tinty cycle
-        sleep {{ seconds }}
-    end
-
 check:
     #!/usr/bin/env fish
     set status_flag 0
