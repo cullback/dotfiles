@@ -2,7 +2,7 @@ theme = Catppuccin Frappe
 
 font-family = "FiraCode Nerd Font"
 
-command = /opt/homebrew/bin/fish --login
+command = fish --login
 
 # match the alacritty muscle memory
 macos-option-as-alt = left
