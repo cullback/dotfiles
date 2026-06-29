@@ -1,5 +1,15 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  nixpkgs-unstable,
+  ...
+}:
 
+let
+  unstable = import nixpkgs-unstable {
+    system = pkgs.stdenv.hostPlatform.system;
+    config.allowUnfree = true;
+  };
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -34,6 +44,9 @@
 
   services.openssh.enable = true;
   programs.ssh.startAgent = true;
+
+  # claude-code tracks unstable so it stays current (same pattern as atlantix).
+  environment.systemPackages = [ unstable.claude-code ];
 
   system.stateVersion = "26.05";
 }
