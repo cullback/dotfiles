@@ -24,7 +24,7 @@
       extraDefCfg = "process-unmapped-keys yes";
       config = ''
         (defsrc
-          1    2    3    4    5    6    7    8    9    0    -    =
+          esc  1    2    3    4    5    6    7    8    9    0    -    =
           q    w    e    r    t    y    u    i    o    p
           caps a    s    d    f    g    h    j    k    l    ;    '
           b    n    m    ,    .    /
@@ -40,7 +40,7 @@
 
         ;; base = "bold" layout (physical key -> emitted key)
         (deflayer base
-          1    2    3    4    5    6    7    8    9    0    -    =
+          grv  1    2    3    4    5    6    7    8    9    0    -    =
           b    l    d    f    w    /    ,    o    y    k
           @cap r    n    s    t    m    u    a    e    i    h    '
           g    ;    .    q    j    p
@@ -50,7 +50,7 @@
         ;; nav = caps held. _ = transparent (falls through to base/bold).
         ;; Hold Alt too -> the arrows below become Alt+arrows (zellij panes).
         (deflayer nav
-          brdn brup _    _    _    _    prev pp   next mute vold volu
+          _    brdn brup _    _    _    _    prev pp   next mute vold volu
           _    _    _    _    _    _    _    _    _    _
           _    @slw @sll _    _    _    home left down up   right end
           _    _    _    _    _    _
