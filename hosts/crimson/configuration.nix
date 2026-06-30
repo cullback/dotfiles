@@ -15,6 +15,7 @@ in
     ./hardware-configuration.nix
     ./kanata.nix
     ./desktop.nix
+    ./sanoid.nix
   ];
 
   # Boot
