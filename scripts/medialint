@@ -52,19 +52,18 @@ def load_rules(cfg):
 
 
 def lint(root, allow, ignore):
-    ok, violations = 0, []
+    ok, skipped, violations = 0, 0, []
     for dirpath, _dirs, files in os.walk(root):
         for name in files:
             rel = os.path.relpath(os.path.join(dirpath, name), root)
-            if rel == CONFIG_NAME:
-                continue
-            if any(r.fullmatch(rel) for r in ignore):
+            if rel == CONFIG_NAME or any(r.fullmatch(rel) for r in ignore):
+                skipped += 1
                 continue
             if any(r.fullmatch(rel) for r in allow):
                 ok += 1
             else:
                 violations.append(rel)
-    return ok, sorted(violations)
+    return ok, skipped, sorted(violations)
 
 
 def main():
@@ -81,16 +80,17 @@ def main():
         die(f"no {CONFIG_NAME} in {root}")
 
     allow, ignore = load_rules(cfg)
-    ok, violations = lint(root, allow, ignore)
+    ok, skipped, violations = lint(root, allow, ignore)
     total = ok + len(violations)
 
     for v in violations:
         print(f"  ✗ {v}")
     if violations:
-        print(f"\n{len(violations)} violation(s) · {ok}/{total} ok", file=sys.stderr)
+        print(f"\n{len(violations)} violation(s) · {ok}/{total} checked · {skipped} ignored",
+              file=sys.stderr)
         sys.exit(1)
     if not args.quiet:
-        print(f"✓ all {ok} files match conventions")
+        print(f"✓ all {ok} files match conventions ({skipped} ignored)")
 
 
 if __name__ == "__main__":
