@@ -17,6 +17,8 @@ in
     ./desktop.nix
     ./sanoid.nix
     ./syncthing.nix
+    ./samba.nix
+    ../common/avahi.nix
   ];
 
   # Boot
