@@ -24,9 +24,10 @@ in
   # default 7.1.1 is too new for the zfs module to build.
   boot.kernelPackages = pkgs.linuxPackages_6_12;
 
-  # Root is ext4; `tank` (4x28TB RAIDZ2) is the data pool, imported as an extra pool.
+  # Root is ext4. Data pools imported as extra pools: `frost` (4x28TB raidz2, bulk),
+  # `blaze` (2x8TB NVMe mirror, hot). Dataset mountpoints are ZFS properties (vault/srv).
   boot.supportedFilesystems = [ "zfs" ];
-  boot.zfs.extraPools = [ "tank" "fast" ];
+  boot.zfs.extraPools = [ "frost" "blaze" ];
   boot.zfs.forceImportRoot = false;
   # Unique per-host id required by ZFS. Generated with: head -c4 /dev/urandom | od -A none -t x4
   networking.hostId = "8a45121a";
