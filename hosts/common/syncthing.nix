@@ -28,6 +28,9 @@
         kraken = {
           id = "DMLJIGS-ZWL7GIQ-ZNCOEAO-GCMLTFA-SJO2AMP-EBSC4RY-PGTCZLG-SW5R2QN";
         };
+        crimson = {
+          id = "DZAECZQ-DXCQMV7-IF7LPCM-E3DOTB3-6OQGF5B-KY2O765-SUIP2TY-55COWQ7";
+        };
       };
       gui = {
         insecureSkipHostcheck = true;

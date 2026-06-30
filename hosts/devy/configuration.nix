@@ -27,6 +27,7 @@
       devices = [
         "atlantix"
         "iphone14"
+        "crimson"
         "kraken"
       ];
     };

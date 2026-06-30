@@ -59,6 +59,7 @@ in
       devices = [
         "iphone14"
         "macbook-air"
+        "crimson"
         "kraken"
       ];
     };
@@ -67,6 +68,7 @@ in
       devices = [
         "devy"
         "iphone14"
+        "crimson"
         "kraken"
       ];
     };

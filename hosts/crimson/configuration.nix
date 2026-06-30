@@ -16,6 +16,7 @@ in
     ./kanata.nix
     ./desktop.nix
     ./sanoid.nix
+    ./syncthing.nix
   ];
 
   # Boot
