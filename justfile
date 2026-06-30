@@ -10,6 +10,10 @@ nix-rebuild:
 sync-dotfiles:
     bash scripts/install.bash
 
+# Lint media filenames against <dir>/.medialint.toml (default: ~/vault/media)
+media-lint dir="~/vault/media":
+    scripts/medialint {{ dir }}
+
 check:
     #!/usr/bin/env fish
     set status_flag 0
