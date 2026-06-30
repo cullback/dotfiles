@@ -1,9 +1,10 @@
 # Automatic ZFS snapshots via sanoid. (Replication is syncoid, added with backups.)
 #
-# Per the storage plan:
-#   admin, repos  -> frequent (active + precious): hourly + daily + weekly
-#   state, media, photo -> standard: daily + weekly
-#   inbox, dumps, backup -> NOT listed => no snapshots (transient / receive target)
+# Per the storage plan (datasets now nested under the ~/vault root: blaze/vault, frost/vault):
+#   vault/admin, vault/repos  -> frequent (active + precious): hourly + daily + weekly
+#   state, vault/media, vault/photo -> standard: daily + weekly
+#   vault (loose-drop root), vault/inbox, vault/dumps, backup
+#     -> NOT listed => no snapshots (transient drop zone / receive target)
 { ... }:
 {
   services.sanoid = {
@@ -31,11 +32,11 @@
     };
 
     datasets = {
-      "blaze/admin".useTemplate = [ "frequent" ];
-      "blaze/repos".useTemplate = [ "frequent" ];
+      "blaze/vault/admin".useTemplate = [ "frequent" ];
+      "blaze/vault/repos".useTemplate = [ "frequent" ];
       "blaze/state".useTemplate = [ "standard" ];
-      "frost/media".useTemplate = [ "standard" ];
-      "frost/photo".useTemplate = [ "standard" ];
+      "frost/vault/media".useTemplate = [ "standard" ];
+      "frost/vault/photo".useTemplate = [ "standard" ];
     };
   };
 }
