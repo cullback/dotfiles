@@ -12,9 +12,8 @@ import:
   move: yes # move into `directory` (same ZFS dataset, so instant)
   write: yes # write corrected tags back to the files (tags = truth)
   resume: yes
-  incremental: yes # skip already-imported folders on re-run
 
-plugins: chroma fetchart inline edit duplicates info
+plugins: musicbrainz chroma fetchart inline edit duplicates info
 
 # Artist/Album (year) [SOURCE FORMAT]/NN - Title  (comp + singleton variants)
 paths:
