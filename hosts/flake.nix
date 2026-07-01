@@ -9,6 +9,10 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     nixos-facter-modules.url = "github:nix-community/nixos-facter-modules";
+    # voxtype: push-to-talk voice-to-text. The flake's `onnx` package unlocks the
+    # Cohere Transcribe / Parakeet engines (nixpkgs ships a Whisper-only build).
+    # Keeps its own nixos-unstable pin so the ONNX/onnxruntime build matches upstream.
+    voxtype.url = "github:peteonrails/voxtype";
   };
 
   outputs =
@@ -19,6 +23,7 @@
       sops-nix,
       disko,
       nixos-facter-modules,
+      voxtype,
     }:
     let
       mkSystem =
@@ -26,7 +31,7 @@
         nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
-            inherit nixpkgs-unstable;
+            inherit nixpkgs-unstable voxtype;
           };
           modules = [
             sops-nix.nixosModules.sops

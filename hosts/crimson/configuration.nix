@@ -15,6 +15,7 @@ in
     ./hardware-configuration.nix
     ./kanata.nix
     ./desktop.nix
+    ./voxtype.nix
     ./sanoid.nix
     ./syncthing.nix
     ./samba.nix
@@ -31,7 +32,10 @@ in
   # Root is ext4. Data pools imported as extra pools: `frost` (4x28TB raidz2, bulk),
   # `blaze` (2x8TB NVMe mirror, hot). Dataset mountpoints are ZFS properties (vault/srv).
   boot.supportedFilesystems = [ "zfs" ];
-  boot.zfs.extraPools = [ "frost" "blaze" ];
+  boot.zfs.extraPools = [
+    "frost"
+    "blaze"
+  ];
   boot.zfs.forceImportRoot = false;
   # Unique per-host id required by ZFS. Generated with: head -c4 /dev/urandom | od -A none -t x4
   networking.hostId = "8a45121a";
@@ -50,8 +54,12 @@ in
   services.openssh.enable = true;
   programs.ssh.startAgent = true;
 
-  # claude-code tracks unstable so it stays current (same pattern as atlantix).
-  environment.systemPackages = [ unstable.claude-code ];
+  # claude-code tracks unstable so it stays current.
+  # voxtype (voice-to-text) and its input-injection plumbing live in voxtype.nix.
+  environment.systemPackages = [
+    unstable.claude-code
+    pkgs.qsv # CSV toolkit
+  ];
 
   system.stateVersion = "26.05";
 }
