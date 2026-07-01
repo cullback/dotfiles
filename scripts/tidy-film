@@ -1,0 +1,139 @@
+#!/usr/bin/env -S nix shell nixpkgs#python3 --command python3
+"""tidy-film — normalize film folders to `Title (year)/` (the matching key), file untouched.
+
+Batch-1 scope: the clean QxR case. QxR puts the full release blob on the *folder* and a short
+blob on the *file*; we only need to strip the folder down to the matching key. The file already
+matches the shows convention (`… (1080p BluRay x265 GROUP).ext`) and is left byte-for-byte.
+
+    films/main/Title (year) + Extras (1080p BluRay x265 HEVC 10bit AAC 5.1 GROUP)/
+      Title (year) (1080p BluRay x265 GROUP).mkv          ← untouched
+    →
+    films/main/Title (year)/
+      Title (year) (1080p BluRay x265 GROUP).mkv
+
+It renames ONLY the folder, and ONLY when all hold:
+  - folder is `Title (year)[ [imdbid-tt…]][ edition][ + Extras] (quality…)` — parenthesized year
+  - exactly one video file, whose name already begins with the derived `Title (year)`
+  - the target `Title (year)/` doesn't already exist and no other folder maps to the same key
+
+Edition/remaster tokens (RM4K, Director's Cut, Unrated, Criterion…) are fine — since no movie has
+multiple copies, the edition is just descriptive text that stays on the FILE; only the folder is
+cleaned to the matching key. Genuinely messy cases — bare/unparenthesized years, dotted scene names
+(RARBG…), loose files, _1/[UTR] dup junk, multi-video folders, unrecognized post-year text — are
+reported as REVIEW and left untouched. That's the TLC backlog for a later pass.
+
+Default is a dry-run; pass --apply. Operates on every child of ROOT (default: films/main).
+Usage: tidy-film [--apply] [ROOT]
+"""
+import argparse
+import collections
+import os
+import re
+import sys
+
+VIDEO = (".mkv", ".mp4", ".avi", ".mov", ".m4v", ".flv")
+# edition/cut/remaster tokens that, if present in the folder middle, defer to the TLC pass
+EDITION = re.compile(
+    r"\b(RM4K|RM|Criterion|Unrated|Uncut|Director'?s Cut|DC|Extended|EE|IMAX|Open Matte|"
+    r"Remastered|Remaster|Final Cut|Signature|Diamond|Anniv|Edition|Cut|Theatrical|"
+    r"Special Edition|SE)\b",
+    re.IGNORECASE,
+)
+# scene re-release cruft - not an edition; dropped from the folder, never preserved
+JUNK = re.compile(r"\s*\b(REPACK\d?|PROPER|INTERNAL|READ\.?NFO|V2)\b", re.IGNORECASE)
+KEY_RE = re.compile(r"^(.+? \(\d{4}\)(?: \[imdbid-tt\d+\])?)")
+BLOB_RE = re.compile(r"\s*\([^()]*\)\s*$")  # trailing (quality blob)
+
+
+def classify(root, child):
+    """Return ('rename', key) for a clean QxR folder, else ('review', reason)."""
+    path = os.path.join(root, child)
+    if not os.path.isdir(path):
+        return ("review", "loose file (no folder)")
+
+    m = KEY_RE.match(child)
+    if not m:
+        return ("review", "no parenthesized (year) in folder name")
+    key = m.group(1)
+
+    rest = JUNK.sub("", child[len(key):])           # drop scene junk (REPACK/V2/PROPER) anywhere
+    middle = BLOB_RE.sub("", rest)                  # drop trailing (quality)
+    middle = middle.replace(" + Extras", "").strip()
+    # an edition/remaster token after the year is fine (folder cleans, edition stays on the file);
+    # only unrecognized non-edition leftovers defer to the TLC pass
+    if middle and not EDITION.search(middle):
+        return ("review", f"unrecognized text after year: {middle!r}")
+
+    vids = sorted(f for f in os.listdir(path) if f.lower().endswith(VIDEO))
+    if len(vids) == 0:
+        return ("review", "no video file in folder")
+    if len(vids) > 1:
+        # a valid Jellyfin multi-version set: every file starts with the key and differs after ' - '
+        if not all(v.startswith(key) and v[len(key):].startswith(" - ") for v in vids):
+            return ("review", f"{len(vids)} video files (multi-version?)")
+    elif not vids[0].startswith(key):
+        return ("review", f"file doesn't match key: {vids[0]!r}")
+    elif middle:
+        # an edition tag on the folder must also be on the file, else cleaning the folder drops it
+        file_rest = vids[0][len(key):]
+        missing = sorted({e for e in EDITION.findall(middle)
+                          if not re.search(r"\b" + re.escape(e) + r"\b", file_rest, re.I)})
+        if missing:
+            return ("review", f"edition {missing} only on folder, not the file — would be lost")
+
+    if key == child:
+        return ("ok", key)                          # already clean
+    if os.path.exists(os.path.join(root, key)):
+        return ("review", f"target already exists: {key!r}")
+    return ("rename", key)
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--apply", action="store_true", help="perform renames (default: dry-run)")
+    ap.add_argument("root", nargs="?", default="films/main", help="folder of movie subfolders")
+    args = ap.parse_args()
+    root = args.root.rstrip("/")
+    if not os.path.isdir(root):
+        sys.exit(f"tidy-film: not a directory: {root}")
+
+    renames, reviews, clean = [], [], 0
+    for child in sorted(os.listdir(root)):
+        kind, info = classify(root, child)
+        if kind == "rename":
+            renames.append((child, info))
+        elif kind == "ok":
+            clean += 1
+        else:
+            reviews.append((child, info))
+
+    # demote any folders that collide on the same target key (e.g. an accidental _1 dup)
+    target_counts = collections.Counter(key for _, key in renames)
+    safe = []
+    for src, key in renames:
+        if target_counts[key] > 1:
+            reviews.append((src, f"collides on key {key!r} with {target_counts[key] - 1} other(s)"))
+        else:
+            safe.append((src, key))
+    renames = safe
+
+    for src, key in renames:
+        print(f"  [rename] {src}\n        →  {key}")
+    print(f"\n{len(renames)} folder renames, {clean} already clean, {len(reviews)} REVIEW.")
+    if reviews:
+        print("\nREVIEW (left untouched):")
+        for src, reason in reviews:
+            print(f"  - {src}  —  {reason}")
+
+    if not args.apply:
+        print(f"\nDRY-RUN. Re-run with --apply to perform the {len(renames)} renames.")
+        return
+    done = 0
+    for src, key in renames:
+        os.rename(os.path.join(root, src), os.path.join(root, key))
+        done += 1
+    print(f"\nAPPLIED: {done} folder renames.")
+
+
+if __name__ == "__main__":
+    main()
