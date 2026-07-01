@@ -44,7 +44,6 @@ in
     };
   };
 
-  services.caddy.virtualHosts."revv.benburk.ca".extraConfig = ''
-    reverse_proxy localhost:${toString port}
-  '';
+  # The public revv.benburk.ca vhost (geo-fenced) lives in caddy.nix alongside
+  # movies/music so all three share one gate. This module just runs the service.
 }
