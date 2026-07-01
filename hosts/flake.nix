@@ -13,6 +13,15 @@
     # Cohere Transcribe / Parakeet engines (nixpkgs ships a Whisper-only build).
     # Keeps its own nixos-unstable pin so the ONNX/onnxruntime build matches upstream.
     voxtype.url = "github:peteonrails/voxtype";
+    # Helium browser (privacy-focused Chromium fork) — not in nixpkgs. This flake
+    # repackages imputnet's official .deb releases (same pattern as Brave/Vivaldi).
+    helium-browser.url = "github:oxcl/nix-flake-helium-browser";
+    helium-browser.inputs.nixpkgs.follows = "nixpkgs";
+    # revv: systematic-review extraction visualizer, served at revv.benburk.ca.
+    # Built from the local working repo (no GitHub remote); bump with
+    # `nix flake update revv` after committing changes there.
+    revv.url = "git+file:///home/cullback/vault/repos/revv-redux";
+    revv.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -24,6 +33,8 @@
       disko,
       nixos-facter-modules,
       voxtype,
+      helium-browser,
+      revv,
     }:
     let
       mkSystem =
@@ -31,7 +42,7 @@
         nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
-            inherit nixpkgs-unstable voxtype;
+            inherit nixpkgs-unstable voxtype helium-browser revv;
           };
           modules = [
             sops-nix.nixosModules.sops

@@ -22,6 +22,7 @@ in
     ./jellyfin.nix
     ./navidrome.nix
     ./caddy.nix
+    ./revv.nix
     ../common/avahi.nix
     ../common/tailscale.nix
     ./sops.nix
