@@ -79,7 +79,6 @@ cask "syntax-highlight"
 cask "ogdesign-eagle"
 cask "smoothcsv"
 cask "tailscale-app"
-cask "utm"
 
 # fonts
 cask "font-fira-code-nerd-font"
