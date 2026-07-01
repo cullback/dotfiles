@@ -20,6 +20,7 @@ in
     ./syncthing.nix
     ./samba.nix
     ./jellyfin.nix
+    ./navidrome.nix
     ./caddy.nix
     ../common/avahi.nix
     ../common/tailscale.nix
