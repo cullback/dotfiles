@@ -6,7 +6,6 @@
     ./tailscale.nix
     ../common/dev.nix
     ../common/sops.nix
-    ../common/syncthing.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -20,16 +19,6 @@
 
   services.openssh.enable = true;
   programs.ssh.startAgent = true;
-
-  services.syncthing.settings.folders = {
-    "notes" = {
-      path = "/home/cullback/repos/notes";
-      devices = [
-        "iphone14"
-        "crimson"
-      ];
-    };
-  };
 
   system.autoUpgrade = {
     enable = true;

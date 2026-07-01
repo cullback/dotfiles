@@ -13,9 +13,6 @@
 
     settings = {
       devices = {
-        devy = {
-          id = "3KTU3QZ-7MUVXUU-WHG2FII-5XRZDEM-72LKOO3-GRYU6QZ-JWSTJH4-FTYSCQK";
-        };
         iphone14 = {
           id = "P7D6TDJ-EM4PIG6-W3AHLYZ-VVSQVME-7AOS5E3-7FPAPCM-52GAQZO-XAVKCQ7";
         };

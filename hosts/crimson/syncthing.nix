@@ -3,7 +3,7 @@
 #
 # crimson takes over the server role in the mesh (kraken + atlantix decommissioned):
 #   admin  — passwords/docs, shared with phone + laptop
-#   notes  — shared with devy + phone
+#   notes  — shared with phone
 { ... }:
 {
   imports = [ ../common/syncthing.nix ];
@@ -25,7 +25,6 @@
     "notes" = {
       path = "/home/cullback/vault/repos/notes";
       devices = [
-        "devy"
         "iphone14"
       ];
     };
