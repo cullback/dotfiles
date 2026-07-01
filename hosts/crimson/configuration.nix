@@ -22,6 +22,14 @@ in
     ./jellyfin.nix
     ./caddy.nix
     ../common/avahi.nix
+    ../common/tailscale.nix
+    ./sops.nix
+    ./ddns.nix
+    # qBittorrent stack — enabled once crimson's Mullvad IP is filled into
+    # wireguard-vpn.nix (see TODO there). sops.nix is already imported above (it
+    # decrypts the Namecheap DDNS secret) and also holds the wg key.
+    #   ./wireguard-vpn.nix
+    #   ./qbittorrent.nix
   ];
 
   # Boot

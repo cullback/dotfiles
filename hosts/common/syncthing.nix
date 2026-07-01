@@ -13,9 +13,6 @@
 
     settings = {
       devices = {
-        atlantix = {
-          id = "KE3E6GT-HIZQYTR-AUKPQJD-RLEPSVL-NMUX3NW-HTH6G22-PXRHCFC-RWEE3AZ";
-        };
         devy = {
           id = "3KTU3QZ-7MUVXUU-WHG2FII-5XRZDEM-72LKOO3-GRYU6QZ-JWSTJH4-FTYSCQK";
         };
@@ -24,9 +21,6 @@
         };
         macbook-air = {
           id = "O2QNTQH-2XGCZ6N-7TP7QXA-E22L6IG-J3EPPTQ-R7LMVSX-KKSPSSI-FKSHJAB";
-        };
-        kraken = {
-          id = "DMLJIGS-ZWL7GIQ-ZNCOEAO-GCMLTFA-SJO2AMP-EBSC4RY-PGTCZLG-SW5R2QN";
         };
         crimson = {
           id = "DZAECZQ-DXCQMV7-IF7LPCM-E3DOTB3-6OQGF5B-KY2O765-SUIP2TY-55COWQ7";

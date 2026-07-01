@@ -48,27 +48,7 @@
     {
       nixosConfigurations = {
         devy = mkSystem "devy" "aarch64-linux";
-        kraken = mkSystem "kraken" "x86_64-linux";
         crimson = mkSystem "crimson" "x86_64-linux";
-        atlantix = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = {
-            inherit nixpkgs-unstable;
-          };
-          modules = [
-            sops-nix.nixosModules.sops
-            disko.nixosModules.disko
-            nixos-facter-modules.nixosModules.facter
-            ./atlantix/disko.nix
-            ./atlantix/configuration.nix
-            ./common/users.nix
-            ./common/packages.nix
-            ./common/programs.nix
-            ./common/nix-settings.nix
-            ./common/locale.nix
-            ./common/dbus.nix
-          ];
-        };
       };
     };
 }

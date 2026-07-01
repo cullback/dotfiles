@@ -25,10 +25,8 @@
     "notes" = {
       path = "/home/cullback/repos/notes";
       devices = [
-        "atlantix"
         "iphone14"
         "crimson"
-        "kraken"
       ];
     };
   };

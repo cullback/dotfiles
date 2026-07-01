@@ -1,9 +1,9 @@
 # Syncthing on crimson. Shared device list + GUI come from common/syncthing.nix;
 # here we declare crimson's folders, which live in the vault.
 #
-# crimson takes over kraken's role in the mesh (kraken decommissioned):
-#   admin  — passwords/docs, shared with atlantix + phone + laptop
-#   notes  — shared with atlantix + devy + phone
+# crimson takes over the server role in the mesh (kraken + atlantix decommissioned):
+#   admin  — passwords/docs, shared with phone + laptop
+#   notes  — shared with devy + phone
 { ... }:
 {
   imports = [ ../common/syncthing.nix ];
@@ -12,7 +12,6 @@
     "admin" = {
       path = "/home/cullback/vault/admin";
       devices = [
-        "atlantix"
         "iphone14"
         "macbook-air"
       ];
@@ -26,7 +25,6 @@
     "notes" = {
       path = "/home/cullback/vault/repos/notes";
       devices = [
-        "atlantix"
         "devy"
         "iphone14"
       ];

@@ -1,5 +1,5 @@
-# Shared development environment for the interactive dev hosts (devy, kraken).
-# Server hosts (atlantix) deliberately do not import this.
+# Shared development environment for the interactive dev hosts (devy).
+# Server/headless hosts deliberately do not import it.
 { pkgs, nixpkgs-unstable, ... }:
 
 let
