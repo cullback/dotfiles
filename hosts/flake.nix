@@ -47,7 +47,6 @@
     in
     {
       nixosConfigurations = {
-        devy = mkSystem "devy" "aarch64-linux";
         crimson = mkSystem "crimson" "x86_64-linux";
       };
     };
