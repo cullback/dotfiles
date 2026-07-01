@@ -1,0 +1,4 @@
+
+# nix build output symlinks (nixos-rebuild build / nix build)
+result
+result-*
