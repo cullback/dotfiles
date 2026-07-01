@@ -25,11 +25,10 @@ in
     ../common/tailscale.nix
     ./sops.nix
     ./ddns.nix
-    # qBittorrent stack — enabled once crimson's Mullvad IP is filled into
-    # wireguard-vpn.nix (see TODO there). sops.nix is already imported above (it
-    # decrypts the Namecheap DDNS secret) and also holds the wg key.
-    #   ./wireguard-vpn.nix
-    #   ./qbittorrent.nix
+    # qBittorrent runs inside the wg-vpn network namespace (kill-switch by
+    # construction). sops.nix (imported above for DDNS) also decrypts the wg key.
+    ./wireguard-vpn.nix
+    ./qbittorrent.nix
   ];
 
   # Boot

@@ -8,10 +8,10 @@
 let
   vpnNamespace = "vpn";
 
-  # crimson's Mullvad-assigned WireGuard address for the wg_privkey_crimson device.
-  # Read it from the Mullvad account (the device matching crimson's wg public key).
-  # TODO(cullback): replace before importing this module / rebuilding.
-  crimsonWgAddress = "MULLVAD_IP_PLACEHOLDER/32";
+  # crimson's Mullvad-assigned WireGuard address for the wg_privkey_crimson device
+  # (Mullvad device "social turtle"). Retrieved from Mullvad's WireGuard API for the
+  # device matching crimson's wg public key.
+  crimsonWgAddress = "10.75.56.33/32";
 in
 {
   sops.secrets.wg_privkey_crimson = { };
