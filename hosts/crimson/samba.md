@@ -1,6 +1,6 @@
 # Samba on crimson
 
-crimson shares `~/vault` (`/home/cullback/vault`) over SMB to the LAN
+crimson shares `/vault` over SMB to the LAN
 (`192.168.2.*`) and Tailscale. The share is read/write and requires a login —
 no guest access. Config lives in `samba.nix`; mDNS (`crimson.local`) comes from
 `../common/avahi.nix`.

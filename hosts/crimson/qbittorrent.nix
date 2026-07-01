@@ -3,7 +3,7 @@
 # qBittorrent confined to the "vpn" network namespace (see wireguard-vpn.nix), so all
 # its traffic exits via Mullvad and it has no network if the tunnel drops. The WebUI is
 # reachable only over Tailscale, via a socat proxy that bridges into the namespace.
-# Downloads land in ~/vault/inbox (frost — transient, deliberately unsnapshotted).
+# Downloads land in /vault/inbox (frost — transient, deliberately unsnapshotted).
 {
   services.qbittorrent = {
     enable = true;
@@ -13,7 +13,7 @@
     webuiPort = 8080;
     serverConfig = {
       Preferences = {
-        "Downloads\\SavePath" = "/home/cullback/vault/inbox/";
+        "Downloads\\SavePath" = "/vault/inbox/";
         "General\\Locale" = "en";
         "WebUI\\AuthSubnetWhitelist" = "127.0.0.1";
         "WebUI\\AuthSubnetWhitelistEnabled" = true;

@@ -1,8 +1,9 @@
 # Jellyfin media server (films + TV), running on crimson where the media lives on
-# the frost ZFS pool. The library mounts under /home/cullback (mode 700), which the
-# jellyfin system user can't traverse, so we expose it read-only at /srv/media via a
-# bind mount and add jellyfin to the `users` group for read access. Configure the
-# libraries in the web UI on first run, pointing at /srv/media/{films,shows}.
+# the frost ZFS pool at /vault/media. We expose it read-only at /srv/media via a bind
+# mount (so Jellyfin gets a strictly read-only view of the library) and add the
+# jellyfin system user to the `users` group for read access to the cullback:users
+# media. Configure the libraries in the web UI on first run, pointing at
+# /srv/media/{films,shows}.
 # Reachable on the LAN at http://crimson:8096 (openFirewall); also over Tailscale.
 { ... }:
 {
@@ -15,11 +16,11 @@
   # cullback:users media files.
   users.users.jellyfin.extraGroups = [ "users" ];
 
-  # Read-only view of the media at a system path the jellyfin user can reach
-  # (bypasses the 700 on /home/cullback). frost datasets are mounted by
+  # Read-only view of the media for Jellyfin/Navidrome — enforces a read-only view
+  # even though the /vault/media source is writable. frost datasets are mounted by
   # zfs-mount.service, so order the bind after it.
   fileSystems."/srv/media" = {
-    device = "/home/cullback/vault/media";
+    device = "/vault/media";
     fsType = "none";
     options = [
       "bind"

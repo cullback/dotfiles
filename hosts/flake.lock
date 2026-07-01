@@ -134,11 +134,11 @@
         "rev": "e11638254154a66e815e24d969e19de9344062d6",
         "revCount": 318,
         "type": "git",
-        "url": "file:///home/cullback/vault/repos/revv-redux"
+        "url": "file:///vault/repos/revv-redux"
       },
       "original": {
         "type": "git",
-        "url": "file:///home/cullback/vault/repos/revv-redux"
+        "url": "file:///vault/repos/revv-redux"
       }
     },
     "root": {

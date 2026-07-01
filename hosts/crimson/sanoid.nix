@@ -1,6 +1,6 @@
 # Automatic ZFS snapshots via sanoid. (Replication is syncoid, added with backups.)
 #
-# Per the storage plan (datasets now nested under the ~/vault root: blaze/vault, frost/vault):
+# Per the storage plan (datasets now nested under the /vault root: blaze/vault, frost/vault):
 #   vault/admin, vault/repos  -> frequent (active + precious): hourly + daily + weekly
 #   state, vault/media, vault/photo -> standard: daily + weekly
 #   vault (loose-drop root), vault/inbox, vault/dumps, backup

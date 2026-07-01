@@ -1,6 +1,6 @@
 { ... }:
 {
-  # crimson is LAN-exposed (local workstation/NAS). Shares ~/vault, which is a
+  # crimson is LAN-exposed (local workstation/NAS). Shares /vault, which is a
   # directory with several ZFS datasets (media, photo, repos, ...) mounted under
   # it, so the single share exposes them all. Connect from macOS Finder with
   # Cmd-K -> smb://crimson.local (avahi publishes the .local name).
@@ -26,7 +26,7 @@
         "fruit:delete_empty_adfiles" = "yes";
       };
       "vault" = {
-        "path" = "/home/cullback/vault";
+        "path" = "/vault";
         "browseable" = "yes";
         "read only" = "no";
         "guest ok" = "no";

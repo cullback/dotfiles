@@ -1,9 +1,9 @@
 # beets — music library manager for the curated library. Autotags against MusicBrainz
 # (chroma acoustic fingerprinting), then moves files into the naming scheme documented in
-# ~/vault/media/README.md ("## music"). Navidrome reads the embedded tags; beets keeps the
+# /vault/media/README.md ("## music"). Navidrome reads the embedded tags; beets keeps the
 # readable Artist/Album (year) [SOURCE FORMAT]/NN - Title shell in sync with them.
 
-directory: /home/cullback/vault/media/music/curated
+directory: /vault/media/music/curated
 library: ~/.local/state/beets/library.db
 
 original_date: yes # use the ORIGINAL release year, not a reissue's

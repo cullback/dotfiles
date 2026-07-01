@@ -20,7 +20,7 @@
     # revv: systematic-review extraction visualizer, served at revv.benburk.ca.
     # Built from the local working repo (no GitHub remote); bump with
     # `nix flake update revv` after committing changes there.
-    revv.url = "git+file:///home/cullback/vault/repos/revv-redux";
+    revv.url = "git+file:///vault/repos/revv-redux";
     revv.inputs.nixpkgs.follows = "nixpkgs";
   };
 

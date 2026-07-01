@@ -10,7 +10,7 @@
 
   services.syncthing.settings.folders = {
     "admin" = {
-      path = "/home/cullback/vault/admin";
+      path = "/vault/admin";
       devices = [
         "iphone14"
         "macbook-air"
@@ -23,7 +23,7 @@
       };
     };
     "notes" = {
-      path = "/home/cullback/vault/repos/notes";
+      path = "/vault/repos/notes";
       devices = [
         "iphone14"
       ];
