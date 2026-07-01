@@ -19,6 +19,8 @@ in
     ./sanoid.nix
     ./syncthing.nix
     ./samba.nix
+    ./jellyfin.nix
+    ./caddy.nix
     ../common/avahi.nix
   ];
 
