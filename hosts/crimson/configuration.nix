@@ -69,6 +69,8 @@ in
   environment.systemPackages = [
     unstable.claude-code
     pkgs.qsv # CSV toolkit
+    pkgs.beets # music library manager / tagger (config in ~/.config/beets)
+    pkgs.chromaprint # fpcalc, for beets' chroma acoustic fingerprinting
   ];
 
   system.stateVersion = "26.05";

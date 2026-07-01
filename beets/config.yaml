@@ -1,0 +1,40 @@
+# beets — music library manager for the curated library. Autotags against MusicBrainz
+# (chroma acoustic fingerprinting), then moves files into the naming scheme documented in
+# ~/vault/media/README.md ("## music"). Navidrome reads the embedded tags; beets keeps the
+# readable Artist/Album (year) [SOURCE FORMAT]/NN - Title shell in sync with them.
+
+directory: /home/cullback/vault/media/music/curated
+library: ~/.local/state/beets/library.db
+
+original_date: yes # use the ORIGINAL release year, not a reissue's
+
+import:
+  move: yes # move into `directory` (same ZFS dataset, so instant)
+  write: yes # write corrected tags back to the files (tags = truth)
+  resume: yes
+  incremental: yes # skip already-imported folders on re-run
+
+plugins: chroma fetchart inline edit duplicates info
+
+# Artist/Album (year) [SOURCE FORMAT]/NN - Title  (comp + singleton variants)
+paths:
+  default: $albumartist/$album ($year) [$source $format]/$track - $title
+  singleton: $artist/Singles/$title [$source $format]
+  comp: Various Artists/$album ($year) [$source $format]/$track - $artist - $title
+
+# SOURCE token derived from the MusicBrainz medium format; unknown/digital -> WEB
+item_fields:
+  source: "{'Digital Media': 'WEB', 'CD': 'CD', 'Vinyl': 'Vinyl', 'Cassette': 'Cassette'}.get(media, 'WEB')"
+
+fetchart:
+  cover_names: cover front folder
+art_filename: cover
+
+chroma:
+  auto: yes
+
+# strip filesystem-illegal characters (keep names readable)
+replace:
+  '[\\/]': _
+  '[<>:"\?\*\|]': ""
+  '^-': _

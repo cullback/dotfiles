@@ -29,6 +29,7 @@ links=(
     "ghostty/config" ".config/ghostty/config"
     "voxtype/config.toml" ".config/voxtype/config.toml"
     "voxtype/voxtype.service" ".config/systemd/user/voxtype.service"
+    "beets/config.yaml" ".config/beets/config.yaml"
 )
 
 # macOS-only links (karabiner is mac-only; alacritty lives here too).
