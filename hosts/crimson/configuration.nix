@@ -62,7 +62,16 @@ in
 
   security.sudo.wheelNeedsPassword = false;
 
-  services.openssh.enable = true;
+  # Key-only SSH: authorizedKeys are set in common/users.nix, so refuse passwords
+  # entirely and never allow a root login.
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
+    };
+  };
   programs.ssh.startAgent = true;
 
   # claude-code tracks unstable so it stays current.

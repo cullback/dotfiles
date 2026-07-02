@@ -14,6 +14,11 @@
     group = "users";
   };
 
+  # cullback's login password hash (mkpasswd -m sha-512). neededForUsers makes
+  # sops-nix decrypt it to /run/secrets-for-users before user activation, which is
+  # required for users.users.<name>.hashedPasswordFile (see common/users.nix).
+  sops.secrets.cullback_pw.neededForUsers = true;
+
   programs.bash.interactiveShellInit = ''
     export OPENROUTER_API_KEY="$(cat ${config.sops.secrets.openrouter_api_key.path})"
   '';
