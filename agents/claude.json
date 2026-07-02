@@ -1,19 +1,7 @@
 {
   "includeCoAuthoredBy": false,
   "permissions": {
-    "allow": [
-      "WebFetch(domain:*)",
-      "Bash(cargo:*)",
-      "Bash(git:*)",
-      "Bash(just:*)",
-      "Bash(cat:*)",
-      "Bash(chmod:*)",
-      "Skill(playbook:*)",
-      "Bash(tk:*)",
-      "Bash(uv:*)",
-      "Bash(qsv:*)",
-      "Bash(direnv:*)"
-    ],
+    "allow": [],
     "deny": [],
     "ask": [],
     "defaultMode": "acceptEdits"
