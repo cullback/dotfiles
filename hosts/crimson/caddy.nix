@@ -45,7 +45,13 @@ let
         not remote_ip 127.0.0.1/8 ::1 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 100.64.0.0/10 fd7a:115c:a1e0::/48
         not maxmind_geolocation {
           db_path "${geoipDb}"
-          allow_countries CA
+          # CA + PM: iCloud Private Relay tunnels Canadian users out through Fastly
+          # egress nodes that the DB-IP database maps to PM (Saint-Pierre-et-Miquelon,
+          # the French islands off Newfoundland), not CA — so CA-only 403'd real
+          # Canadian visitors. PM is tiny (~6k pop.), so allowing it is low risk.
+          # US is deliberately NOT included (would open the fence to all of the US);
+          # if relay users still get 403s from US-mapped nodes, revisit (logs will show).
+          allow_countries CA PM
         }
       }
       respond @denied "Not available in your region." 403
