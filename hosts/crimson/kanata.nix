@@ -33,9 +33,12 @@
 
         (defalias
           cap (tap-hold-press 200 200 esc (layer-while-held nav))
+          cpq (tap-hold-press 200 200 esc (layer-while-held navq))
           slw (macro C-left C-S-right)   ;; select word
           sll (macro home S-end)         ;; select line
           olb (macro end ret)            ;; open line below
+          qwe (layer-switch qwerty)      ;; switch base to qwerty
+          bld (layer-switch base)        ;; switch base back to bold
         )
 
         ;; base = "bold" layout (physical key -> emitted key)
@@ -49,8 +52,29 @@
 
         ;; nav = caps held. _ = transparent (falls through to base/bold).
         ;; Hold Alt too -> the arrows below become Alt+arrows (zellij panes).
+        ;; caps+1 switches the base layout to qwerty (reclaimed brdn slot).
         (deflayer nav
-          _    brdn brup _    _    _    _    prev pp   next mute vold volu del
+          _    @qwe brup _    _    _    _    prev pp   next mute vold volu del
+          _    _    _    _    _    _    _    _    _    _
+          _    @slw @sll _    _    _    home left down up   right end
+          _    _    _    _    _    _
+          @olb
+        )
+
+        ;; qwerty base layer. Activated by layer-switch, so _ = the defsrc key,
+        ;; i.e. plain qwerty. Only caps is remapped, to reach navq.
+        (deflayer qwerty
+          _    _    _    _    _    _    _    _    _    _    _    _    _    _
+          _    _    _    _    _    _    _    _    _    _
+          @cpq _    _    _    _    _    _    _    _    _    _    _
+          _    _    _    _    _    _
+          _
+        )
+
+        ;; nav while qwerty is the base — same as nav, but caps+1 switches back
+        ;; to bold. slw/sll/arrows etc. work the same here.
+        (deflayer navq
+          _    @bld brup _    _    _    _    prev pp   next mute vold volu del
           _    _    _    _    _    _    _    _    _    _
           _    @slw @sll _    _    _    home left down up   right end
           _    _    _    _    _    _
