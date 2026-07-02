@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, helium-browser, ... }:
 
 # Local Wayland desktop for crimson (monitor + keyboard). GNOME via GDM with
 # autologin — a batteries-included base to start with; niri/sway can be added
@@ -15,12 +15,15 @@
     user = "cullback";
   };
 
-  # Browser
+  # Browsers. Helium (privacy Chromium fork) comes from the helium-browser flake's
+  # overlay, which exposes pkgs.helium; trying it out alongside Firefox.
   programs.firefox.enable = true;
+  nixpkgs.overlays = [ helium-browser.overlays.default ];
 
   # Terminal (matches the macOS setup) + desktop apps + fonts with glyph coverage.
   environment.systemPackages = with pkgs; [
     ghostty
+    helium
     keepassxc
   ];
 
