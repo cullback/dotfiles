@@ -29,7 +29,17 @@ let
 
   # A geo-fenced reverse proxy to `upstream`: serve CA + LAN/Tailscale, else 403.
   # `route` forces top-to-bottom evaluation so the deny short-circuits the proxy.
+  #
+  # Access logging is on (to stdout -> journald) so we can see every request's
+  # status + client_ip — Caddy only emits error logs by default, which is why
+  # 403 geo-denials were invisible. Inspect with:
+  #   journalctl -u caddy -o cat | grep '"status":403'
+  # then look up the offending client_ip against the mmdb to see why it was denied.
   geoGate = upstream: ''
+    log {
+      output stdout
+      format json
+    }
     route {
       @denied {
         not remote_ip 127.0.0.1/8 ::1 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 100.64.0.0/10 fd7a:115c:a1e0::/48
