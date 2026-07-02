@@ -20,11 +20,30 @@
   programs.firefox.enable = true;
   nixpkgs.overlays = [ helium-browser.overlays.default ];
 
+  # Sound — PipeWire with pulse compat (pulled in by GNOME, but be explicit)
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+  };
+
+  # OpenGL with 32-bit support — required for any Windows games (Wine/Proton)
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
   # Terminal (matches the macOS setup) + desktop apps + fonts with glyph coverage.
   environment.systemPackages = with pkgs; [
     ghostty
     helium
     keepassxc
+
+    # Gaming
+    heroic # GOG / Epic launcher
+    protonup-qt # runner manager (downloads GE-Proton/Wine-GE)
+    mangohud # FPS overlay
+    wineWow64Packages.wayland # Wine with Wayland support
+    winetricks # helper for Wine components
   ];
 
   fonts = {
