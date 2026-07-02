@@ -18,6 +18,7 @@
     "ask": [],
     "defaultMode": "acceptEdits"
   },
+  "model": "claude-fable-5[1m]",
   "alwaysThinkingEnabled": true,
   "effortLevel": "high",
   "skipDangerousModePermissionPrompt": true,
