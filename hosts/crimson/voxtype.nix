@@ -11,7 +11,7 @@
 # (Mutter doesn't implement wtype's virtual-keyboard protocol).
 #
 # This module also owns the input-injection plumbing (ydotool + group
-# membership) that previously lived in handy.nix.
+# membership).
 {
   environment.systemPackages = [
     voxtype.packages.${pkgs.stdenv.hostPlatform.system}.onnx
