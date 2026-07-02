@@ -8,6 +8,10 @@
 {
   imports = [ ../common/syncthing.nix ];
 
+  # GUI at https://crimson.taile2df60.ts.net:10000 (tailnet-only, no login).
+  # Not 443: Caddy binds 0.0.0.0:443 for the public vhosts and shadows serve there.
+  local.tailscaleServe."10000" = 8384;
+
   services.syncthing.settings.folders = {
     "admin" = {
       path = "/vault/admin";
