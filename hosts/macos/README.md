@@ -8,8 +8,9 @@ xcode-select --install
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # install dotfiles and symlink configs
-git clone dotfiles
-bash install.sh
+git clone https://github.com/cullback/dotfiles.git
+cd dotfiles
+bash scripts/install.bash
 
 brew bundle install --file hosts/macos/Brewfile
 
