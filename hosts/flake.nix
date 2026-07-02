@@ -6,9 +6,6 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
-    nixos-facter-modules.url = "github:nix-community/nixos-facter-modules";
     # voxtype: push-to-talk voice-to-text. The flake's `onnx` package unlocks the
     # Cohere Transcribe / Parakeet engines (nixpkgs ships a Whisper-only build).
     # Keeps its own nixos-unstable pin so the ONNX/onnxruntime build matches upstream.
@@ -30,8 +27,6 @@
       nixpkgs,
       nixpkgs-unstable,
       sops-nix,
-      disko,
-      nixos-facter-modules,
       voxtype,
       helium-browser,
       revv,
@@ -39,10 +34,22 @@
     let
       mkSystem =
         hostname: system:
+        let
+          # One shared unstable package set per host, passed to modules as `unstable`.
+          unstable = import nixpkgs-unstable {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        in
         nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
-            inherit nixpkgs-unstable voxtype helium-browser revv;
+            inherit
+              unstable
+              voxtype
+              helium-browser
+              revv
+              ;
           };
           modules = [
             sops-nix.nixosModules.sops

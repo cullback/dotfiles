@@ -15,10 +15,18 @@
       Preferences = {
         "Downloads\\SavePath" = "/vault/inbox/";
         "General\\Locale" = "en";
+        # Requests arrive via the socat proxy, so they all look like 127.0.0.1 and
+        # skip auth — fine under the tailnet-is-trusted model, but it means the WebUI
+        # must defend itself against requests a browser was tricked into sending
+        # (DNS rebinding / CSRF). CSRF protection and Host validation therefore stay
+        # at their secure defaults; ServerDomains whitelists the tailnet names, since
+        # the Host header won't match qBittorrent's in-namespace 127.0.0.1 bind.
+        # NOTE: browse via http://crimson:8080 (MagicDNS) — qBittorrent only accepts
+        # an IP-literal Host if it equals the bind address, so the raw tailscale IP
+        # gets 401 by design (listing it in ServerDomains has no effect).
         "WebUI\\AuthSubnetWhitelist" = "127.0.0.1";
         "WebUI\\AuthSubnetWhitelistEnabled" = true;
-        "WebUI\\HostHeaderValidation" = false;
-        "WebUI\\CSRFProtection" = false;
+        "WebUI\\ServerDomains" = "crimson;crimson.taile2df60.ts.net";
       };
     };
   };

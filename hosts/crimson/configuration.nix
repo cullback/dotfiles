@@ -1,15 +1,9 @@
 {
   pkgs,
-  nixpkgs-unstable,
+  unstable,
   ...
 }:
 
-let
-  unstable = import nixpkgs-unstable {
-    system = pkgs.stdenv.hostPlatform.system;
-    config.allowUnfree = true;
-  };
-in
 {
   imports = [
     ./hardware-configuration.nix
@@ -59,8 +53,6 @@ in
 
   networking.hostName = "crimson";
   # Networking is managed by NetworkManager (pulled in by the GNOME desktop).
-
-  security.sudo.wheelNeedsPassword = false;
 
   # Key-only SSH: authorizedKeys are set in common/users.nix, so refuse passwords
   # entirely and never allow a root login.

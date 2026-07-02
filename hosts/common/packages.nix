@@ -1,11 +1,5 @@
-{ pkgs, nixpkgs-unstable, ... }:
+{ pkgs, unstable, ... }:
 
-let
-  unstable = import nixpkgs-unstable {
-    system = pkgs.stdenv.hostPlatform.system;
-    config.allowUnfree = true;
-  };
-in
 {
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [

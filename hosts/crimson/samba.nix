@@ -38,7 +38,8 @@
         # into xattrs by the fruit/streams_xattr settings above, so they aren't
         # listed here (vetoing them would fight fruit). delete veto files lets
         # Samba remove an otherwise-empty dir even if it only holds these.
-        "veto files" = "/.DS_Store/.AppleDouble/.AppleDB/.AppleDesktop/.apdisk/Network Trash Folder/Temporary Items/.TemporaryItems/";
+        "veto files" =
+          "/.DS_Store/.AppleDouble/.AppleDB/.AppleDesktop/.apdisk/Network Trash Folder/Temporary Items/.TemporaryItems/";
         "delete veto files" = "yes";
       };
     };
