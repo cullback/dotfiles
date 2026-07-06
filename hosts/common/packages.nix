@@ -37,6 +37,8 @@
     # Data Processing
     jq
     pandoc
+    qsv # CSV toolkit
+    visidata # terminal spreadsheet / tabular data explorer
     yq-go
 
     # Media
