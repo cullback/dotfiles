@@ -86,32 +86,11 @@
         "type": "github"
       }
     },
-    "revv": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1782944449,
-        "narHash": "sha256-FX72P9N7EnpfAtGBM/8UeMRxf2DeZEiQ6fKu00E9fhU=",
-        "ref": "refs/heads/main",
-        "rev": "e11638254154a66e815e24d969e19de9344062d6",
-        "revCount": 318,
-        "type": "git",
-        "url": "file:///vault/repos/revv-redux"
-      },
-      "original": {
-        "type": "git",
-        "url": "file:///vault/repos/revv-redux"
-      }
-    },
     "root": {
       "inputs": {
         "helium-browser": "helium-browser",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "revv": "revv",
         "sops-nix": "sops-nix",
         "voxtype": "voxtype"
       }

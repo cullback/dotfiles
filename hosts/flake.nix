@@ -14,11 +14,6 @@
     # repackages imputnet's official .deb releases (same pattern as Brave/Vivaldi).
     helium-browser.url = "github:oxcl/nix-flake-helium-browser";
     helium-browser.inputs.nixpkgs.follows = "nixpkgs";
-    # revv: systematic-review extraction visualizer, served at revv.benburk.ca.
-    # Built from the local working repo (no GitHub remote); bump with
-    # `nix flake update revv` after committing changes there.
-    revv.url = "git+file:///vault/repos/revv-redux";
-    revv.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -29,7 +24,6 @@
       sops-nix,
       voxtype,
       helium-browser,
-      revv,
     }:
     let
       mkSystem =
@@ -48,7 +42,6 @@
               unstable
               voxtype
               helium-browser
-              revv
               ;
           };
           modules = [
