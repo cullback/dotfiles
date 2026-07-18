@@ -1,6 +1,26 @@
 #!/usr/bin/env fish
 
-# https://github.com/gildas-lormeau/SingleFile/blob/f550b1daf07efa86169c732dc4dc6f710d783e77/src/ui/pages/help.html#L26
-# "template variables"
+# Archive a web page as one self-contained HTML file.
+#
+# Usage: single-file-archive <url> [output.html]
+#
+# Hardened per the capture project's lessons: de-automation browser
+# flags (Cloudflare blocks headless chromium's default fingerprint)
+# and overwrite instead of silently writing "name (2).html".
 
-single-file --filename-template "{url-hostname} - {date-iso} - {page-title}.{filename-extension}" $argv[1]
+if test (count $argv) -eq 0
+    echo "usage: single-file-archive <url> [output.html]" >&2
+    exit 2
+end
+
+set -l args \
+    --browser-args '["--disable-blink-features=AutomationControlled","--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"]' \
+    --filename-conflict-action overwrite
+
+if test (count $argv) -ge 2
+    single-file $args $argv[1] $argv[2]
+else
+    single-file $args \
+        --filename-template "{url-hostname} - {date-iso} - {page-title}.{filename-extension}" \
+        $argv[1]
+end

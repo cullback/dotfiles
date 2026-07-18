@@ -33,6 +33,9 @@ links=(
     "scripts/pdf2md.py" ".local/bin/pdf2md"
     "scripts/yt_archive.fish" ".local/bin/yt-archive"
     "scripts/single_file.fish" ".local/bin/single-file-archive"
+    "scripts/llm.py" ".local/bin/llm"
+    "scripts/timestamp.py" ".local/bin/timestamp"
+    "scripts/git-status.fish" ".local/bin/git-status-all"
 )
 
 # macOS-only links (karabiner is mac-only; alacritty lives here too).

@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Convert a PDF to markdown via the Datalab Marker API.
+"""Convert PDFs to markdown via the Datalab Marker API.
 
-Usage: pdf2md <file.pdf> [--output-dir DIR]
+Usage: pdf2md [-o DIR] <file.pdf> [more.pdf ...]
 
-Writes <stem>.md plus an images/ directory beside it. Requires
-DATALAB_API_KEY in the environment (or ~/.config/datalab/key).
-Stdlib only; curl does the HTTP.
+Writes <stem>.md (plus an images/ directory when the document has
+figures) into the output directory, printing each markdown path to
+stdout. Requires DATALAB_API_KEY in the environment or
+~/.config/datalab/key. Stdlib only; curl does the HTTP.
 """
 
 import argparse
@@ -44,14 +45,18 @@ def curl_json(args: list[str], key: str) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="PDF to markdown via Datalab Marker")
-    parser.add_argument("pdf", type=Path)
-    parser.add_argument("--output-dir", type=Path, default=Path("."))
+    parser.add_argument("pdfs", type=Path, nargs="+", metavar="pdf")
+    parser.add_argument("-o", "--output-dir", type=Path, default=Path("."))
     args = parser.parse_args()
     key = api_key()
+    for pdf in args.pdfs:
+        convert(pdf, args.output_dir, key)
 
+
+def convert(pdf: Path, output_dir: Path, key: str) -> None:
     submitted = curl_json(
         [
-            "-F", f"file=@{args.pdf};type=application/pdf",
+            "-F", f"file=@{pdf};type=application/pdf",
             "-F", "output_format=markdown",
             "-F", "mode=accurate",
             SUBMIT_URL,
@@ -62,7 +67,7 @@ def main() -> None:
         f"unexpected submit response: {submitted}"
     )
 
-    print(f"submitted, polling every {POLL_SECONDS}s...", file=sys.stderr)
+    print(f"{pdf.name}: submitted, polling every {POLL_SECONDS}s...", file=sys.stderr)
     poll: dict = {}
     for _ in range(TIMEOUT_MINUTES * 60 // POLL_SECONDS):
         time.sleep(POLL_SECONDS)
@@ -75,10 +80,10 @@ def main() -> None:
         sys.exit(f"conversion failed: {poll.get('error') or poll.get('status')}")
 
     markdown = poll["markdown"]
-    args.output_dir.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(parents=True, exist_ok=True)
     images = poll.get("images") or {}
     if images:
-        image_dir = args.output_dir / "images"
+        image_dir = output_dir / "images"
         image_dir.mkdir(exist_ok=True)
         for name, encoded in images.items():
             (image_dir / Path(name).name).write_bytes(base64.b64decode(encoded))
@@ -87,7 +92,7 @@ def main() -> None:
                 f'src="{name}"', f'src="images/{Path(name).name}"'
             )
 
-    out = args.output_dir / f"{args.pdf.stem}.md"
+    out = output_dir / f"{pdf.stem}.md"
     out.write_text(markdown)
     # Best-effort formatting; unformatted markdown is still markdown.
     formatted = subprocess.run(

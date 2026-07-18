@@ -7,6 +7,11 @@
 #
 # Usage: yt-archive <url> [extra yt-dlp args...]
 
+if test (count $argv) -eq 0
+    echo "usage: yt-archive <url> [extra yt-dlp args...]" >&2
+    exit 2
+end
+
 set -l cookies "$HOME/.config/capture/youtube-cookies.txt"
 set -l cookie_args
 if test -f $cookies
