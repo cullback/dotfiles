@@ -12,6 +12,7 @@
     # Shell & Terminal
     direnv
     fzf
+    moreutils # includes vipe (edit a pipe in $EDITOR)
     ghostty.terminfo
     starship
     zellij

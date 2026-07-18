@@ -30,6 +30,9 @@ links=(
     "voxtype/config.toml" ".config/voxtype/config.toml"
     "voxtype/voxtype.service" ".config/systemd/user/voxtype.service"
     "beets/config.yaml" ".config/beets/config.yaml"
+    "scripts/pdf2md.py" ".local/bin/pdf2md"
+    "scripts/yt_archive.fish" ".local/bin/yt-archive"
+    "scripts/single_file.fish" ".local/bin/single-file-archive"
 )
 
 # macOS-only links (karabiner is mac-only; alacritty lives here too).

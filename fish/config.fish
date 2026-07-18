@@ -3,6 +3,7 @@
 set -gx EDITOR hx
 set -gx COLORTERM truecolor
 set -gx PLAYBOOK /vault/repos/playbook
+fish_add_path --global ~/.local/bin
 
 if status is-interactive
     set fish_greeting # Suppress fish welcome message
@@ -26,4 +27,17 @@ if status is-interactive
 
     starship init fish | source
     command -q direnv; and direnv hook fish | source
+
+    # wt: create/manage git worktrees, and cd into freshly created ones.
+    # The underlying script prints the new worktree path on stdout; a
+    # subprocess can't cd the parent shell, so wrap it here.
+    function wt --description 'git worktree helper (cds into new worktrees)'
+        set -l out ($PLAYBOOK/bin/wt.fish $argv)
+        or return $status
+        if set -q out[-1]; and test -d "$out[-1]"
+            cd $out[-1]
+        else
+            printf '%s\n' $out
+        end
+    end
 end
