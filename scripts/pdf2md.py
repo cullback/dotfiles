@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Convert PDFs to markdown via the Datalab Marker API.
 
-Usage: pdf2md [-o DIR] <file.pdf> [more.pdf ...]
+Usage: pdf2md [-o DIR] [--name STEM] [--media-dir NAME]
+              [--mode fast|balanced|accurate] <file.pdf> [more.pdf ...]
 
-Writes <stem>.md (plus an images/ directory when the document has
+Writes <stem>.md (plus a media directory when the document has
 figures) into the output directory, printing each markdown path to
 stdout. Requires DATALAB_API_KEY in the environment or
 ~/.config/datalab/key. Stdlib only; curl does the HTTP.
@@ -47,18 +48,29 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="PDF to markdown via Datalab Marker")
     parser.add_argument("pdfs", type=Path, nargs="+", metavar="pdf")
     parser.add_argument("-o", "--output-dir", type=Path, default=Path("."))
+    parser.add_argument("--name", help="output stem (default: the pdf's)")
+    parser.add_argument("--media-dir", default="images", help="figure dir name")
+    parser.add_argument(
+        "--mode",
+        choices=("fast", "balanced", "accurate"),
+        default="accurate",
+        help="datalab conversion tier",
+    )
     args = parser.parse_args()
+    if args.name and len(args.pdfs) > 1:
+        parser.error("--name only makes sense with a single pdf")
     key = api_key()
     for pdf in args.pdfs:
-        convert(pdf, args.output_dir, key)
+        convert(pdf, args, key)
 
 
-def convert(pdf: Path, output_dir: Path, key: str) -> None:
+def convert(pdf: Path, args: argparse.Namespace, key: str) -> None:
+    output_dir = args.output_dir
     submitted = curl_json(
         [
             "-F", f"file=@{pdf};type=application/pdf",
             "-F", "output_format=markdown",
-            "-F", "mode=accurate",
+            "-F", f"mode={args.mode}",
             SUBMIT_URL,
         ],
         key,
@@ -83,16 +95,18 @@ def convert(pdf: Path, output_dir: Path, key: str) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
     images = poll.get("images") or {}
     if images:
-        image_dir = output_dir / "images"
+        image_dir = output_dir / args.media_dir
         image_dir.mkdir(exist_ok=True)
         for name, encoded in images.items():
             (image_dir / Path(name).name).write_bytes(base64.b64decode(encoded))
-            markdown = markdown.replace(f"]({name})", f"](images/{Path(name).name})")
             markdown = markdown.replace(
-                f'src="{name}"', f'src="images/{Path(name).name}"'
+                f"]({name})", f"]({args.media_dir}/{Path(name).name})"
+            )
+            markdown = markdown.replace(
+                f'src="{name}"', f'src="{args.media_dir}/{Path(name).name}"'
             )
 
-    out = output_dir / f"{pdf.stem}.md"
+    out = output_dir / f"{args.name or pdf.stem}.md"
     out.write_text(markdown)
     # Best-effort formatting; unformatted markdown is still markdown.
     formatted = subprocess.run(
