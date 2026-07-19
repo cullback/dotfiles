@@ -17,6 +17,13 @@ set -l args \
     --browser-args '["--disable-blink-features=AutomationControlled","--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"]' \
     --filename-conflict-action overwrite
 
+# Puppeteer looks for "chrome", which NixOS doesn't provide; point it
+# at whatever chromium-flavored browser is on PATH.
+set -l browser (command -v chromium; or command -v chromium-browser; or command -v google-chrome-stable)
+if test -n "$browser"
+    set -a args --browser-executable-path $browser
+end
+
 if test (count $argv) -ge 2
     single-file $args $argv[1] $argv[2]
 else
