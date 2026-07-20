@@ -7,6 +7,11 @@ alias fmt := format
 nix-rebuild:
     sudo nixos-rebuild switch --flake ./hosts#$(hostname)
 
+# Bump flake inputs (all, or named ones e.g. `just update nixpkgs-unstable`) and rebuild
+update *inputs:
+    nix flake update {{ inputs }} --flake ./hosts
+    just nix-rebuild
+
 sync-dotfiles:
     bash scripts/install.bash
 
