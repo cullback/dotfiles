@@ -53,6 +53,7 @@
             ./common/nix-settings.nix
             ./common/locale.nix
             ./common/dbus.nix
+            ./common/nscd.nix
           ];
         };
     in
