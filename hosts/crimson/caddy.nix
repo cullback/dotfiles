@@ -66,7 +66,7 @@ in
     # Rebuild Caddy with the maxmind geolocation matcher.
     package = pkgs.caddy.withPlugins {
       plugins = [ "github.com/porech/caddy-maxmind-geolocation@v1.0.3" ];
-      hash = "sha256-uUYds3PGZ4b/MR81ZzzodRhnr38WAwQqmRvOzeo0bXU=";
+      hash = "sha256-1rf07EO7hF0vqh+MOSZDfh+iS3V13nQ4D8Jf2HKlO/k=";
     };
 
     virtualHosts."movies.benburk.ca".extraConfig = geoGate "localhost:8096";
