@@ -3,7 +3,9 @@
 # Per the storage plan (datasets now nested under the /vault root: blaze/vault, frost/vault):
 #   vault/admin, vault/repos  -> frequent (active + precious): hourly + daily + weekly
 #   state, vault/media, vault/photo -> standard: daily + weekly
-#   vault (loose-drop root), vault/inbox, vault/dumps, backup
+#     (vault/media now contains the download landing zone at /vault/media/inbox, incl.
+#      inbox/.downloading — so in-flight torrents fall under these snapshots too)
+#   vault (loose-drop root), vault/inbox (blaze junk drawer), vault/dumps, backup
 #     -> NOT listed => no snapshots (transient drop zone / receive target)
 { ... }:
 {
