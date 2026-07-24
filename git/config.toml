@@ -10,12 +10,32 @@ username = "cullback"
 [init]
 defaultBranch = "main"
 
-# [delta]
-# side-by-side = true
+[interactive]
+diffFilter = "delta --color-only"
+
+[delta]
+navigate = true # n / N to jump between files & hunks
+line-numbers = true
+side-by-side = true
+hyperlinks = true # clickable file:line in supporting terminals
+syntax-theme = "Catppuccin Mocha"
+file-style = "bold syntax"
+file-decoration-style = "#585b70 ul"
+hunk-header-style = "file line-number syntax"
+hunk-header-decoration-style = "#585b70 box"
+line-numbers-minus-style = "#f38ba8"
+line-numbers-plus-style = "#a6e3a1"
+line-numbers-zero-style = "#585b70"
+zero-style = "syntax"
+minus-style = "syntax #45293a"
+plus-style = "syntax #2a3a2a"
+
+[merge]
+conflictStyle = "zdiff3"
 
 [core]
 editor = "hx"
-# pager = "delta"
+pager = "delta"
 hooksPath = "~/.config/git/hooks"
 
 [column]
