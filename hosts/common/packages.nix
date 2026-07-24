@@ -26,6 +26,7 @@
     gh
     git
     gitui
+    tokei # code statistics (lines of code by language)
 
     # Modern CLI Replacements
     bat
@@ -46,6 +47,7 @@
     yt-dlp
 
     # Build & Task Runners
+    gdb # debugger
     just
 
     # Language Servers
