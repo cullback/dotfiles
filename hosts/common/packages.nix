@@ -1,5 +1,10 @@
 { pkgs, unstable, ... }:
 
+let
+  # ck ("seek"): semantic + grep code/prose search. Not in nixpkgs; built
+  # from source, dynamically linked against the nixpkgs onnxruntime.
+  ck-search = pkgs.callPackage ./ck.nix { };
+in
 {
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
@@ -30,6 +35,7 @@
 
     # Modern CLI Replacements
     bat
+    ck-search # semantic + grep search (`ck`)
     dust
     eza
     fd
