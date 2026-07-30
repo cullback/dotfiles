@@ -36,10 +36,8 @@ brew "rustup"
 brew "markdown-oxide"
 
 # data & network
-brew "ffmpeg"
 brew "lftp"
 brew "tailscale"
-brew "yt-dlp"
 
 # package managers
 brew "mas"
@@ -67,6 +65,7 @@ cask "claude"
 cask "claude-code@latest"
 
 # media
+cask "deezer"
 cask "iina"
 cask "netnewswire"
 cask "qbittorrent"
@@ -76,6 +75,7 @@ cask "qlmarkdown"
 cask "syntax-highlight"
 
 # utilities
+cask "mullvad-vpn"
 cask "ogdesign-eagle"
 cask "smoothcsv"
 cask "tailscale-app"
@@ -87,9 +87,11 @@ cask "font-fira-code-nerd-font"
 # mac app store
 # ------------------------------------------------------------------------------
 
+mas "1Password for Safari", id: 1569813296
 mas "Amphetamine", id: 937984704
 mas "Brother iPrint&Scan", id: 1193539993
 mas "Cake Wallet", id: 1334702542
+mas "Eagle for Safari", id: 1526651672
 mas "KeePassium", id: 1435127111
 mas "Strongbox", id: 897283731
 mas "WhatsApp", id: 310633997

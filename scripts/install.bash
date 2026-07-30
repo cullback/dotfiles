@@ -30,7 +30,6 @@ links=(
     "voxtype/config.toml" ".config/voxtype/config.toml"
     "voxtype/voxtype.service" ".config/systemd/user/voxtype.service"
     "beets/config.yaml" ".config/beets/config.yaml"
-    "scripts/yt_archive.fish" ".local/bin/yt-archive"
     "scripts/llm.py" ".local/bin/llm"
     "scripts/timestamp.py" ".local/bin/timestamp"
     "scripts/git-status.fish" ".local/bin/git-status-all"
