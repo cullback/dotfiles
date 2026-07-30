@@ -37,7 +37,6 @@ brew "markdown-oxide"
 
 # data & network
 brew "lftp"
-brew "tailscale"
 
 # package managers
 brew "mas"
@@ -78,6 +77,9 @@ cask "syntax-highlight"
 cask "mullvad-vpn"
 cask "ogdesign-eagle"
 cask "smoothcsv"
+# ships its own version-matched CLI at /usr/local/bin/tailscale; do NOT also
+# install the `tailscale` formula, which shadows it in PATH and drags in a
+# second tailscaled that fights the app's system extension
 cask "tailscale-app"
 
 # fonts
