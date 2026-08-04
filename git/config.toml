@@ -16,8 +16,14 @@ diffFilter = "delta --color-only"
 [delta]
 navigate = true # n / N to jump between files & hunks
 line-numbers = true
-side-by-side = true
 hyperlinks = true # clickable file:line in supporting terminals
+# side-by-side is opt-in, not default: it TRUNCATES long lines and cannot be
+# made to wrap — not by --wrap-max-lines unlimited, not by --max-line-length 0,
+# and not by a wider terminal (a 1096-char line still renders to 85 chars at
+# --width 300). Unified mode emits the whole line and lets less wrap it. The
+# difference is silent: a long line shows as changed with the actual edit off
+# the right edge. Bites hardest on one-row-per-record CSVs, where a 500-1000
+# char field is normal. Opt in per command: git -c delta.features=sbs diff
 syntax-theme = "Catppuccin Mocha"
 file-style = "bold syntax"
 file-decoration-style = "#585b70 ul"
@@ -29,6 +35,11 @@ line-numbers-zero-style = "#585b70"
 zero-style = "syntax"
 minus-style = "syntax #45293a"
 plus-style = "syntax #2a3a2a"
+
+# dotted form instead of [delta "sbs"]: git treats them the same for a
+# lowercase subsection, and the TOML formatter only accepts this one
+[delta.sbs]
+side-by-side = true
 
 [merge]
 conflictStyle = "zdiff3"
