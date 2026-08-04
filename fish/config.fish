@@ -2,7 +2,6 @@
 
 set -gx EDITOR hx
 set -gx COLORTERM truecolor
-set -gx PLAYBOOK /vault/repos/playbook
 fish_add_path --global ~/.local/bin
 
 if status is-interactive
@@ -32,7 +31,7 @@ if status is-interactive
     # The underlying script prints the new worktree path on stdout; a
     # subprocess can't cd the parent shell, so wrap it here.
     function wt --description 'git worktree helper (cds into new worktrees)'
-        set -l out ($PLAYBOOK/bin/wt.fish $argv)
+        set -l out (/vault/repos/dotfiles/scripts/wt.fish $argv)
         or return $status
         if set -q out[-1]; and test -d "$out[-1]"
             cd $out[-1]
