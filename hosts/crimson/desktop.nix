@@ -34,6 +34,7 @@
 
   # Terminal (matches the macOS setup) + desktop apps + fonts with glyph coverage.
   environment.systemPackages = with pkgs; [
+    cryptomator
     ghostty
     helium
     keepassxc
