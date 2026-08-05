@@ -7,6 +7,7 @@ directory: /vault/media/music/curated
 library: ~/.local/state/beets/library.db
 
 original_date: yes # use the ORIGINAL release year, not a reissue's
+per_disc_numbering: yes # multi-disc: NN restarts each disc (NAMING.md D-NN form)
 
 import:
   move: yes # move into `directory` (same ZFS dataset, so instant)
@@ -15,15 +16,18 @@ import:
 
 plugins: musicbrainz chroma fetchart inline edit duplicates info missing
 
-# Artist/Album (year) [SOURCE FORMAT]/NN - Title  (comp + singleton variants)
+# Artist/Album (year) [SOURCE FORMAT]/NN - Title  (comp + singleton variants);
+# multi-disc albums get the NAMING.md D-NN form (1-01 - Title) in one folder
 paths:
-  default: $albumartist/$album ($year) [$source $format]/$track - $title
+  default: $albumartist/$album%if{$year, ($year)} [$source $format]/%if{$multidisc,$discnum-}$track - $title
   singleton: $artist/Singles/$title [$source $format]
-  comp: Various Artists/$album ($year) [$source $format]/$track - $artist - $title
+  comp: Various Artists/$album%if{$year, ($year)} [$source $format]/%if{$multidisc,$discnum-}$track - $artist - $title
 
 # SOURCE token derived from the MusicBrainz medium format; unknown/digital -> WEB
 item_fields:
-  source: "{'Digital Media': 'WEB', 'CD': 'CD', 'Vinyl': 'Vinyl', 'Cassette': 'Cassette'}.get(media, 'WEB')"
+  source: "{'Digital Media': 'WEB', 'CD': 'CD', 'CD-R': 'CD', 'Enhanced CD': 'CD', 'Vinyl': 'Vinyl', '12\" Vinyl': 'Vinyl', 'Cassette': 'Cassette'}.get(media, 'WEB')"
+  multidisc: 1 if disctotal > 1 else 0
+  discnum: str(disc) # unpadded disc for the D-NN form (1-01, not 01-01)
 
 fetchart:
   cover_names: cover front folder
