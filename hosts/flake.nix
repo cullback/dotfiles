@@ -14,6 +14,10 @@
     # repackages imputnet's official .deb releases (same pattern as Brave/Vivaldi).
     helium-browser.url = "github:oxcl/nix-flake-helium-browser";
     helium-browser.inputs.nixpkgs.follows = "nixpkgs";
+    # deemix: Deezer music downloader CLI (revived bambanah monorepo). Not in
+    # nixpkgs — nixpkgs' `deemix` is the old, unmaintained deemix-py library.
+    # The CLI is exposed as `deemix.packages.<system>.cli` (or `#cli` Nix app).
+    deemix.url = "github:bambanah/deemix";
   };
 
   outputs =
@@ -24,6 +28,7 @@
       sops-nix,
       voxtype,
       helium-browser,
+      deemix,
     }:
     let
       mkSystem =
@@ -42,6 +47,7 @@
               unstable
               voxtype
               helium-browser
+              deemix
               ;
           };
           modules = [

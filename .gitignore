@@ -2,3 +2,7 @@
 # nix build output symlinks (nixos-rebuild build / nix build)
 result
 result-*
+
+# stray cookie/session dumps dropped in the repo root
+cookie*.txt
+.arl

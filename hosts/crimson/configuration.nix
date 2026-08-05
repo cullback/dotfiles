@@ -1,9 +1,25 @@
 {
   pkgs,
   unstable,
+  deemix,
   ...
 }:
 
+let
+  # Upstream's committed pnpmDeps hash is stale — they ship releases via
+  # `pnpm make`, not the flake, so fetchPnpmDeps' pinned hash drifted from the
+  # lockfile. The hash below is what fetchPnpmDeps actually produces for the
+  # pinned lockfile. Re-verify (and drop this override) on `nix flake update`.
+  deemix-cli = (deemix.packages.${pkgs.system}.cli).overrideAttrs (old: {
+    pnpmDeps = pkgs.fetchPnpmDeps {
+      pname = old.pname;
+      version = old.version;
+      src = old.src;
+      fetcherVersion = 3;
+      hash = "sha256-4SrGzZHME2jIN//vjVlGZNCaqSeN9Zh5PynarmuZwC4=";
+    };
+  });
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -74,6 +90,7 @@
     unstable.pi-coding-agent
     pkgs.beets # music library manager / tagger (config in ~/.config/beets)
     pkgs.chromaprint # fpcalc, for beets' chroma acoustic fingerprinting
+    deemix-cli # Deezer downloader CLI (bambanah monorepo, pnpmDeps hash patched)
   ];
 
   system.stateVersion = "26.05";
