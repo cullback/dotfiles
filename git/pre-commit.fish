@@ -34,9 +34,11 @@ if test "$has_unstaged" -ne 0
 
     if test $status -ne 0
         # stash pop can fail when staged deletions conflict with stashed
-        # worktree files. Reset the failed merge state, re-apply with
-        # checkout, then drop the stash entry.
-        git checkout stash -- . 2>/dev/null
+        # worktree files. Re-apply to the worktree only, then drop the stash
+        # entry. This must NOT be `git checkout stash -- .`: that writes to the
+        # index as well, silently staging the restored (unrelated, unstaged)
+        # edits into the commit in progress.
+        git restore --source=stash --worktree -- . 2>/dev/null
         git stash drop --quiet 2>/dev/null
 
         if test $status -ne 0
