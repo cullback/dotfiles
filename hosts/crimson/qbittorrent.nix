@@ -1,4 +1,14 @@
 { pkgs, ... }:
+let
+  # The marker is a doorbell, not a work item: the ingest run sweeps the whole
+  # inbox, so the file only needs to exist. Named by info hash — filename-safe,
+  # and dodging the %F path entirely sidesteps QSettings quoting of spaces.
+  torrentFinished = pkgs.writeShellScript "qbit-torrent-finished" ''
+    queue=/vault/media/inbox/.queue
+    mkdir -p "$queue"
+    touch "$queue/$1"
+  '';
+in
 
 # qBittorrent confined to the "vpn" network namespace (see wireguard-vpn.nix), so all
 # its traffic exits via Mullvad and it has no network if the tunnel drops. Completed
@@ -34,6 +44,13 @@
         "WebUI\\AuthSubnetWhitelist" = "127.0.0.1";
         "WebUI\\AuthSubnetWhitelistEnabled" = true;
         "WebUI\\ServerDomains" = "crimson;crimson.taile2df60.ts.net";
+      };
+      # On completion, drop a marker into the ingest queue (media-ingest.nix
+      # watches it and runs the ingest agent). The hook runs inside the vpn
+      # namespace but the filesystem is shared, so a plain write works.
+      AutoRun = {
+        enabled = true;
+        program = "${torrentFinished} %I";
       };
     };
   };

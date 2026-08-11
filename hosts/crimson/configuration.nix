@@ -41,6 +41,7 @@ in
     # construction). sops.nix (imported above for DDNS) also decrypts the wg key.
     ./wireguard-vpn.nix
     ./qbittorrent.nix
+    ./media-ingest.nix
   ];
 
   # Boot
