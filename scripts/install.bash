@@ -24,6 +24,7 @@ links=(
     "harper-ls/dictionary.txt" ".config/harper-ls/dictionary.txt"
     "starship/starship.toml" ".config/starship.toml"
     "yazi/theme.toml" ".config/yazi/theme.toml"
+    "yazi/keymap.toml" ".config/yazi/keymap.toml"
     "visidata/config.py" ".config/visidata/config.py"
     "gitui/theme.ron" ".config/gitui/theme.ron"
     "ghostty/config" ".config/ghostty/config"

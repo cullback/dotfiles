@@ -27,6 +27,38 @@ if status is-interactive
     starship init fish | source
     command -q direnv; and direnv hook fish | source
 
+    # Launch Yazi and change this shell to Yazi's directory when it exits.
+    function yazi --description 'Yazi file manager (cd on exit)'
+        set -l tmp (mktemp -t "yazi-cwd.XXXXXX")
+        set -l restart (mktemp -t "yazi-restart.XXXXXX")
+        set -lx YAZI_RESTART_FILE $restart
+        set -l yazi_status 0
+
+        while true
+            rm -f -- $tmp $restart
+            command yazi $argv --cwd-file=$tmp
+            set yazi_status $status
+
+            if test -s $tmp
+                set -l cwd (command cat -- $tmp)
+                if test -n "$cwd" -a "$cwd" != "$PWD"
+                    cd -- $cwd
+                    commandline -f repaint
+                end
+            end
+
+            test -e $restart; or break
+            set argv
+        end
+
+        rm -f -- $tmp $restart
+        return $yazi_status
+    end
+
+    function yy --wraps yazi --description 'Alias for the Yazi shell wrapper'
+        yazi $argv
+    end
+
     # wt: create/manage git worktrees, and cd into freshly created ones.
     # The underlying script prints the new worktree path on stdout; a
     # subprocess can't cd the parent shell, so wrap it here.

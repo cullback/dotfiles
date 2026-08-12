@@ -1,0 +1,6 @@
+# :schema https://yazi-rs.github.io/schemas/keymap.json
+
+[[mgr.prepend_keymap]]
+on = "e"
+run = ["shell --block 'test -n \"$YAZI_RESTART_FILE\" && touch -- \"$YAZI_RESTART_FILE\"'", "enter", "quit"]
+desc = "Enter the hovered directory and restart Yazi there"
