@@ -35,6 +35,7 @@
   # Terminal (matches the macOS setup) + desktop apps + fonts with glyph coverage.
   environment.systemPackages = with pkgs; [
     cryptomator
+    feishin # Navidrome/Subsonic desktop client
     ghostty
     helium
     keepassxc
