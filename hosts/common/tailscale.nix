@@ -7,8 +7,9 @@
 # under the tailnet-is-trusted model: the TLS cert is the DNS-rebinding defense —
 # a browser lured to a rebound domain fails certificate validation — so backends
 # can bind plain HTTP on 127.0.0.1 with app-level auth/host-checks off.
-# NOTE: tailscale serve only offers HTTPS on ports 443, 8443 and 10000, and the
-# cert pins the URL to the full ts.net name (short names / raw IPs won't validate).
+# NOTE: the cert pins the URL to the full ts.net name (short names / raw IPs won't
+# validate). `serve` accepts ANY port — the 443/8443/10000 restriction applies only to
+# `funnel` (and to the pre-2023 serve CLI), so don't ration those three here.
 # A host daemon bound to 0.0.0.0 on the same port shadows serve on the tailscale
 # IP (Caddy does this on crimson's 443), so pick ports no other service binds.
 {
@@ -27,7 +28,7 @@ in
     example = {
       "443" = 8384;
     };
-    description = "HTTPS port (443, 8443 or 10000) -> localhost backend port to expose on the tailnet.";
+    description = "HTTPS port -> localhost backend port to expose on the tailnet (any port; 443/8443/10000 are only required for funnel).";
   };
 
   config = {
