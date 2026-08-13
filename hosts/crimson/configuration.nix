@@ -31,6 +31,7 @@ in
     ./samba.nix
     ./jellyfin.nix
     ./navidrome.nix
+    ./immich.nix
     ./caddy.nix
     ./revv.nix
     ../common/avahi.nix
