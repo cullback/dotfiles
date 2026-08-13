@@ -32,3 +32,22 @@ format:
     command -v nixfmt >/dev/null && fd -e nix | xargs -r nixfmt || echo "⚠️  nixfmt not found, skipping nix format"
     fd -e fish | xargs -r fish_indent -w
     just --unstable --fmt
+
+# Normalise /vault/photo perms so the immich service user (group `users`) can
+# read/write. macOS-sourced copies land as 0600, which is invisible to immich.
+photo-perms:
+    find /vault/photo -type d -exec chmod 2775 {} +
+    find /vault/photo -type f -exec chmod 664 {} +
+
+# Snapshot before an Immich upgrade. Migrations are sequential and don't always
+# tolerate skipped versions — tracking unstable means a flake bump can cross several
+# releases at once.
+#
+# To recover, restore FILES from the snapshot; do NOT `zfs rollback`. The snapshot
+# covers all of /vault/photo, so a rollback would also revert every photo added since
+# it was taken. The DB is what breaks on a bad upgrade, so restore just that:
+#   ls /vault/photo/.zfs/snapshot/immich-pre-upgrade-<stamp>/immich/backups/
+# then stop immich-server, restore the dump with pg_restore, and pin the flake back.
+immich-preupgrade:
+    sudo zfs snapshot frost/vault/photo@immich-pre-upgrade-$(date +%Y%m%d-%H%M%S)
+    zfs list -t snapshot -o name,creation frost/vault/photo
