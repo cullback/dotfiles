@@ -46,7 +46,7 @@
 #      Otherwise paths are library/<uuid>/... rather than library/ben/...
 # Together these give library/ben/2019/2019-03-15/IMG_1234.heic — a tree that stays
 # legible if Immich ever goes away.
-{ unstable, ... }:
+{ lib, unstable, ... }:
 {
   # Same port number as the backend purely for memorability: Immich binds
   # 127.0.0.1:2283 while serve binds the tailscale IP, so they don't collide.
@@ -89,16 +89,50 @@
   # directories. `zfs create` makes the mountpoint root-owned, so without this the
   # first start would hit a store it cannot write. Type `d` creates-or-fixes, which
   # covers both the fresh-dataset case and any later ownership drift.
+  #
+  # 0750, not upstream's 0700 — see GROUP-READABLE STORE below.
   systemd.tmpfiles.settings.immich-medialocation."/vault/photo/immich".d = {
     user = "immich";
     group = "immich";
-    mode = "0700";
+    mode = "0750";
   };
 
-  # NOTE: immich is deliberately NOT in the `users` group. In managed mode it only
-  # ever touches its own 0700 store — ingest happens by upload over HTTP, so the
-  # service never reads /vault/photo/inbox directly. Adding an external library later
-  # would need both that group membership and group-readable perms (`just photo-perms`).
+  # GROUP-READABLE STORE — a deliberate departure from upstream.
+  #
+  # Upstream sets `UMask = "0077"` in its shared commonServiceConfig plus a 0700
+  # tmpfiles rule, so every file and directory Immich writes is 0600/0700 and nothing
+  # outside the service can read the store. That was a fix for early-24.11 installs
+  # that created *world*-readable media — a real privacy leak.
+  #
+  # We relax it to group-readable because the whole justification for accepting
+  # "albums/people/hidden live only in Postgres" is that the pixels survive as a
+  # legible library/<label>/YYYY/YYYY-MM/ tree if Immich ever goes away. At 0700 that
+  # tree is unreadable by the person who owns the photos, which makes the fallback
+  # theoretical and also blocks auditing and any non-root backup tool.
+  #
+  # Group `immich`, NOT `users`: jellyfin is a supplementary member of `users` (see
+  # `getent group users`) and is the one service deliberately exposed beyond the
+  # tailnet, so `users` would hand the public service read access to every personal
+  # photo. Adding cullback to `immich` instead grants exactly one human and nothing
+  # else. Still not world-readable — upstream's actual concern is preserved.
+  #
+  # Trade-off accepted: Immich's app-level privacy gates (hidden assets, the
+  # PIN-protected locked folder) stop meaning anything to someone with a shell on
+  # this box. They were never a defence against local access anyway.
+  #
+  # UMask must be mkForce — the module sets it once in an attrset shared by both
+  # immich-server and immich-machine-learning, so a plain value collides.
+  # 0027 => new files 0640, new directories 0750.
+  systemd.services.immich-server.serviceConfig.UMask = lib.mkForce "0027";
+  systemd.services.immich-machine-learning.serviceConfig.UMask = lib.mkForce "0027";
+
+  users.users.cullback.extraGroups = [ "immich" ];
+
+  # NOTE: immich is deliberately NOT in the `users` group — the permission grant is
+  # one-directional. In managed mode Immich only ever touches its own store; ingest
+  # happens by upload over HTTP, so the service never reads /vault/photo/inbox.
+  # Adding an external library later would need that group membership plus
+  # group-readable perms on the source (`just photo-perms`).
 
   # Don't start before the frost datasets are mounted. If Immich came up against an
   # unmounted /vault/photo it would find none of its files and start logging every
