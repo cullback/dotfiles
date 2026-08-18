@@ -14,7 +14,6 @@ links=(
     "git/config.toml" ".config/git/config"
     "git/ignore" ".config/git/ignore"
     "git/pre-commit.fish" ".config/git/hooks/pre-commit"
-    "git/post-checkout.fish" ".config/git/hooks/post-checkout"
     "zellij/config.kdl" ".config/zellij/config.kdl"
     "agents/CLAUDE.md" ".claude/CLAUDE.md"
     "agents/claude.json" ".claude/settings.json"
