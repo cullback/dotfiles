@@ -42,6 +42,7 @@ format:
 # GROUP-READABLE STORE). Applying 2775/664 there would make every personal photo
 # world-readable and group-writable, and the chmods would fail anyway since the files
 # aren't ours.
+[doc("Normalise inbox/ and archive/ to 2775/664 (skips the Immich store)")]
 photo-perms:
     find /vault/photo -path /vault/photo/immich -prune -o -type d -exec chmod 2775 {} +
     find /vault/photo -path /vault/photo/immich -prune -o -type f -exec chmod 664 {} +
@@ -53,6 +54,7 @@ photo-perms:
 # substitution and runs them, so a message mentioning "newgrp immich" in backticks
 # actually EXECUTES newgrp, which spawns an interactive shell and hangs the recipe
 # forever. Cost an unexplained 11-minute stall the first time. Use plain quotes.
+[doc("Make the Immich store group-readable; re-run after restoring an old snapshot")]
 immich-perms-backfill:
     sudo chmod -R g+rX /vault/photo/immich
     @stat -c '%A %U:%G %n' /vault/photo/immich
@@ -68,6 +70,7 @@ immich-perms-backfill:
 # it was taken. The DB is what breaks on a bad upgrade, so restore just that:
 #   ls /vault/photo/.zfs/snapshot/immich-pre-upgrade-<stamp>/immich/backups/
 # then stop immich-server, restore the dump with pg_restore, and pin the flake back.
+[doc("Snapshot /vault/photo before bumping the Immich flake input")]
 immich-preupgrade:
     sudo zfs snapshot frost/vault/photo@immich-pre-upgrade-$(date +%Y%m%d-%H%M%S)
     zfs list -t snapshot -o name,creation frost/vault/photo
