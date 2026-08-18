@@ -33,11 +33,31 @@ format:
     fd -e fish | xargs -r fish_indent -w
     just --unstable --fmt
 
-# Normalise /vault/photo perms so the immich service user (group `users`) can
-# read/write. macOS-sourced copies land as 0600, which is invisible to immich.
+# Normalise perms on the non-Immich side of /vault/photo (inbox/, archive/) so the
+# files stay group-readable/writable for the `users` group. macOS-sourced copies land
+# as 0600, which makes them unreadable to anything but the copying user — and would
+# be invisible to Immich if an external library were ever pointed at them.
+#
+# Skips immich/ — that store is immich:immich 0750/0640 by design (see immich.nix,
+# GROUP-READABLE STORE). Applying 2775/664 there would make every personal photo
+# world-readable and group-writable, and the chmods would fail anyway since the files
+# aren't ours.
 photo-perms:
-    find /vault/photo -type d -exec chmod 2775 {} +
-    find /vault/photo -type f -exec chmod 664 {} +
+    find /vault/photo -path /vault/photo/immich -prune -o -type d -exec chmod 2775 {} +
+    find /vault/photo -path /vault/photo/immich -prune -o -type f -exec chmod 664 {} +
+
+# One-time backfill after switching immich.nix to a group-readable store. The UMask
+# change only affects files written from then on; everything already imported stays
+# 0600/0700 until this runs. Safe to re-run — g+rX never removes access.
+# NOTE: no backticks anywhere below. just treats backticks in a recipe line as command
+# substitution and runs them, so a message mentioning "newgrp immich" in backticks
+# actually EXECUTES newgrp, which spawns an interactive shell and hangs the recipe
+# forever. Cost an unexplained 11-minute stall the first time. Use plain quotes.
+immich-perms-backfill:
+    sudo chmod -R g+rX /vault/photo/immich
+    @stat -c '%A %U:%G %n' /vault/photo/immich
+    @echo 'Done. Your shell keeps its old groups until you log out and back in;'
+    @echo 'until then, read the store with:  sg immich -c "ls /vault/photo/immich"'
 
 # Snapshot before an Immich upgrade. Migrations are sequential and don't always
 # tolerate skipped versions — tracking unstable means a flake bump can cross several
