@@ -19,8 +19,14 @@
 # users have had installs broken this way, needing to hunt specific nixpkgs commits to
 # step through missed migrations. Immich's nightly pg_dumpall lands in
 # /vault/photo/immich/backups and the dataset is snapshotted, so recovery exists — but
-# avoiding the break is cheaper. Before bumping: `just immich-preupgrade`, then read
-# https://github.com/immich-app/immich/releases between the two versions.
+# avoiding the break is cheaper. Before bumping, snapshot and read the release notes
+# between the two versions (https://github.com/immich-app/immich/releases):
+#   sudo zfs snapshot frost/vault/photo@immich-pre-upgrade-$(date +%Y%m%d-%H%M%S)
+# To recover, restore FILES from that snapshot; do NOT `zfs rollback` — the snapshot
+# covers all of /vault/photo, so a rollback would also revert every photo added since.
+# The DB is what breaks on a bad upgrade, so restore only that:
+#   ls /vault/photo/.zfs/snapshot/immich-pre-upgrade-<stamp>/immich/backups/
+# then stop immich-server, restore the dump with pg_restore, and pin the flake back.
 # `nix flake update nixpkgs-unstable` bumps this without touching the rest of the system.
 #
 # LIBRARY MODEL — managed, not external libraries.
@@ -132,7 +138,13 @@
   # one-directional. In managed mode Immich only ever touches its own store; ingest
   # happens by upload over HTTP, so the service never reads /vault/photo/inbox.
   # Adding an external library later would need that group membership plus
-  # group-readable perms on the source (`just photo-perms`).
+  # group-readable perms on the source — macOS-sourced copies land as 0600:
+  #   find /vault/photo -path /vault/photo/immich -prune -o -type d -exec chmod 2775 {} +
+  #   find /vault/photo -path /vault/photo/immich -prune -o -type f -exec chmod 664 {} +
+  # Prune immich/ as above: 2775/664 there would make every photo world-readable.
+  #
+  # If /vault/photo/immich is ever restored from a snapshot predating the UMask change
+  # below, its files come back 0600 — `sudo chmod -R g+rX /vault/photo/immich` fixes it.
 
   # Don't start before the frost datasets are mounted. If Immich came up against an
   # unmounted /vault/photo it would find none of its files and start logging every
