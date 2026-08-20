@@ -10,7 +10,7 @@ let
   # `pnpm make`, not the flake, so fetchPnpmDeps' pinned hash drifted from the
   # lockfile. The hash below is what fetchPnpmDeps actually produces for the
   # pinned lockfile. Re-verify (and drop this override) on `nix flake update`.
-  deemix-cli = (deemix.packages.${pkgs.system}.cli).overrideAttrs (old: {
+  deemix-cli = (deemix.packages.${pkgs.stdenv.hostPlatform.system}.cli).overrideAttrs (old: {
     pnpmDeps = pkgs.fetchPnpmDeps {
       pname = old.pname;
       version = old.version;
@@ -70,6 +70,19 @@ in
   };
 
   networking.hostName = "crimson";
+
+  # Tailnet-only scratch space for temporary local web apps. Each public port
+  # forwards to the same loopback port, so an app bound to 127.0.0.1:4000 is
+  # available at https://crimson.taile2df60.ts.net:4000/ (and likewise :4001–:4010).
+  # These are declared because tailscale-serve resets its entire persisted config
+  # on each activation; ad-hoc `tailscale serve` rules would otherwise disappear.
+  local.tailscaleServe = builtins.listToAttrs (
+    map (port: {
+      name = toString port;
+      value = port;
+    }) (builtins.genList (offset: 4000 + offset) 11)
+  );
+
   # Networking is managed by NetworkManager (pulled in by the GNOME desktop).
 
   # Key-only SSH: authorizedKeys are set in common/users.nix, so refuse passwords
