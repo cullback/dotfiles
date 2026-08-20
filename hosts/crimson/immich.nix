@@ -1,5 +1,5 @@
 # Immich photo server on crimson — the personal photo library.
-# https://crimson.taile2df60.ts.net:2283 (tailnet-only, real LetsEncrypt cert).
+# https://crimson.taile2df60.ts.net:5002 (tailnet-only, real LetsEncrypt cert).
 #
 # Deliberately NOT behind caddy.nix and NOT on the LAN. Jellyfin/Navidrome are public
 # (geo-fenced) because the worst case is someone watching a film; Immich holds personal
@@ -54,9 +54,9 @@
 # legible if Immich ever goes away.
 { lib, unstable, ... }:
 {
-  # Same port number as the backend purely for memorability: Immich binds
-  # 127.0.0.1:2283 while serve binds the tailscale IP, so they don't collide.
-  local.tailscaleServe."2283" = 2283;
+  # Immich binds 127.0.0.1:2283; Tailscale Serve exposes it on the contiguous
+  # tailnet UI port 5002.
+  local.tailscaleServe."5002" = 2283;
 
   services.immich = {
     enable = true;

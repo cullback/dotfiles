@@ -18,8 +18,8 @@ in
 # area is now inside a snapshotted dataset (sanoid `standard`), unlike the old
 # frost/vault/inbox which was deliberately unsnapshotted.
 #
-# WebUI at https://crimson.taile2df60.ts.net:8443 — a socat bridge relays the host's
-# 127.0.0.1:8443 into the namespace, and tailscale serve fronts that with HTTPS
+# WebUI at https://crimson.taile2df60.ts.net:5001 — a socat bridge relays the host's
+# 127.0.0.1:5001 into the namespace, and tailscale serve fronts that with HTTPS
 # (see common/tailscale.nix; the cert is the DNS-rebinding defense). The WebUI port
 # must equal the public serve port: qBittorrent's Host validation accepts a
 # "name:port" Host only when the port matches its own.
@@ -29,7 +29,7 @@ in
     user = "cullback";
     group = "users";
     openFirewall = false;
-    webuiPort = 8443;
+    webuiPort = 5001;
     serverConfig = {
       Preferences = {
         "Downloads\\SavePath" = "/vault/media/inbox/";
@@ -55,7 +55,7 @@ in
     };
   };
 
-  local.tailscaleServe."8443" = 8443;
+  local.tailscaleServe."5001" = 5001;
 
   systemd.services.qbittorrent = {
     after = [ "wg-vpn.service" ];
@@ -74,8 +74,8 @@ in
     serviceConfig = {
       ExecStart = ''
         ${pkgs.socat}/bin/socat \
-          TCP-LISTEN:8443,fork,reuseaddr,bind=127.0.0.1 \
-          'EXEC:${pkgs.iproute2}/bin/ip netns exec vpn ${pkgs.socat}/bin/socat STDIO TCP\:127.0.0.1\:8443'
+          TCP-LISTEN:5001,fork,reuseaddr,bind=127.0.0.1 \
+          'EXEC:${pkgs.iproute2}/bin/ip netns exec vpn ${pkgs.socat}/bin/socat STDIO TCP\:127.0.0.1\:5001'
       '';
       Restart = "always";
       RestartSec = "5s";
