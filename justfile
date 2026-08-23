@@ -2,36 +2,34 @@
 default:
     just --list --unsorted
 
-alias fmt := format
-
+# Rebuild this host and switch to the new generation
 nix-rebuild:
     sudo nixos-rebuild switch --flake ./hosts#$(hostname)
 
-# Bump flake inputs (all, or named ones e.g. `just update nixpkgs-unstable`).
 # Stage the result for reboot: a live switch may stop an active desktop session
 # when an update changes GNOME's user units.
+[doc('Bump flake inputs (all, or named ones e.g. `just update nixpkgs-unstable`)')]
 update *inputs:
     nix flake update {{ inputs }} --flake ./hosts
     sudo nixos-rebuild boot --flake ./hosts#$(hostname)
     @echo "Update staged; reboot to activate it."
 
+# Symlink this repo's config files into place under $HOME
 sync-dotfiles:
     bash scripts/install.bash
 
-check:
-    #!/usr/bin/env fish
-    set status_flag 0
-    dprint check --config dprint/dprint.json; or set status_flag 1
-    if command -q nixfmt
-        fd -e nix | xargs -r nixfmt --check; or set status_flag 1
-    else
-        echo "⚠️  nixfmt not found, skipping nix format check"
-    end
-    fd -e fish | xargs -r fish_indent --check; or set status_flag 1
-    exit $status_flag
+alias fmt := format
 
+# Format every configured file type
 format:
+    just --fmt
     dprint fmt --config dprint/dprint.json
-    command -v nixfmt >/dev/null && fd -e nix | xargs -r nixfmt || echo "⚠️  nixfmt not found, skipping nix format"
-    fd -e fish | xargs -r fish_indent -w
-    just --unstable --fmt
+    fd -e nix -X nixfmt
+    fd -e fish -X fish_indent -w
+
+# Run non-mutating formatter checks
+check:
+    just --fmt --check
+    dprint check --config dprint/dprint.json
+    fd -e nix -X nixfmt --check
+    fd -e fish -X fish_indent --check
