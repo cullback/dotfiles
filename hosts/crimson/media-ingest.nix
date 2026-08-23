@@ -5,8 +5,9 @@
 # here fires a oneshot that clears the queue and runs `media ingest` (snapshot →
 # headless agent over the inbox → qbit prune) as cullback. Markers are removed
 # BEFORE the run: anything finishing mid-run leaves a fresh marker, and systemd
-# re-fires the path unit once the service exits — nothing is lost, and systemd
-# itself serializes runs (a service never starts twice concurrently).
+# re-fires the path unit once the service exits. A failed agent restores a retry
+# marker and the service retries after five minutes. Systemd serializes runs; a
+# service never starts twice concurrently.
 {
   systemd.tmpfiles.rules = [
     "d /vault/media/inbox/.queue 0755 cullback users -"
@@ -38,10 +39,15 @@
       WorkingDirectory = "/vault/media";
       # The agent run is minutes-long by design; never let systemd kill it.
       TimeoutStartSec = "infinity";
+      Restart = "on-failure";
+      RestartSec = "5min";
     };
     script = ''
       rm -f /vault/media/inbox/.queue/*
-      exec just ingest
+      if ! just ingest; then
+        touch /vault/media/inbox/.queue/retry
+        exit 1
+      fi
     '';
   };
 }
