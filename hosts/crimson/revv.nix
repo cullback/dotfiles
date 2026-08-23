@@ -41,9 +41,46 @@ in
       ExecStart = "${stateDir}/bin/revv --bind 127.0.0.1:${toString port} --reviews-dir ${stateDir}/reviews --db-path ${stateDir}/database.sqlite3";
       Restart = "on-failure";
       RestartSec = 2;
+
+      # The app may update its SQLite DB and review corpus, but its deployed
+      # binary and static assets are read-only inside the service namespace.
+      StateDirectory = "revv";
+      StateDirectoryMode = "0750";
+      ReadOnlyPaths = [
+        "-${stateDir}/bin"
+        "-${stateDir}/static"
+      ];
+
+      CapabilityBoundingSet = "";
+      LockPersonality = true;
+      MemoryDenyWriteExecute = true;
+      NoNewPrivileges = true;
+      PrivateDevices = true;
+      PrivateTmp = true;
+      ProcSubset = "pid";
+      ProtectClock = true;
+      ProtectControlGroups = true;
+      ProtectHome = true;
+      ProtectHostname = true;
+      ProtectKernelLogs = true;
+      ProtectKernelModules = true;
+      ProtectKernelTunables = true;
+      ProtectProc = "invisible";
+      ProtectSystem = "strict";
+      RemoveIPC = true;
+      RestrictAddressFamilies = [
+        "AF_UNIX"
+        "AF_INET"
+        "AF_INET6"
+      ];
+      RestrictNamespaces = true;
+      RestrictRealtime = true;
+      RestrictSUIDSGID = true;
+      SystemCallArchitectures = "native";
+      UMask = "0027";
     };
   };
 
-  # The public revv.benburk.ca vhost (geo-fenced) lives in caddy.nix alongside
-  # movies/music so all three share one gate. This module just runs the service.
+  # The public revv.benburk.ca vhost lives in caddy.nix alongside movies/music.
+  # This module only runs its loopback backend.
 }

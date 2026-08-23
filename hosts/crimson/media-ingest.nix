@@ -23,9 +23,9 @@
   systemd.services.media-ingest = {
     description = "Ingest agent run over the media inbox";
     environment = {
-      HOME = "/home/cullback"; # claude credentials + config
+      HOME = "/home/cullback"; # pi credentials + config
       # Service PATH omits the system profile by default, but the chain needs
-      # zfs (snapshot), nix (`just ingest` runtime), claude, and whatever the
+      # zfs (snapshot), nix (`just ingest` runtime), pi, and whatever the
       # agent's Bash tool reaches for — give it what an interactive shell has.
       # mkForce: replace the unit-default base-utils PATH (the system profile
       # carries all of those anyway).

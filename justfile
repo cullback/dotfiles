@@ -7,10 +7,13 @@ alias fmt := format
 nix-rebuild:
     sudo nixos-rebuild switch --flake ./hosts#$(hostname)
 
-# Bump flake inputs (all, or named ones e.g. `just update nixpkgs-unstable`) and rebuild
+# Bump flake inputs (all, or named ones e.g. `just update nixpkgs-unstable`).
+# Stage the result for reboot: a live switch may stop an active desktop session
+# when an update changes GNOME's user units.
 update *inputs:
     nix flake update {{ inputs }} --flake ./hosts
-    just nix-rebuild
+    sudo nixos-rebuild boot --flake ./hosts#$(hostname)
+    @echo "Update staged; reboot to activate it."
 
 sync-dotfiles:
     bash scripts/install.bash

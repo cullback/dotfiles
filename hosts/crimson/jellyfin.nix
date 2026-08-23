@@ -4,12 +4,13 @@
 # jellyfin system user to the `users` group for read access to the cullback:users
 # media. Configure the libraries in the web UI on first run, pointing at
 # /srv/media/{films,shows}.
-# Reachable on the LAN at http://crimson:8096 (openFirewall); also over Tailscale.
+# Public access goes only through Caddy on 80/443. Keep Jellyfin's own ports
+# closed on untrusted interfaces so internet clients cannot bypass the proxy.
 { ... }:
 {
   services.jellyfin = {
     enable = true;
-    openFirewall = true;
+    openFirewall = false;
   };
 
   # Jellyfin runs as its own user (sandboxed); `users` grants read on the

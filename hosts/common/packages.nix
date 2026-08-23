@@ -56,6 +56,9 @@ in
     gdb # debugger
     just
 
+    # Language Runtimes
+    python3
+
     # Language Servers
     # harper -- uses a lot of ram
     markdown-oxide

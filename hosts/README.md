@@ -9,7 +9,7 @@ Desktop workstation and home server (AMD, x86_64). GNOME on Wayland, ext4
 root, ZFS data pools (`frost` 4x28TB raidz2 for bulk, `blaze` 2x8TB NVMe
 mirror for hot data) mounted under `/vault`. Runs the household services:
 Jellyfin, Navidrome, Syncthing, Samba, qBittorrent (inside a Mullvad
-WireGuard network namespace), and a geo-fenced Caddy reverse proxy for
+WireGuard network namespace), and a hardened Caddy reverse proxy for
 `*.benburk.ca` (DNS kept current by a Namecheap DDNS timer).
 
 Rebuild from the repo root with `just nix-rebuild`.

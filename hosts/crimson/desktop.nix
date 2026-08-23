@@ -39,9 +39,11 @@
     ghostty
     helium
     keepassxc
+    typora
 
     # Gaming
     heroic # GOG / Epic launcher
+    prismlauncher # Minecraft Java launcher
     protonup-qt # runner manager (downloads GE-Proton/Wine-GE)
     mangohud # FPS overlay
     wineWow64Packages.wayland # Wine with Wayland support

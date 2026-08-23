@@ -16,7 +16,7 @@ let
       version = old.version;
       src = old.src;
       fetcherVersion = 3;
-      hash = "sha256-4SrGzZHME2jIN//vjVlGZNCaqSeN9Zh5PynarmuZwC4=";
+      hash = "sha256-uvi7hudXj6yaaRM7q9iWpa2E/SKUvXnjTWZlzhcEgFQ=";
     };
   });
 in

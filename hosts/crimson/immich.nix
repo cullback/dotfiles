@@ -2,8 +2,8 @@
 # https://crimson.taile2df60.ts.net:5002 (tailnet-only, real LetsEncrypt cert).
 #
 # Deliberately NOT behind caddy.nix and NOT on the LAN. Jellyfin/Navidrome are public
-# (geo-fenced) because the worst case is someone watching a film; Immich holds personal
-# photos, faces and GPS traces, so it binds loopback and is reached only through
+# behind their own authentication; Immich holds personal photos, faces and GPS traces,
+# so it binds loopback and is reached only through
 # tailscale serve. Public share links would need funnel or immich-public-proxy — a
 # deliberate decision, not a default.
 #
