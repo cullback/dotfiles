@@ -97,6 +97,19 @@ in
   };
   programs.ssh.startAgent = true;
 
+  # gitui uses libgit2/libssh2 rather than OpenSSH, so it cannot fall back to
+  # ~/.ssh/id_ed25519 directly. Load the key into the managed agent at login.
+  systemd.user.services.ssh-add-key = {
+    description = "Load the default SSH key into ssh-agent";
+    wantedBy = [ "default.target" ];
+    requires = [ "ssh-agent.service" ];
+    after = [ "ssh-agent.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.openssh}/bin/ssh-add %h/.ssh/id_ed25519";
+    };
+  };
+
   # claude-code and pi track unstable so they stay current. pi picks up the
   # OpenRouter key from OPENROUTER_API_KEY, already exported in sops.nix.
   # voxtype (voice-to-text) and its input-injection plumbing live in voxtype.nix.
