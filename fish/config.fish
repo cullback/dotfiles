@@ -8,6 +8,11 @@ if status is-interactive
     set fish_greeting # Suppress fish welcome message
     fish_config theme choose catppuccin-frappe
 
+    # Start new terminals in /vault, but preserve an explicitly inherited cwd.
+    if test "$PWD" = "$HOME"; and test -d /vault
+        cd /vault
+    end
+
     alias ls='eza'
     alias ll='eza -l --git'
     alias la='eza -la --git'
