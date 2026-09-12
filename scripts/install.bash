@@ -34,6 +34,7 @@ links=(
     "scripts/llm.py" ".local/bin/llm"
     "scripts/timestamp.py" ".local/bin/timestamp"
     "scripts/git-status.fish" ".local/bin/git-status-all"
+    "scripts/free-port.py" ".local/bin/free-port"
 )
 
 # macOS-only links (karabiner is mac-only; alacritty lives here too).
