@@ -7,9 +7,12 @@ first argument, is a preference: it is used when nothing is bound to it, so a
 main checkout can keep the number people have bookmarked. Otherwise the lowest
 free port in the band.
 
-Free means a loopback bind succeeds. tailscaled holds every served port on the
-tailnet address as well, and that is the proxy in front of a server, not a
-server.
+Free means a loopback bind succeeds the way a dev server's own bind does, with
+SO_REUSEADDR: a port whose last server was interrupted while a browser tab was
+connected keeps sockets draining for up to a minute, and those are free to the
+next server, so they have to be free here too. tailscaled holds every served
+port on the tailnet address as well, and that is the proxy in front of a
+server, not a server.
 
 The band is FREE_PORT_BAND as "lo-hi", default 3000-3050. It stops at 3050
 because every port in it needs its own `tailscale serve` mapping.
@@ -22,6 +25,13 @@ import sys
 
 def free(port: int) -> bool:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        # Ask the question the server will ask. node's listen() sets this, so
+        # without it a Ctrl-C and a restart inside the same minute silently
+        # moves to the next port: the interrupted server's own address sits in
+        # FIN_WAIT_2 and TIME_WAIT, which a plain bind refuses. It never
+        # permits binding over a LISTEN socket, wildcard or not, so a port
+        # someone is actually serving still reads as taken.
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         try:
             sock.bind(("127.0.0.1", port))
         except OSError:
