@@ -50,7 +50,11 @@ in
     yq-go
 
     # Media
-    yt-dlp
+    # Tracks unstable: YouTube changes faster than the stable channel
+    # updates. 26.05's 2026.07.04 took 403s on every adaptive stream,
+    # leaving captures with metadata and no video; 2026.08.19 downloads
+    # them again.
+    unstable.yt-dlp
 
     # Build & Task Runners
     gdb # debugger
