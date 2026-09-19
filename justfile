@@ -8,11 +8,21 @@ nix-rebuild:
 
 # Stage the result for reboot: a live switch may stop an active desktop session
 # when an update changes GNOME's user units.
-[doc('Bump flake inputs (all, or named ones e.g. `just update nixpkgs-unstable`)')]
-update *inputs:
-    nix flake update {{ inputs }} --flake ./hosts
+[doc('Bump one named flake input, e.g. `just update nixpkgs-unstable`')]
+update input:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    case '{{ input }}' in
+        nixpkgs|nixpkgs-unstable|sops-nix|voxtype|helium-browser|deemix) ;;
+        *)
+            echo "Unknown flake input: {{ input }}" >&2
+            echo "Choose: nixpkgs, nixpkgs-unstable, sops-nix, voxtype, helium-browser, deemix" >&2
+            exit 2
+            ;;
+    esac
+    nix flake update '{{ input }}' --flake ./hosts
     sudo nixos-rebuild boot --flake ./hosts#$(hostname)
-    @echo "Update staged; reboot to activate it."
+    echo "Update staged; reboot to activate it."
 
 # Symlink this repo's config files into place under $HOME
 sync-dotfiles:
