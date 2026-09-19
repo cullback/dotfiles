@@ -4,6 +4,9 @@ let
   # ck ("seek"): semantic + grep code/prose search. Not in nixpkgs; built
   # from source, dynamically linked against the nixpkgs onnxruntime.
   ck-search = pkgs.callPackage ./ck.nix { };
+  # yt-dlp: nightly rather than the release nixpkgs carries, because
+  # YouTube breaks extraction faster than releases fix it.
+  yt-dlp-nightly = pkgs.callPackage ./yt-dlp-nightly.nix { inherit unstable; };
 in
 {
   nixpkgs.config.allowUnfree = true;
@@ -50,11 +53,7 @@ in
     yq-go
 
     # Media
-    # Tracks unstable: YouTube changes faster than the stable channel
-    # updates. 26.05's 2026.07.04 took 403s on every adaptive stream,
-    # leaving captures with metadata and no video; 2026.08.19 downloads
-    # them again.
-    unstable.yt-dlp
+    yt-dlp-nightly
 
     # Build & Task Runners
     gdb # debugger
